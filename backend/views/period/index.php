@@ -1,6 +1,6 @@
 <?php
 
-use common\models\period;
+use common\models\Period;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;

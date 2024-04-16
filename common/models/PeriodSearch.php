@@ -4,10 +4,10 @@ namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\period;
+use common\models\Period;
 
 /**
- * PeriodSearch represents the model behind the search form of `common\models\period`.
+ * PeriodSearch represents the model behind the search form of `common\models\Period`.
  */
 class PeriodSearch extends period
 {

@@ -2,14 +2,14 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use common\models\period;
+use common\models\Period;
 use common\models\Slot;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use kartik\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var common\models\period $model */
+/** @var common\models\Period $model */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Locations', 'url' => ['index']];
