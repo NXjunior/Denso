@@ -316,6 +316,10 @@ class AuthController extends Controller
       case 'apbf.local':
         $companyModel = Company::findOne(1);
         break;
+      case 'denso.nextschool.io':
+        $companyModel = Company::findOne(1);
+        break;
+
       default:
         $companyModel = null;
         break;
