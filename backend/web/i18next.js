@@ -90,7 +90,7 @@ i18next.use(i18nextHttpBackend).use(i18nextBrowserLanguageDetector).init({
   detection: {
     order: ['querystring', 'cookie', 'localStorage', 'sessionStorage']
   },
-  debug: true
+  debug: false
 }, () => {
   // jqueryI18next.init(i18next, $, { useOptionsAttr: true });
   translate();
