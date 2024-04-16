@@ -8,7 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
-    'name' => 'Booking',
+    'name' => 'Denso Booking',
     'language' => 'th-TH',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
