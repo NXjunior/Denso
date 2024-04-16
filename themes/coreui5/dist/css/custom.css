@@ -1,0 +1,20 @@
+.sidebar-brand .h2{
+  margin: 0;
+}
+
+.sidebar-header {
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.header > .container-fluid + .container-fluid {
+  min-height: 3rem;
+}
+
+.header > .container-fluid, .header > .container-sm, .header > .container-md, .header > .container-lg, .header > .container-xl, .header > .container-xxl, .sidebar-header {
+  min-height: calc(4rem + 2px);
+}
+
+.header-sticky {
+  min-height:  auto;
+}
