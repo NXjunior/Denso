@@ -58,6 +58,7 @@ use yii\web\View;
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+
           <div class="avatar avatar-md bg-white border border-secondary">
             <div class="profile-mask">
               <img class=" profile-image" src="<?php echo Yii::$app->params['profileImage'] ?>" alt="user@email.com">
@@ -65,13 +66,15 @@ use yii\web\View;
           </div>
         </a>
         <div class="dropdown-menu dropdown-menu-end pt-0">
-          <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">Account</div><a class="dropdown-item" href="#">
-            <svg class="icon me-2">
-              <use xlink:href="<?php echo $dirAsset . "/vendors/@coreui/icons/svg/free.svg#cil-bell" ?>"></use>
-            </svg><span>Updates</span><span class="badge badge-sm bg-info-gradient ms-2">0</span></a><a class="dropdown-item" href="/site/logout">
-            <svg class="icon me-2">
-              <use xlink:href="<?php echo $dirAsset . "/vendors/@coreui/icons/svg/free.svg#cil-account-logout" ?>"></use>
-            </svg><span>ออกจากระบบ</span></a>
+          <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">Account</div>
+          <a class="dropdown-item" href="#">
+            <i class="nav-icon fa-regular fa-user"></i>
+            <span><?php echo user()->username ?></span>
+          </a>
+          <a class="dropdown-item" href="/site/logout">
+            <i class="nav-icon fa-regular fa-right-from-bracket"></i>
+            <span>ออกจากระบบ</span>
+          </a>
         </div>
       </li>
     </ul>
