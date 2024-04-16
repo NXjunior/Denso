@@ -12,33 +12,25 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'period_id')->textInput() ?>
+    <?php echo $form->field($model, 'period_id')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'name')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'desp')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'note')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'extra')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'slot_date')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'time_start')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'time_end')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'creator')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'created_at')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'updater')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'updated_at')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'status')->hiddenInput()->label(false); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'desp')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'extra')->textInput() ?>
-
-    <?= $form->field($model, 'slot_date')->textInput() ?>
-
-    <?= $form->field($model, 'time_start')->textInput() ?>
-
-    <?= $form->field($model, 'time_end')->textInput() ?>
 
     <?= $form->field($model, 'quota')->textInput() ?>
 
-    <?= $form->field($model, 'creator')->textInput() ?>
+    <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updater')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

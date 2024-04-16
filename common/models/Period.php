@@ -60,14 +60,14 @@ class Period extends \yii\db\ActiveRecord
     {
         return [
             [['company_id', 'name'], 'required'],
-            [['company_id', 'creator', 'updater', 'status', 'deleter'], 'default', 'value' => null],
-            [['company_id', 'creator', 'updater', 'status', 'deleter'], 'integer'],
-            [['start_date', 'end_date', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['company_id', 'creator', 'updater', 'status'], 'default', 'value' => null],
+            [['company_id', 'creator', 'updater', 'status'], 'integer'],
+            [['start_date', 'end_date', 'created_at', 'updated_at'], 'safe'],
             [['name', 'desp'], 'string', 'max' => 255],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::class, 'targetAttribute' => ['company_id' => 'id']],
             [['creator'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['creator' => 'id']],
             [['updater'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updater' => 'id']],
-            [['deleter'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updater' => 'id']],
+            // [['deleter'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updater' => 'id']],
         ];
     }
 
