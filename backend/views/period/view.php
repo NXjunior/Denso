@@ -22,17 +22,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'company_id',
+            // 'id',
+            // 'company_id',
             'name',
             'desp',
             'start_date',
             'end_date',
             'creator',
             'created_at',
-            'updater',
-            'updated_at',
-            'status',
+            // 'updater',
+            // 'updated_at',
+            // 'status',
         ],
     ]) ?>
 
@@ -40,28 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="slot-index">
 
-    <?= GridView::widget([
-        'dataProvider' => $slotDataProvider,
-        'showPageSummary' => true,
-        'hover' => true,
-        'columns' => [
-            [
-                'class' => 'kartik\grid\SerialColumn',
-                'pageSummary' => 'รวม',
-                'pageSummaryOptions' => ['colspan' => 2],
-                'hAlign' => 'right',
-            ],
-            [
-                'attribute' => 'slot_date',
-                'format' => 'date'
-            ],
-            [
-                'attribute' => 'quota',
-                'hAlign' => 'right',
-                'pageSummary' => true,
-            ],
-        ],
-    ]); ?>
+
 
     <p>
         <?= Html::a('Create Slot', ['/slot/create', 'p' => $model->id], ['class' => 'btn btn-success']) ?>
