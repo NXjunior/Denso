@@ -22,7 +22,7 @@ class RbacController extends Controller
   public function actionInit()
   {
     $auth = Yii::$app->authManager;
-    // $auth->removeAll();
+    $auth->removeAll();
 
     $admin = $auth->createRole('admin');
     $admin->description = 'ผู้ดูแลระบบ';
