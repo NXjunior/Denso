@@ -7,6 +7,8 @@ use common\models\SlotSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
+use Yii;
 
 /**
  * SlotController implements the CRUD actions for Slot model.
@@ -42,6 +44,42 @@ class SlotController extends Controller
         $searchModel->status = $searchModel::STATUS_ACTIVE;
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+
+        if (Yii::$app->request->post('hasEditable')) {
+            $targetId = \Yii::$app->request->post('editableKey');
+            $attribute = \Yii::$app->request->post('editableAttribute');
+            $targetModel = Slot::findOne($targetId);
+
+            $out = Json::encode(['output' => '', 'message' => '']);
+
+            if ($targetModel->period && $targetModel->period->company_id == 1) {
+                $posted = current($_POST['Slot']);
+
+                $post = ['Slot' => $posted];
+                if ($targetModel->load($post)) {
+                    $output = '';
+
+                    $keys = array_keys($posted);
+
+                    if ($targetModel->save(true, $keys)) {
+
+                        if ($attribute == 'quota') {
+                            $output = $posted['quota'];
+                        }
+
+                        $out = Json::encode(['output' => $output, 'message' => '']);
+                    } else {
+                        $out = Json::encode([
+                            'output' => $output,
+                            'message' => array_values($targetModel->getFirstErrors())[0]
+                        ]);
+                    }
+                }
+            }
+
+            echo $out;
+            return;
+        }
 
 
         return $this->render('index', [

@@ -7,4 +7,5 @@ return [
     'siteABS' => 'DNTH',
     'profileImage' => '/img/lifediag.png',
     'bsVersion' => '5.x',
+    // 'bsDependencyEnabled' => false,
 ];

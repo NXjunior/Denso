@@ -27,10 +27,13 @@ use yii\widgets\ActiveForm;
     <?php echo $form->field($model, 'status')->hiddenInput()->label(false); ?>
 
 
-    <?= $form->field($model, 'quota')->textInput() ?>
 
-    <?= $form->field($model, 'note')->textarea(['rows' => 6]) ?>
-
+    <div class="mb-3">
+        <?= $form->field($model, 'quota')->textInput(['type' => 'number', 'class' => 'form-control form-control-lg']) ?>
+    </div>
+    <div class="mb-3">
+        <?= $form->field($model, 'note')->textarea(['rows' => 6, 'class' => 'form-control form-control-lg']) ?>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

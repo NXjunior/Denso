@@ -6,6 +6,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
+use kartik\grid\EditableColumn;
 
 /** @var yii\web\View $this */
 /** @var common\models\SlotSearch $searchModel */
@@ -16,6 +17,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $this->disableTitleDisplay = true;
 ?>
+
+<style>
+    .popover-x {
+        display: none;
+    }
+</style>
 
 <div class="row g-4">
     <div class="col-12 col-sm-6 col-xl-6 col-xxl-6">
@@ -37,7 +44,7 @@ $this->disableTitleDisplay = true;
         'columns' => [
             [
                 'class' => 'kartik\grid\SerialColumn',
-                'pageSummary' => 'รวม',
+                'pageSummary' => 'รวม (หน้านี้)',
                 'pageSummaryOptions' => ['colspan' => 5],
                 'hAlign' => 'right',
             ],
@@ -91,11 +98,22 @@ $this->disableTitleDisplay = true;
             // 'time_start',
             // 'time_end',
             [
+                'class' => 'kartik\grid\EditableColumn',
                 'attribute' => 'quota',
                 'headerOptions' => ['style' => 'width:80px;'],
                 'hAlign' => 'right',
                 'pageSummary' => true,
                 // 'format' => ['decimal', 2],
+                'editableOptions' => [
+                    'asPopover' => false,
+                    'options' => [
+                        'class' => 'form-control',
+                    ],
+                    // 'inputType' => \kartik\editable\Editable::INPUT_SPIN,
+                    // 'options' => [
+                    //     'pluginOptions' => ['min' => 0, 'max' => 100]
+                    // ]
+                ]
             ],
             //'creator',
             //'created_at',
@@ -105,7 +123,7 @@ $this->disableTitleDisplay = true;
             [
                 'class' => kartik\grid\ActionColumn::className(),
                 'headerOptions' => ['style' => 'width:80px;'],
-                'template' => '{view} {update}',
+                'template' => '{view}',
                 'urlCreator' => function ($action, Slot $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                 }
