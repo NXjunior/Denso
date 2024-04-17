@@ -210,4 +210,42 @@ class BookingController extends Controller
             }
         }
     }
+
+    public function actionWalkin()
+    {
+        $model = new Booking();
+        $model->company_id = user()->company_id;
+
+        if ($this->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            $existingBooking = Booking::find()->where(['source_id' => $post['Booking']['source_id']])->one();
+
+            $model->method = Booking::METHOD_WALKIN;
+            $model->source_id = $post['Booking']['source_id'];
+            $model->period_id = $post['Booking']['period_id'];
+            $model->walkin_date = date('Y-m-d');
+            $model->walkin_time = $post['Booking']['walkin_time'];
+            $model->status = Booking::STATUS_ACTIVE;
+            $model->creator = userId();
+
+            if (!$existingBooking) {
+                if ($model->save())
+                    return $this->redirect(['view', 'id' => $model->id]);
+                else {
+                    dump($model->errors);
+                    exit;
+                }
+            } else {
+                Yii::$app->session->setFlash('existingBooking', true);
+                Yii::$app->session->setFlash('existingBookingId', $existingBooking->id);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->render('walkin', [
+            'model' => $model,
+        ]);
+    }
 }

@@ -35,6 +35,10 @@ class Booking extends \yii\db\ActiveRecord implements IdentityInterface
     const STATUS_DELETE = 0;
     const CONFIG_GAPDATE = 3; // can not selectable date before 3 day from book target date
     const CONFIG_CHANGEABLE_DATE = 2; // can not change date at lease 1 day from book target date
+
+    const METHOD_ONLINE = 10;
+    const METHOD_WALKIN = 20;
+
     const DATES_DISABLED = [
         '2024-04-28',
         '2024-05-01',
@@ -51,6 +55,7 @@ class Booking extends \yii\db\ActiveRecord implements IdentityInterface
     public $confirm;
     public $slot_date;
     public $meta;
+    public $time_start;
 
     public function behaviors()
     {
@@ -79,7 +84,8 @@ class Booking extends \yii\db\ActiveRecord implements IdentityInterface
         return [
             [['source_id', 'company_id', 'period_id', 'creator'], 'required'],
             [['company_id', 'period_id', 'target_id', 'status', 'creator', 'updater', 'deleter', 'previous_target'], 'default', 'value' => null],
-            [['company_id', 'period_id', 'target_id', 'status', 'creator', 'updater', 'previous_target'], 'integer'],
+            [['method'], 'default', 'value' => self::METHOD_ONLINE],
+            [['company_id', 'period_id', 'target_id', 'status', 'creator', 'updater', 'previous_target', 'method'], 'integer'],
             [['created_at', 'updated_at', 'last_login', 'deleted_at', 'completed_at'], 'safe'],
             [['source_id'], 'string', 'max' => 20],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::class, 'targetAttribute' => ['company_id' => 'id']],
@@ -115,6 +121,7 @@ class Booking extends \yii\db\ActiveRecord implements IdentityInterface
             'completed_at' => 'Completed At',
             'slot_date' => 'Slot Date',
             'previous_target' => 'Previous Target ID',
+            'method' => 'Method',
         ];
     }
 

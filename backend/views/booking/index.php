@@ -14,7 +14,23 @@ use kartik\grid\GridView;
 
 $this->title = 'Bookings';
 $this->params['breadcrumbs'][] = $this->title;
+$this->disableTitleDisplay = true;
+
+$walkinButton = Html::a('<i class="fa-solid fa-person-walking"></i> Create Walk in', ['/booking/walkin'], ['class' => 'btn btn-success text-white btn-lg shadow mt-4 mb-4 fs-4']);
 ?>
+
+<div class="row g-4">
+    <div class="col-12 col-sm-6 col-xl-6 col-xxl-6">
+        <h2 class="fs-2 mb-2 me-2"><?php echo $this->title ?></h2>
+    </div>
+    <div class="col-12 col-sm-6 col-xl-6 col-xxl-6">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <?php echo $walkinButton ?>
+        </div>
+    </div>
+</div>
+
+
 <div class="booking-index mb-5 pb-5">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -80,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ],
                 'value' => function ($model) {
-                    return Yii::$app->date->date('j M (l)', strtotime($model->target->slot_date));
+                    return Yii::$app->date->date('j M (l)', strtotime($model->method === Booking::METHOD_ONLINE ? $model->target->slot_date : $model->walkin_date));
                 }
             ],
             [
@@ -89,7 +105,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['style' => 'width:135px;'],
                 'filter' => Html::activeDropDownList($searchModel, 'slotTime', ArrayHelper::map($searchModel->getAllSlotTime(), 'time_start', 'time_start'), ['prompt' => 'All Time', 'class' => 'form-select']),
                 'value' => function ($model) {
-                    return $model->target->time_start;
+                    return $model->method === Booking::METHOD_ONLINE ? $model->target->time_start : $model->walkin_time;
+                }
+            ],
+            [
+                'attribute' => 'method',
+                'headerOptions' => ['style' => 'width:100px;'],
+                'filter' => Html::activeDropDownList($searchModel, 'method', [Booking::METHOD_ONLINE => 'Online', Booking::METHOD_WALKIN => 'Walk In'], ['prompt' => 'All Method', 'class' => 'form-select']),
+                'label' => 'Method',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return badge($model->method === Booking::METHOD_ONLINE ? 'info' : 'secondary', $model->method === Booking::METHOD_ONLINE ? 'Online' : 'Walk In');
                 }
             ],
             [

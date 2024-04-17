@@ -7,6 +7,9 @@ use common\models\EmployeeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
+use yii\web\Response;
+use yii\db\Query;
 
 /**
  * EmployeeController implements the CRUD actions for Employee model.
@@ -135,5 +138,53 @@ class EmployeeController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    public function actionList($q = null, $id = null)
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = ['results' => ['id' => '', 'text' => '']];
+        if (!is_null($q)) {
+            $query = new Query;
+            $query->select(['code AS id', 'CONCAT(title, \' \',firstname, \' \', lastname, \' : \', code) AS text'])
+                ->from('employee')
+                ->where([
+                    'or',
+                    ['like', 'firstname', $q],
+                    ['like', 'lastname', $q],
+                    ['like', 'firstname_en', $q],
+                    ['like', 'lastname_en', $q],
+                ])
+                ->limit(20);
+            $command = $query->createCommand();
+            $data = $command->queryAll();
+            $out['results'] = array_values($data);
+        } elseif ($id > 0) {
+            $out['results'] = ['id' => $id, 'text' => Employee::find($id)->fullname];
+        }
+        return $out;
+    }
+
+
+    public function actionListX()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = ['results' => ['id' => '', 'text' => '']];
+
+        // For List Query Behave List
+        if (isset($_GET['search']['term']) && strlen($_GET['search']['term']) > 0) {
+            $behave = Employee::findBySql("select id, concat(title,' ',firstname, ' ', lastname) as text from employee where company_id = :id
+            and (firstname like :search or lastname like :search or title like :search) and status = :employeeStatus
+            ", [
+                ':id' =>  user()->company_id,
+                ':search' => '%' . $_GET['search']['term'] . '%',
+                ':employeeStatus' => Employee::STATUS_ACTIVE
+            ])->asArray()->all();
+
+            return ['results' => $behave];
+        }
+
+        return [];
     }
 }

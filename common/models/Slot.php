@@ -34,6 +34,17 @@ class Slot extends \yii\db\ActiveRecord
     const STATUS_ACTIVE = 10;
     const STATUS_DELETE = 0;
     const BREAK_TIME_START = '13:00:00';
+    const TIME_TABLE = [
+        ['time_start' => '08:00:00', 'time_end' => '09:00:00'],
+        ['time_start' => '09:00:00', 'time_end' => '10:00:00'],
+        ['time_start' => '10:00:00', 'time_end' => '11:00:00'],
+        ['time_start' => '11:00:00', 'time_end' => '12:00:00'],
+        ['time_start' => '12:00:00', 'time_end' => '13:00:00'],
+        ['time_start' => '13:00:00', 'time_end' => '14:00:00'],
+        ['time_start' => '14:00:00', 'time_end' => '15:00:00'],
+        ['time_start' => '15:00:00', 'time_end' => '16:00:00'],
+        ['time_start' => '16:00:00', 'time_end' => '17:00:00'],
+    ];
 
     public function behaviors()
     {

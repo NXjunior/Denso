@@ -23,8 +23,8 @@ class BookingSearch extends Booking
     public function rules()
     {
         return [
-            [['id', 'company_id', 'period_id', 'target_id', 'status', 'creator', 'updater'], 'integer'],
-            [['source_id', 'created_at', 'updated_at', 'last_login', 'bookingName', 'slotTime', 'slotDate', 'vaccinated'], 'safe'],
+            [['id', 'company_id', 'period_id', 'target_id', 'status', 'creator', 'updater', 'method'], 'integer'],
+            [['source_id', 'created_at', 'updated_at', 'last_login', 'bookingName', 'slotTime', 'slotDate', 'vaccinated', 'method'], 'safe'],
         ];
     }
 
@@ -78,8 +78,8 @@ class BookingSearch extends Booking
         ];
 
         $query->innerJoinWith('employee');
-        $query->innerJoinWith('target AS slot_date');
-        $query->innerJoinWith('target AS slot_time');
+        $query->joinWith('target AS slot_date');
+        $query->joinWith('target AS slot_time');
 
         $this->load($params);
 
@@ -100,9 +100,16 @@ class BookingSearch extends Booking
 
         if ($this->slotDate) {
             // $query->innerJoinWith('target AS slot_date');
-            $query->andFilterWhere([
-                'slot_date.slot_date' => $this->slotDate,
-            ]);
+
+            if ($this->method == Booking::METHOD_WALKIN) {
+                $query->andFilterWhere([
+                    'walkin_date' => $this->slotDate,
+                ]);
+            } else {
+                $query->andFilterWhere([
+                    'slot_date.slot_date' => $this->slotDate,
+                ]);
+            }
         }
 
         if ($this->slotTime) {
@@ -134,6 +141,7 @@ class BookingSearch extends Booking
             'booking.updater' => $this->updater,
             'booking.updated_at' => $this->updated_at,
             'last_login' => $this->last_login,
+            'booking.method' => $this->method,
         ]);
 
         $query->andFilterWhere(['ilike', 'source_id', $this->source_id]);

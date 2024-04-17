@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\models\Activity;
+use common\models\Booking;
 
 /** @var yii\web\View $this */
 /** @var common\models\Booking $model */
@@ -28,8 +29,10 @@ $activityButton = Html::a('<i class="fa-solid fa-syringe"></i> ' . (isset($activ
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <div class="row">
                 <div class="col-12 col-sm-12 col-xl-12 col-xxl-12">
-                    <h2 class="fs-2 mb-2 me-2"><?php echo $model->period->name ?> <small class="text-body-secondary"><?php echo substr($model->target->time_start, 0, 5) . ' - ' . substr($model->target->time_end, 0, 5) ?></small></h2>
-                    <h3 class="fs-3 text-body-secondary"><?php echo Yii::$app->date->date('วันlที่ j F', strtotime($model->target->slot_date)) ?></h3><br />
+                    <?php if ($model->method === Booking::METHOD_ONLINE) : ?>
+                        <h2 class="fs-2 mb-2 me-2"><?php echo $model->period->name ?> <small class="text-body-secondary"><?php echo substr($model->target->time_start, 0, 5) . ' - ' . substr($model->target->time_end, 0, 5) ?></small></h2>
+                        <h3 class="fs-3 text-body-secondary"><?php echo Yii::$app->date->date('วันlที่ j F', strtotime($model->target->slot_date)) ?></h3><br />
+                    <?php endif ?>
                 </div>
             </div>
             <?php echo $activityButton ?>
@@ -78,7 +81,7 @@ $activityButton = Html::a('<i class="fa-solid fa-syringe"></i> ' . (isset($activ
                 <div class="row">
                     <div class="col-12 mb-2">
                         <div class="text-body-secondary text-start">
-                            <div class="fs-4 fw-semibold"><i class="fa-regular fa-calendar-days fa-xl"></i> ข้อมูลการจอง</div>
+                            <div class="fs-4 fw-semibold"><i class="fa-regular fa-calendar-days fa-xl"></i> ข้อมูลการจอง <span class="badge text-bg-<?php echo $model->method === Booking::METHOD_ONLINE ? 'info' : 'secondary' ?> text-white fw-normal"><?php echo $model->method === Booking::METHOD_ONLINE ? 'Online' : 'Walk In' ?></span></div>
                         </div>
                     </div>
                 </div>
@@ -92,11 +95,15 @@ $activityButton = Html::a('<i class="fa-solid fa-syringe"></i> ' . (isset($activ
                                 </tr>
                                 <tr>
                                     <th scope="row"> วันที่รับบริการ</th>
-                                    <td><?php echo Yii::$app->date->date('วันlที่ j F Y', strtotime($model->target->slot_date)) ?></td>
+                                    <td>
+                                        <?php echo $model->method === Booking::METHOD_ONLINE ? Yii::$app->date->date('วันlที่ j F Y', strtotime($model->target->slot_date)) : Yii::$app->date->date('วันlที่ j F Y', strtotime($model->walkin_date)) ?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row"> เวลาที่รับบริการ</th>
-                                    <td><?php echo $model->target->time_start . ' - ' . $model->target->time_end  ?></td>
+                                    <td>
+                                        <?php echo $model->method === Booking::METHOD_ONLINE ? $model->target->time_start . ' - ' . $model->target->time_end : $model->walkin_time ?>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
