@@ -155,6 +155,7 @@ class EmployeeController extends Controller
                     ['like', 'lastname', $q],
                     ['like', 'firstname_en', $q],
                     ['like', 'lastname_en', $q],
+                    ['like', 'code', $q],
                 ])
                 ->limit(20);
             $command = $query->createCommand();
