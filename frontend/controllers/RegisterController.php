@@ -442,6 +442,7 @@ class RegisterController extends Controller
       $post = Yii::$app->request->post();
 
       $existingBookingModel = $model;
+      $previousBookingTargetId = $existingBookingModel->target_id;
 
       if ($existingBookingModel->delete()) {
         $loginModel = new LoginForm();
@@ -452,6 +453,7 @@ class RegisterController extends Controller
           Yii::$app->session->set('BOOKING_SELECTED_PERIOD', $loginModel->period_id);
           Yii::$app->session->set('BOOKING_EMPLOYEE_ID', $loginModel->username);
           Yii::$app->session->set('BOOKING_COMPANY_ID', $loginModel->company_id);
+          Yii::$app->session->set('BOOKING_CHANGE_FROM_TARGET', $previousBookingTargetId);
           return $this->redirect(['/register']);
         }
       }

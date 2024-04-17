@@ -78,8 +78,8 @@ class Booking extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['source_id', 'company_id', 'period_id', 'creator'], 'required'],
-            [['company_id', 'period_id', 'target_id', 'status', 'creator', 'updater', 'deleter'], 'default', 'value' => null],
-            [['company_id', 'period_id', 'target_id', 'status', 'creator', 'updater'], 'integer'],
+            [['company_id', 'period_id', 'target_id', 'status', 'creator', 'updater', 'deleter', 'previous_target'], 'default', 'value' => null],
+            [['company_id', 'period_id', 'target_id', 'status', 'creator', 'updater', 'previous_target'], 'integer'],
             [['created_at', 'updated_at', 'last_login', 'deleted_at', 'completed_at'], 'safe'],
             [['source_id'], 'string', 'max' => 20],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::class, 'targetAttribute' => ['company_id' => 'id']],
@@ -113,7 +113,8 @@ class Booking extends \yii\db\ActiveRecord implements IdentityInterface
             'deleted_at' => 'Deleted At',
             'confirm' => 'Confirm',
             'completed_at' => 'Completed At',
-            'slot_date' => 'Slot Date'
+            'slot_date' => 'Slot Date',
+            'previous_target' => 'Previous Target ID',
         ];
     }
 

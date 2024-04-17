@@ -309,7 +309,7 @@ class AuthController extends Controller
   private function getCompanyModel()
   {
     switch ($_SERVER['SERVER_NAME']) {
-      case 'apbf.local':
+      case 'denso.local':
         $companyModel = Company::findOne(1);
         break;
       case 'denso.nextschool.io':

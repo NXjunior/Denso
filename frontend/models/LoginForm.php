@@ -149,6 +149,14 @@ class LoginForm extends Model
           $registrant->period_id = $this->period_id;
           $registrant->status = Booking::STATUS_ACTIVE;
           $registrant->creator = 0;
+
+          $session = Yii::$app->session;
+          $previousBookingTargetId = $session->get('BOOKING_CHANGE_FROM_TARGET');
+          if ($previousBookingTargetId) {
+            $registrant->previous_target = $previousBookingTargetId;
+            Yii::$app->session->set('BOOKING_CHANGE_FROM_TARGET', null);
+          }
+
           if ($registrant->save()) {
             $this->_user = $registrant;
           } else {
