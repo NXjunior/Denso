@@ -26,3 +26,6 @@ SELECT setval('employee_meta_id_seq', (SELECT MAX(id) FROM employee_meta)+1);
 SELECT setval('activity_id_seq', (SELECT MAX(id) FROM activity)+1);
 SELECT setval('user_id_seq', (SELECT MAX(id) FROM "user")+1);
 
+
+/usr/bin/php8.1 /usr/local/bin/composer update
+
