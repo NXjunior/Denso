@@ -96,7 +96,15 @@ $walkinButton = Html::a('<i class="fa-solid fa-person-walking"></i> Create Walk 
                     ]
                 ],
                 'value' => function ($model) {
-                    return Yii::$app->date->date('j M (l)', strtotime($model->method === Booking::METHOD_ONLINE ? $model->target->slot_date : $model->walkin_date));
+                    if ($model->method === Booking::METHOD_ONLINE) {
+                        if (isset($model->target))
+                            $slotDate = Yii::$app->date->date('j M (l)', strtotime($model->target->slot_date));
+                        else
+                            $slotDate = 'N/A';
+                    } else
+                        $slotDate = Yii::$app->date->date('j M (l)', strtotime($model->walkin_date));
+
+                    return $slotDate;
                 }
             ],
             [
@@ -105,7 +113,16 @@ $walkinButton = Html::a('<i class="fa-solid fa-person-walking"></i> Create Walk 
                 'headerOptions' => ['style' => 'width:135px;'],
                 'filter' => Html::activeDropDownList($searchModel, 'slotTime', ArrayHelper::map($searchModel->getAllSlotTime(), 'time_start', 'time_start'), ['prompt' => 'All Time', 'class' => 'form-select']),
                 'value' => function ($model) {
-                    return $model->method === Booking::METHOD_ONLINE ? $model->target->time_start : $model->walkin_time;
+
+                    if ($model->method === Booking::METHOD_ONLINE) {
+                        if (isset($model->target))
+                            $slotTime = $model->target->time_start;
+                        else
+                            $slotTime = 'N/A';
+                    } else
+                        $slotTime = $model->walkin_time;
+
+                    return $slotTime;
                 }
             ],
             [
