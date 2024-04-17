@@ -154,7 +154,6 @@ class LoginForm extends Model
           $previousBookingTargetId = $session->get('BOOKING_CHANGE_FROM_TARGET');
           if ($previousBookingTargetId) {
             $registrant->previous_target = $previousBookingTargetId;
-            Yii::$app->session->set('BOOKING_CHANGE_FROM_TARGET', null);
           }
 
           if ($registrant->save()) {

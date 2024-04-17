@@ -244,6 +244,7 @@ class RegisterController extends Controller
     $model->period_id = $session->get('BOOKING_SELECTED_PERIOD');
     $model->source_id = $session->get('BOOKING_EMPLOYEE_ID');
     $model->company_id = $session->get('BOOKING_COMPANY_ID');
+    $previousBookingTargetId = $session->get('BOOKING_CHANGE_FROM_TARGET');
 
     $companyModel = Company::findOne($model->company_id);
     $periodModel = Period::findOne($model->period_id);
@@ -254,6 +255,13 @@ class RegisterController extends Controller
       $bookingModel = Booking::findOne(userId());
       $bookingModel->target_id = $post['slot'];
       $bookingModel->completed_at = new Expression('NOW()');
+
+      $session = Yii::$app->session;
+
+      if ($previousBookingTargetId) {
+        $bookingModel->previous_target = $previousBookingTargetId;
+        Yii::$app->session->set('BOOKING_CHANGE_FROM_TARGET', null);
+      }
 
       if ($bookingModel->target->available <= 0) {
         Yii::$app->session->setFlash('lastminuteSlotEmpty', true);
