@@ -97,9 +97,9 @@ switch ($p) {
 ?>
 <div class="btn-group mb-4" role="group" aria-label="Default button group">
   <a type="button" class="btn btn-outline-primary active">All</a>
-  <a type="button" class="btn btn-outline-primary">Latest</a>
-  <a type="button" class="btn btn-outline-primary">To Day</a>
-  <a type="button" class="btn btn-outline-primary">5 Days</a>
+  <a type="button" class="btn btn-outline-primary disabled">Latest</a>
+  <a type="button" class="btn btn-outline-primary disabled">To Day</a>
+  <a type="button" class="btn btn-outline-primary disabled">5 Days</a>
 </div>
 
 <div class="row g-4">
@@ -137,118 +137,6 @@ switch ($p) {
         </thead>
         <tbody>
           <?php echo $rows ?>
-          <!-- <tr>
-              <td>
-                <h4><span class="badge text-bg-secondary text-white fw-normal px-3">2024-04-23</span></h4>
-                <div class="fs-5">อังคาร</div>
-                <div class="fs-5">(120)</div>
-              </td>
-              <td class="active">
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-
-                <div class="hover border border-white border-4 rounded-3 bg-sky p-4">
-                  <span class="badge bg-transparent text-white fs-4 fw-normal px-3">โควต้า 20</span>
-                  <div class="fs-4">จอง 14</div>
-                  <div class="fs-4 text-white">มาแล้ว 2</div>
-                </div>
-              </td>
-              <td class="active">
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-
-                <div class="hover border border-white border-4 rounded-3 bg-sky p-4">
-                  <span class="badge bg-transparent text-white fs-4 fw-normal px-3">โควต้า 20</span>
-                  <div class="fs-4">จอง 14</div>
-                  <div class="fs-4 text-white">มาแล้ว 2</div>
-                </div>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-              <td class="px-0 align-middle bg-body-tertiary">
-                <span class="badge text-bg-light fs-6 fw-normal px-2">Break</span>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4><span class="badge text-bg-secondary text-white fw-normal px-3">2024-04-24</span></h4>
-                <div class="fs-5">พุธ</div>
-                <div class="fs-5">(120)</div>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-              <td class="px-0 align-middle bg-light">
-                <span class="badge text-bg-light fs-6 fw-normal px-2">Break</span>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-              <td>
-                <h4><span class="badge bg-sky text-white fw-normal px-3">20</span></h4>
-                <div class="fs-5">14</div>
-                <div class="fs-5 text-success">2</div>
-              </td>
-            </tr> -->
         </tbody>
       </table>
     </div>

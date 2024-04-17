@@ -68,11 +68,12 @@ class DensoController extends \yii\web\Controller
                     SELECT
                         b.target_id,
                         CASE WHEN COUNT(b.target_id) > 0 THEN COUNT(b.target_id) ELSE 0 END AS amount,
-                        CASE WHEN COUNT(a.id) > 0 THEN COUNT(a.id) ELSE 0 END AS vaccinated
+                        CASE WHEN COUNT(vaccinated.id) > 0 THEN COUNT(vaccinated.id) ELSE 0 END AS vaccinated
                     FROM booking b
-                    LEFT JOIN activity a ON a.booking_id = b.id
+                    LEFT JOIN (
+                        SELECT id FROM  activity  WHERE kind = :vaccinated
+                    ) AS vaccinated ON vaccinated.id = b.id
                     WHERE b.period_id = :periodId AND b.status = :bookingStatus AND b.deleted_at IS NULL
-                    AND a.kind = :vaccinated
                     GROUP BY b.target_id
 
                 ) AS booked ON s.id = booked.target_id
