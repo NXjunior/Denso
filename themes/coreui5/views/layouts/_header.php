@@ -24,7 +24,7 @@ use yii\web\View;
         <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
       </li>
       <li class="nav-item dropdown">
-        <button class="btn btn-link nav-link" type="button" aria-expanded="false" data-coreui-toggle="dropdown">
+        <button class="btn btn-link nav-link" type="button" aria-expanded="false" data-coreui-toggle="dropdown" id="theme-nav">
           <svg class="icon icon-lg theme-icon-active">
             <use xlink:href="<?php echo $dirAsset . "/vendors/@coreui/icons/svg/free.svg#cil-contrast" ?>"></use>
           </svg>
@@ -57,7 +57,7 @@ use yii\web\View;
         <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="account-nav">
 
           <div class="avatar avatar-md bg-white border border-secondary">
             <div class="profile-mask">

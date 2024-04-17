@@ -51,7 +51,7 @@ else
 
       <div class="input-group input-group-lg mt-4 mb-5">
         <span class="input-group-text"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
-        <input type="text" class="form-control" name="qr-data" aria-label="Sizing example input" aria-describedby="qr-data">
+        <input type="text" class="form-control" name="qr-data" aria-label="Sizing example input" aria-describedby="qr-data" autofocus>
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-<ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
+<ul class="sidebar-nav" data-coreui="navigation" data-simplebar id="side-nav">
     <li class="nav-item">
         <a class="nav-link" href="/"><i class="nav-icon fa-regular fa-house"></i> หน้าแรก</a>
     </li>
@@ -47,6 +47,9 @@
             </li>
 
         </ul>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/vaccinated/index"><i class="nav-icon fa-regular fa-tire"></i> Vaccinated</a>
     </li>
 
     <li class="nav-divider"></li>

@@ -44,5 +44,7 @@ $theme = $session->get('THEME');
   </div>
   <?php echo $this->render('_footer.php', ['dirAsset' => $dirAsset]) ?>
 </div>
-<?php $this->endBody() ?>
+<?php
+#$this->endBody()
+?>
 <?php $this->endContent(); ?>

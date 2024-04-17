@@ -5,6 +5,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use kartik\grid\GridView;
+use yii\web\View;
+use kartik\export\ExportMenu;
 
 /** @var yii\web\View $this */
 /** @var common\models\CompanySearch $searchModel */
@@ -30,31 +32,33 @@ $this->disableTitleDisplay = true;
 
 
 <div class="row g-4 company-index">
-
     <div class="col-12 col-sm-12 col-xl-12 col-xxl-12 mb-4">
+        <?php $gridColumns = [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'name',
+            'abs',
+            'created_at',
+            'updated_at',
+            //'logo',
+            // 'status',
+            //'domain',
+            [
+                'class' => kartik\grid\ActionColumn::className(),
+                'headerOptions' => ['style' => 'width:80px;'],
+                'template' => '{view} {update}',
+                'urlCreator' => function ($action, Company $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                }
+            ],
+        ]; ?>
 
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
+            'pjax' => true,
+            'columns' => $gridColumns,
 
-                'name',
-                'abs',
-                'created_at',
-                'updated_at',
-                //'logo',
-                // 'status',
-                //'domain',
-                [
-                    'class' => kartik\grid\ActionColumn::className(),
-                    'headerOptions' => ['style' => 'width:80px;'],
-                    'template' => '{view} {update}',
-                    'urlCreator' => function ($action, Company $model, $key, $index, $column) {
-                        return Url::toRoute([$action, 'id' => $model->id]);
-                    }
-                ],
-            ],
         ]); ?>
 
     </div>
