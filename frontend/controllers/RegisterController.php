@@ -474,11 +474,7 @@ class RegisterController extends Controller
     $formatter = Yii::$app->formatter;
     foreach ($userAllowPeriods as $v) {
       $periodName = $v['period_name'];
-      if (in_array($companyModel->id, [20, 202])) {
-        $periodOptions[$v['period_id']] = $v['period_name'];
-      } else {
-        $periodOptions[$v['period_id']] = $v['period_name'] . ' | ' . Yii::$app->date->date('j F Y', strtotime($v['start_date']));
-      }
+      $periodOptions[$v['period_id']] = $v['period_name'];
     }
 
     asort($periodOptions);
