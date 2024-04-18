@@ -6,6 +6,14 @@ use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use yii\web\View;
 
+if (userRole() === 'Manager') {
+  if (user()->username == 'denso_bpk')
+    $partitionName = ' : BPK';
+  else if (user()->username == 'denso_wgr')
+    $partitionName = ' : WGR';
+} else {
+  $partitionName = '';
+}
 ?>
 <header class="header header-sticky p-0 mb-4">
   <div class="container-fluid px-4 border-bottom">
@@ -16,7 +24,7 @@ use yii\web\View;
     </button>
 
     <a href="<?php echo Yii::$app->homeUrl ?>" class="text-decoration-none link-dark">
-      <h4 class="d-none d-sm-flex pt-2"><?php echo Yii::$app->name ?></h4>
+      <h4 class="d-none d-sm-flex pt-2"><?php echo Yii::$app->name . $partitionName ?> </h4>
     </a>
 
     <ul class="header-nav ms-auto ms-md-0">
@@ -66,7 +74,7 @@ use yii\web\View;
           </div>
         </a>
         <div class="dropdown-menu dropdown-menu-end pt-0">
-          <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">Account</div>
+          <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2"><?php echo userRole() ?></div>
           <a class="dropdown-item" href="#">
             <i class="nav-icon fa-regular fa-user"></i>
             <span><?php echo user()->username ?></span>

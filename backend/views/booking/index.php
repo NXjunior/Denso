@@ -38,7 +38,8 @@ $columns = [
         'filter' => Html::activeDropDownList($searchModel, 'period_id', ArrayHelper::map($searchModel->getAllPeriod(), 'id', 'name'), ['prompt' => 'All Location', 'class' => 'form-select']),
         'value' => function ($model) {
             return $model->period->name;
-        }
+        },
+        'visible' => userRole() === 'Admin'
     ],
     [
         'attribute' =>  'source_id',

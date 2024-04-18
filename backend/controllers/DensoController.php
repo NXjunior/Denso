@@ -46,6 +46,13 @@ class DensoController extends \yii\web\Controller
 
     public function actionPeriod($id)
     {
+        if (userRole() === 'Manager') {
+            if (user()->username == 'denso_bpk' && $id != 1)
+                return $this->redirect(['/denso/period/1']);
+            else if (user()->username == 'denso_wgr' && $id != 2)
+                return $this->redirect(['/denso/period/2']);
+        }
+
         $model = $this->findPeriod($id);
 
         $sql = "SELECT s.slot_date, s.slot_date AS name, SUM(quota) AS quota, 0 AS booked, string_agg(s.note, '') AS note

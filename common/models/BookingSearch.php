@@ -13,6 +13,7 @@ class BookingSearch extends Booking
 {
 
     public $bookingName;
+    public $bookingNameEn;
     public $slotTime;
     public $slotDate;
     public $vaccinated;
@@ -30,7 +31,7 @@ class BookingSearch extends Booking
     {
         return [
             [['id', 'company_id', 'period_id', 'target_id', 'status', 'creator', 'updater', 'method'], 'integer'],
-            [['source_id', 'created_at', 'updated_at', 'last_login', 'bookingName', 'slotTime', 'slotDate', 'vaccinated', 'method', 'bookingCompanyCode', 'bookingPlant', 'bookingDiv', 'bookingWorkLocation', 'bookingSection', 'bookingDepartment'], 'safe'],
+            [['source_id', 'created_at', 'updated_at', 'last_login', 'bookingName', 'slotTime', 'slotDate', 'vaccinated', 'method', 'bookingCompanyCode', 'bookingPlant', 'bookingDiv', 'bookingWorkLocation', 'bookingSection', 'bookingDepartment', 'bookingNameEn'], 'safe'],
         ];
     }
 
@@ -73,6 +74,11 @@ class BookingSearch extends Booking
             'desc' => ['employee.firstname' => SORT_DESC],
         ];
 
+        $dataProvider->sort->attributes['bookingNameEn'] = [
+            'asc' => ['employee.firstname_en' => SORT_ASC],
+            'desc' => ['employee.firstname_en' => SORT_DESC],
+        ];
+
         $dataProvider->sort->attributes['slotDate'] = [
             'asc' => ['slot_date.slot_date' => SORT_ASC],
             'desc' => ['slot_date.slot_date' => SORT_DESC],
@@ -101,6 +107,15 @@ class BookingSearch extends Booking
                 'or',
                 ['like', 'employee.firstname', $this->bookingName],
                 ['like', 'employee.lastname', $this->bookingName],
+            ]);
+        }
+
+
+        if ($this->bookingNameEn) {
+            $query->andFilterWhere([
+                'or',
+                ['like', 'employee.firstname_en', $this->bookingNameEn],
+                ['like', 'employee.lastname_en', $this->bookingNameEn],
             ]);
         }
 

@@ -13,9 +13,18 @@ use kartik\export\ExportMenu;
 /** @var yii\web\View $this */
 /** @var common\models\BookingSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
+if (userRole() === 'Manager') {
+  if (user()->username == 'denso_bpk')
+    $url = 'vaccinated-bpk';
+  else if (user()->username == 'denso_wgr')
+    $url = 'vaccinated-wgr';
+} else {
+  $url = 'index';
+}
+
 
 $this->title = 'Vaccinated';
-$this->params['breadcrumbs'][] = ['label' => 'Report', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Report', 'url' => [$url]];
 $this->params['breadcrumbs'][] = $this->title;
 $this->disableTitleDisplay = true;
 
@@ -54,13 +63,14 @@ $columns = [
     }
   ],
   [
+    'attribute' =>  'bookingNameEn',
     'label' => 'Name En',
     'format' => 'raw',
     'value' => function ($model) use ($queryParams) {
       if (!isset($queryParams['BookingSearch']))
         return $model->employee->fullnameEn;
 
-      $queryString = $queryParams['BookingSearch']['bookingName'];
+      $queryString = $queryParams['BookingSearch']['bookingNameEn'];
       return str_replace($queryString, '<strong>' . $queryString . '</strong>', $model->employee->fullnameEn);
     }
   ],
@@ -105,7 +115,8 @@ $columns = [
     'filter' => Html::activeDropDownList($searchModel, 'period_id', ArrayHelper::map($searchModel->getAllPeriod(), 'id', 'name'), ['prompt' => 'All Location', 'class' => 'form-select']),
     'value' => function ($model) {
       return $model->period->name;
-    }
+    },
+    'visible' => userRole() === 'Admin'
   ],
   [
     'attribute' =>  'slotDate',
@@ -152,13 +163,20 @@ $columns = [
     }
   ],
   [
-    'class' => kartik\grid\ActionColumn::className(),
-    'headerOptions' => ['style' => 'width:80px;'],
-    'template' => '{view}',
-    'urlCreator' => function ($action, Booking $model, $key, $index, $column) {
-      return Url::toRoute([$action, 'id' => $model->id]);
+    'label' => 'Vaccinated At',
+    'headerOptions' => ['style' => 'width:135px;'],
+    'value' => function ($model) {
+      return $model->vaccinated->created_at;
     }
-  ],
+  ]
+  // [
+  //   'class' => kartik\grid\ActionColumn::className(),
+  //   'headerOptions' => ['style' => 'width:80px;'],
+  //   'template' => '{view}',
+  //   'urlCreator' => function ($action, Booking $model, $key, $index, $column) {
+  //     return Url::toRoute([$action, 'id' => $model->id]);
+  //   }
+  // ],
 ];
 
 $fullExportMenu = ExportMenu::widget([
@@ -205,8 +223,8 @@ $fullExportMenu = ExportMenu::widget([
     'beforeHeader' => [
       [
         'columns' => [
-          ['content' => 'Employee', 'options' => ['colspan' => 7, 'class' => 'text-center border-bottom']],
-          ['content' => 'Vaccinate', 'options' => ['colspan' => 3, 'class' => 'text-center border-bottom']],
+          ['content' => 'Employee', 'options' => ['colspan' => 7, 'class' => 'text-center border-bottom  bg-light']],
+          ['content' => 'Vaccinate', 'options' => ['colspan' => 4, 'class' => 'text-center border-bottom bg-dark-subtle']],
         ],
       ]
     ],

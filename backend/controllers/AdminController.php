@@ -35,6 +35,9 @@ class AdminController extends Controller
             'actions' => ['signup'],
             'allow' => true,
             'roles' => ['@'],
+            'matchCallback' => function () {
+              return userRole() === 'Admin';
+            },
           ],
           [
             'actions' => ['logout'],

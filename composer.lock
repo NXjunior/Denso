@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0712222907dbdb993d061388927080e",
+    "content-hash": "c1f22b3aaeb57735a116c69ed841743a",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -3811,16 +3811,16 @@
         },
         {
             "name": "yiisoft/yii2-bootstrap5",
-            "version": "dev-master",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap5.git",
-                "reference": "1a4f4d66c9ef3a076dc327999f8dc8b52caa5ac0"
+                "reference": "8cbb0f3a43c0067fda3838112d3d90805e17718b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap5/zipball/1a4f4d66c9ef3a076dc327999f8dc8b52caa5ac0",
-                "reference": "1a4f4d66c9ef3a076dc327999f8dc8b52caa5ac0",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap5/zipball/8cbb0f3a43c0067fda3838112d3d90805e17718b",
+                "reference": "8cbb0f3a43c0067fda3838112d3d90805e17718b",
                 "shasum": ""
             },
             "require": {
@@ -3837,7 +3837,6 @@
             "suggest": {
                 "twbs/bootstrap-icons": "Add this package to the `require` section of your `composer.json` if you'd like to use the bootstrap icon asset."
             },
-            "default-branch": true,
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
@@ -3889,7 +3888,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-20T14:56:35+00:00"
+            "time": "2022-04-22T13:35:02+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -7744,7 +7743,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "yiisoft/yii2-bootstrap5": 20,
         "kartik-v/yii2-grid": 20,
         "kartik-v/yii2-widget-activeform": 20,
         "kartik-v/yii2-widget-datepicker": 20,

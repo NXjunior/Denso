@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Yii;
+use yii\filters\AccessControl;
 
 /**
  * BookingController implements the CRUD actions for Booking model.
@@ -20,17 +21,27 @@ class BookingController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [
+                            'index', 'create', 'update',
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function () {
+                            return userRole() === 'Admin';
+                        },
+                    ], [
+                        'actions' => ['bpk', 'wgr', 'qr', 'vaccinated', 'walkin', 'view'],
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
                 ],
-            ]
-        );
+            ],
+        ];
     }
 
     /**
@@ -40,7 +51,36 @@ class BookingController extends Controller
      */
     public function actionIndex()
     {
+
         $searchModel = new BookingSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'queryParams' => $this->request->queryParams,
+        ]);
+    }
+
+    public function actionBpk()
+    {
+
+        $searchModel = new BookingSearch();
+        $searchModel->period_id = 1;
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'queryParams' => $this->request->queryParams,
+        ]);
+    }
+
+    public function actionWgr()
+    {
+
+        $searchModel = new BookingSearch();
+        $searchModel->period_id = 2;
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -213,8 +253,16 @@ class BookingController extends Controller
 
     public function actionWalkin()
     {
+
         $model = new Booking();
         $model->company_id = user()->company_id;
+
+        if (userRole() === 'Manager') {
+            if (user()->username == 'denso_bpk')
+                $model->period_id = 1;
+            else if (user()->username == 'denso_wgr')
+                $model->period_id = 2;
+        }
 
         if ($this->request->isPost) {
             $post = Yii::$app->request->post();

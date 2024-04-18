@@ -41,6 +41,7 @@ function user()
     return Yii::$app->user->identity;
 }
 
+
 function userId()
 {
     if (isset(Yii::$app->user))
@@ -48,6 +49,11 @@ function userId()
     else return 0;
 }
 
+
+function userRole()
+{
+    return ucfirst(array_keys(Yii::$app->authManager->getRolesByUser(userId()))[0]);
+}
 function can($permission)
 {
     return Yii::$app->user->can($permission);

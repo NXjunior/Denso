@@ -25,7 +25,6 @@ if (isset(Yii::$app->params['location']) && Yii::$app->params['location'] == 'ba
 }
 
 
-
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

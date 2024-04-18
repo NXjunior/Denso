@@ -8,9 +8,19 @@ use common\models\Booking;
 /** @var yii\web\View $this */
 /** @var common\models\Booking $model */
 
+if (userRole() === 'Manager') {
+    if (user()->username == 'denso_bpk')
+        $url = 'bpk';
+    else if (user()->username == 'denso_wgr')
+        $url = 'wgr';
+} else {
+    $url = 'index';
+}
+
+
 $this->title = $model->employee->code;
 if (!isset($partial))
-    $this->params['breadcrumbs'][] = ['label' => 'Bookings', 'url' => ['index']];
+    $this->params['breadcrumbs'][] = ['label' => 'Bookings', 'url' => [$url]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 
