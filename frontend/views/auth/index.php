@@ -40,7 +40,7 @@ $dirAsset = Yii::$app->assetManager->getPublishedUrl('@coreui/dist');
 
               <?php
               echo $form->field($model, 'username', [
-                'type' => 'number',
+
                 'labelOptions' => ['label' => false, 'class' => 'hidden'],
                 'inputOptions' => [
                   'class' => 'form-control form-control-lg',
@@ -60,6 +60,7 @@ $dirAsset = Yii::$app->assetManager->getPublishedUrl('@coreui/dist');
                 'length' => 13,
                 'maxlength' => 13,
                 'minlength' => 13,
+                'type' => 'number',
               ]) ?>
 
               <div class="row">
