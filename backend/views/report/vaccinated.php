@@ -23,6 +23,7 @@ $this->disableTitleDisplay = true;
 $modelEmployee = new Employee();
 $companyCodeOptions = $modelEmployee->getAllCompanyCode(user()->company_id);
 $plantOptions = $modelEmployee->getAllPlant(user()->company_id);
+$locationOptions = $modelEmployee->getAllWorkLocation(user()->company_id);
 
 $columns = [
   ['class' => 'yii\grid\SerialColumn'],
@@ -86,6 +87,16 @@ $columns = [
     }
   ],
 
+  [
+    'attribute' => 'bookingWorkLocation',
+    'label' => 'WorkLocation',
+    'headerOptions' => ['style' => 'width:120px;'],
+    // 'filter' => Html::activeDropDownList($searchModel, 'bookingWorkLocation', ArrayHelper::map($locationOptions, 'meta_value', 'meta_value'), ['prompt' => 'All Work Location', 'class' => 'form-select']),
+    'format' => 'raw',
+    'value' => function ($model) use ($queryParams) {
+      return $model->employee->meta['location'];
+    }
+  ],
 
   [
     'attribute' =>  'period_id',
@@ -140,41 +151,6 @@ $columns = [
       return $slotTime;
     }
   ],
-  // [
-  //   'attribute' => 'method',
-  //   'headerOptions' => ['style' => 'width:100px;'],
-  //   'filter' => Html::activeDropDownList($searchModel, 'method', [Booking::METHOD_ONLINE => 'Online', Booking::METHOD_WALKIN => 'Walk In'], ['prompt' => 'All Method', 'class' => 'form-select']),
-  //   'label' => 'Method',
-  //   'format' => 'raw',
-  //   'value' => function ($model) {
-  //     return badge($model->method === Booking::METHOD_ONLINE ? 'info' : 'secondary', $model->method === Booking::METHOD_ONLINE ? 'Online' : 'Walk In');
-  //   }
-  // ],
-  // [
-  //   'attribute' => 'vaccinated',
-  //   'headerOptions' => ['style' => 'width:100px;'],
-  //   'filter' => Html::activeDropDownList($searchModel, 'vaccinated', ['no' => 'No', 'yes' => 'Yes'], ['prompt' => 'Vaccinated?', 'class' => 'form-select']),
-  //   'label' => 'Vaccinated',
-  //   'format' => 'raw',
-  //   'value' => function ($model) {
-  //     return badge(isset($model->vaccinated->id) ? 'success' : 'secondary', isset($model->vaccinated->id) ? 'Yes' : 'No');
-  //   }
-  // ],
-  // 'period_id',
-  // 'target_id',
-  //'status',
-  //'creator',
-  // 'created_at',
-  // [
-  //   'attribute' =>  'created_at',
-  //   'headerOptions' => ['style' => 'width:140px;'],
-  //   'value' => function ($model) {
-  //     return Yii::$app->date->date('j M H:i:s', strtotime($model->created_at));
-  //   }
-  // ],
-  //'updater',
-  //'updated_at',
-  //'last_login',
   [
     'class' => kartik\grid\ActionColumn::className(),
     'headerOptions' => ['style' => 'width:80px;'],
@@ -226,6 +202,14 @@ $fullExportMenu = ExportMenu::widget([
     'filterModel' => $searchModel,
     'responsive' => true,
     'hover' => true,
+    'beforeHeader' => [
+      [
+        'columns' => [
+          ['content' => 'Employee', 'options' => ['colspan' => 7, 'class' => 'text-center border-bottom']],
+          ['content' => 'Vaccinate', 'options' => ['colspan' => 3, 'class' => 'text-center border-bottom']],
+        ],
+      ]
+    ],
     'panel' => [
       'type' => GridView::TYPE_SECONDARY,
       'heading' => '<h3 class="panel-title pt-2"><i class="fa-regular fa-syringe"></i> ' . $this->title . '</h3>',

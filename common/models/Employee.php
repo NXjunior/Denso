@@ -214,6 +214,19 @@ class Employee extends \yii\db\ActiveRecord implements IdentityInterface
         ])->queryAll();
     }
 
+    public function getAllWorkLocation($id)
+    {
+        $sql = "SELECT DISTINCT meta_value
+                FROM employee e
+                INNER JOIN employee_meta em ON e.id = em.employee_id
+                WHERE em.meta_key = :key AND e.company_id = :companyId";
+
+        return Yii::$app->db->createCommand($sql, [
+            ':companyId' => $id,
+            ':key' => 'location',
+        ])->queryAll();
+    }
+
     public static function findIdentity($id)
     {
         return static::find()->cache(30)->where(['id' => $id])->one();

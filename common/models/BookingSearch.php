@@ -153,6 +153,14 @@ class BookingSearch extends Booking
             ]);
         }
 
+        if ($this->bookingWorkLocation) {
+            $query->innerJoinWith('employee.employeeMetas AS employee_meta_location');
+            $query->andFilterWhere([
+                'employee_meta_location.meta_key' => 'location',
+                'employee_meta_location.meta_value' => $this->bookingWorkLocation,
+            ]);
+        }
+
 
 
 
