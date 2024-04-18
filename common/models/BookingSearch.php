@@ -16,6 +16,12 @@ class BookingSearch extends Booking
     public $slotTime;
     public $slotDate;
     public $vaccinated;
+    public $bookingCompanyCode;
+    public $bookingPlant;
+    public $bookingDiv;
+    public $bookingWorkLocation;
+    public $bookingSection;
+    public $bookingDepartment;
 
     /**
      * {@inheritdoc}
@@ -24,7 +30,7 @@ class BookingSearch extends Booking
     {
         return [
             [['id', 'company_id', 'period_id', 'target_id', 'status', 'creator', 'updater', 'method'], 'integer'],
-            [['source_id', 'created_at', 'updated_at', 'last_login', 'bookingName', 'slotTime', 'slotDate', 'vaccinated', 'method'], 'safe'],
+            [['source_id', 'created_at', 'updated_at', 'last_login', 'bookingName', 'slotTime', 'slotDate', 'vaccinated', 'method', 'bookingCompanyCode', 'bookingPlant', 'bookingDiv', 'bookingWorkLocation', 'bookingSection', 'bookingDepartment'], 'safe'],
         ];
     }
 
@@ -128,6 +134,27 @@ class BookingSearch extends Booking
                 $query->andWhere(['activity.booking_id' => null]);
             }
         }
+
+
+        if ($this->bookingCompanyCode) {
+            $query->innerJoinWith('employee.employeeMetas AS employee_meta_company');
+            $query->andFilterWhere([
+                'employee_meta_company.meta_key' => 'company_code',
+                'employee_meta_company.meta_value' => $this->bookingCompanyCode,
+            ]);
+        }
+
+
+        if ($this->bookingPlant) {
+            $query->innerJoinWith('employee.employeeMetas AS employee_meta_plant');
+            $query->andFilterWhere([
+                'employee_meta_plant.meta_key' => 'plant',
+                'employee_meta_plant.meta_value' => $this->bookingPlant,
+            ]);
+        }
+
+
+
 
         // grid filtering conditions
         $query->andFilterWhere([

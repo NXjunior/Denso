@@ -49,9 +49,8 @@
         </ul>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/vaccinated/index"><i class="nav-icon fa-regular fa-tire"></i> Vaccinated</a>
+        <a class="nav-link" href="/report/index"><i class="nav-icon fa-regular fa-chart-bar"></i> Report</a>
     </li>
-
     <li class="nav-divider"></li>
 
 

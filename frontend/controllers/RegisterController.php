@@ -413,7 +413,7 @@ class RegisterController extends Controller
     $options->logoSpaceHeight     = 15;
 
     $qrcode = new QRCode($options);
-    $qrcode->addByteSegment($data);
+    $qrcode->addByteSegment($data = 'https://denso.nextschool.io/');
     $qrOutputInterface = new QRImageWithLogo($options, $qrcode->getQRMatrix());
     $out = $qrOutputInterface->dump(null, $brandLogoPath);
 
