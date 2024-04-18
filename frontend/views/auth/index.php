@@ -61,6 +61,7 @@ $dirAsset = Yii::$app->assetManager->getPublishedUrl('@coreui/dist');
                 'maxlength' => 13,
                 'minlength' => 13,
                 'type' => 'number',
+                'inputmode' => "numeric"
               ]) ?>
 
               <div class="row">
