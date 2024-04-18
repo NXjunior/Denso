@@ -30,7 +30,7 @@ $columns = [
 
   [
     'attribute' =>  'source_id',
-    'label' => 'Employee ID',
+    'label' => 'ID',
     'headerOptions' => ['style' => 'width:120px;'],
     'format' => 'raw',
     'value' => function ($model) use ($queryParams) {
@@ -54,7 +54,7 @@ $columns = [
     }
   ],
   [
-    'label' => 'Name Eng',
+    'label' => 'Name En',
     'format' => 'raw',
     'value' => function ($model) use ($queryParams) {
       if (!isset($queryParams['BookingSearch']))
@@ -66,7 +66,7 @@ $columns = [
   ],
   [
     'attribute' => 'bookingCompanyCode',
-    'label' => 'CompanyCode',
+    'label' => 'Company Code',
     'headerOptions' => ['style' => 'width:120px;'],
     'filter' => Html::activeDropDownList($searchModel, 'bookingCompanyCode', ArrayHelper::map($companyCodeOptions, 'meta_value', 'meta_value'), ['prompt' => 'All Company Code', 'class' => 'form-select']),
     'format' => 'raw',
@@ -89,7 +89,7 @@ $columns = [
 
   [
     'attribute' => 'bookingWorkLocation',
-    'label' => 'WorkLocation',
+    'label' => 'Work Location',
     'headerOptions' => ['style' => 'width:120px;'],
     // 'filter' => Html::activeDropDownList($searchModel, 'bookingWorkLocation', ArrayHelper::map($locationOptions, 'meta_value', 'meta_value'), ['prompt' => 'All Work Location', 'class' => 'form-select']),
     'format' => 'raw',
