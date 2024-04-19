@@ -9,6 +9,8 @@ $this->title = 'Update Employee: ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Employees', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
+$this->disableTitleDisplay = true;
+
 ?>
 <div class="employee-update">
 

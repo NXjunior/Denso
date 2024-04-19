@@ -82,6 +82,7 @@ class DataController extends Controller
     }
 
     $fullname = trim($fullname ?? '');
+    $fullname = str_replace('   ', ' ', $fullname);
     $fullname = str_replace('  ', ' ', $fullname);
     $fullname = str_replace('-', '', $fullname);
     $fullname = str_replace('. ', '', $fullname);
@@ -163,7 +164,7 @@ class DataController extends Controller
     $spreadsheet = $reader->load($fileName);
     $worksheet = $spreadsheet->getActiveSheet();
 
-    $numrows = 9;
+    $numrows = 2;
     echo "✅ Parser!!\n";
     foreach ($worksheet->getRowIterator() as $row) {
       $cellIterator = $row->getCellIterator();
@@ -175,7 +176,7 @@ class DataController extends Controller
         $fullnameEn = $this->formatFullname($worksheet->getCell('C' . $numrows)->getValue());
 
         $data = [
-          'no' => $numrows - 8,
+          'no' => $numrows - 1,
           'code' => trim($worksheet->getCell('B' . $numrows)->getValue() ?? ''),
           'fullname' =>  [
             'title' => !empty($fullname['title']) ? $fullname['title'] : null,
@@ -192,6 +193,108 @@ class DataController extends Controller
           'div' => trim($worksheet->getCell('G' . $numrows)->getValue() ?? ''),
           'location' => trim($worksheet->getCell('H' . $numrows)->getValue() ?? ''),
           'section' => trim($worksheet->getCell('I' . $numrows)->getValue() ?? ''),
+          'department' => trim($worksheet->getCell('J' . $numrows)->getValue() ?? ''),
+        ];
+
+        echo "[" . $data['no'] . "] :[" . $data['code'] . "] : [" . $data['fullname']['title'] . ' ' . $data['fullname']['firstname'] . ' ' . $data['fullname']['lastname'] . "] [" . $data['location'] . "] \n";
+
+        $arrayMeta = ['no', 'company_code', 'plant', 'div', 'location', 'section', 'department'];
+
+        $transaction = db()->beginTransaction();
+
+        try {
+          // insert to main table
+          $model = new Employee();
+          $model->company_id = $this->companyId;
+          $model->creator = 1;
+          $model->status = Employee::STATUS_ACTIVE;
+          $model->code = str_replace(' ', '', $data['code']);
+          $model->title = $data['fullname']['title'];
+          $model->firstname = $data['fullname']['firstname'];
+          $model->lastname = $data['fullname']['lastname'];
+          $model->title_en = $data['fullname_en']['title'];
+          $model->firstname_en = $data['fullname_en']['firstname'];
+          $model->lastname_en = $data['fullname_en']['lastname'];
+          $model->created_at =  new Expression('NOW()');
+
+          if ($model->save()) {
+
+            foreach ($arrayMeta as $metaKey) {
+              // insert to mata table
+              $modelMeta = new EmployeeMeta();
+              $modelMeta->employee_id = $model->id;
+              $modelMeta->meta_key = $metaKey;
+              $modelMeta->meta_value = (string) $data[$metaKey];
+              if ($modelMeta->save()) {
+                echo "💚 " . $model->id . " : " . $modelMeta->meta_key . " => " . $modelMeta->meta_value . "\n";
+              } else {
+                var_dump($modelMeta->meta_value);
+                var_dump($modelMeta->errors);
+                exit;
+              }
+            }
+          } else {
+            var_dump($model->errors);
+            exit;
+          }
+
+          $transaction->commit();
+        } catch (\Exception $exception) {
+          $transaction->rollBack();
+          $errors[] = 'DB Error';
+          dump($exception->getMessage());
+          exit();
+        }
+      }
+
+      if (empty($data['fullname'])) {
+        continue;
+      }
+      $numrows++;
+    }
+  }
+
+  public function actionImportEmpOutsource()
+  {
+    //./yii data/import-emp -c=1 -f=รายชื่อหนังสือสาธิต.xlsx
+    ini_set('memory_limit', -1);
+
+    $fileName = Yii::getAlias('@console') . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $this->fileName;
+
+    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($fileName);
+    $reader->setReadDataOnly(true);
+    $spreadsheet = $reader->load($fileName);
+    $worksheet = $spreadsheet->getActiveSheet();
+
+    $numrows = 3;
+    echo "✅ Parser!!\n";
+    foreach ($worksheet->getRowIterator() as $row) {
+      $cellIterator = $row->getCellIterator();
+      $cellIterator->setIterateOnlyExistingCells(true);
+
+      if ($worksheet->getCell('B' . $numrows)->getValue()) {
+
+        $fullname = $this->formatFullname($worksheet->getCell('C' . $numrows)->getValue());
+        // $fullnameEn = $this->formatFullname($worksheet->getCell('C' . $numrows)->getValue());
+
+        $data = [
+          'no' => $numrows - 2,
+          'code' => trim($worksheet->getCell('B' . $numrows)->getValue() ?? ''),
+          'fullname' =>  [
+            'title' => !empty($fullname['title']) ? $fullname['title'] : null,
+            'firstname' => !empty($fullname['firstname']) ? $fullname['firstname'] : null,
+            'lastname' => !empty($fullname['lastname']) ? $fullname['lastname'] : null,
+          ],
+          'fullname_en' =>  [
+            'title' => trim($worksheet->getCell('E' . $numrows)->getValue() ?? ''),
+            'firstname' => trim($worksheet->getCell('F' . $numrows)->getValue() ?? ''),
+            'lastname' => trim($worksheet->getCell('G' . $numrows)->getValue() ?? ''),
+          ],
+          'company_code' => trim($worksheet->getCell('K' . $numrows)->getValue() ?? ''),
+          'plant' => trim($worksheet->getCell('F' . $numrows)->getValue() ?? ''),
+          'div' => trim($worksheet->getCell('G' . $numrows)->getValue() ?? ''),
+          'location' => trim($worksheet->getCell('H' . $numrows)->getValue() ?? ''),
+          'section' => trim($worksheet->getCell('S' . $numrows)->getValue() ?? ''),
           'department' => trim($worksheet->getCell('J' . $numrows)->getValue() ?? ''),
         ];
 

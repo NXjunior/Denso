@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Employee;
+use common\models\EmployeeMeta;
 use common\models\EmployeeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -75,8 +76,31 @@ class EmployeeController extends Controller
         $model = new Employee();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                $transaction = db()->beginTransaction();
+                try {
+                    if ($model->save()) {
+                        $modelMeta = new EmployeeMeta();
+                        $modelMeta->employee_id = $model->id;
+                        $modelMeta->meta_key = 'company_code';
+                        $modelMeta->meta_value = (string) $model->company_code;
+                        if (!$modelMeta->save()) {
+                            var_dump($modelMeta->meta_value);
+                            var_dump($modelMeta->errors);
+                            exit;
+                        }
+                    } else {
+                        dump($model->errors);
+                        exit;
+                    }
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } catch (\Exception $exception) {
+                    $transaction->rollBack();
+                    $errors[] = 'DB Error';
+                    dump($exception->getMessage());
+                    exit();
+                }
             }
         } else {
             $model->loadDefaultValues();

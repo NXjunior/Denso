@@ -33,6 +33,7 @@ class Employee extends \yii\db\ActiveRecord implements IdentityInterface
     const STATUS_DELETE = 0;
 
     public $meta;
+    public $company_code;
 
     public function behaviors()
     {
@@ -60,11 +61,11 @@ class Employee extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['company_id', 'code', 'creator'], 'required'],
+            [['company_id', 'code', 'creator', 'title', 'firstname', 'lastname'], 'required'],
             [['company_id', 'creator', 'updater', 'status'], 'default', 'value' => null],
             [['company_id', 'creator', 'updater', 'status'], 'integer'],
             [['created_at', 'updated_at', 'meta'], 'safe'],
-            [['code'], 'string', 'max' => 10],
+            [['code'], 'string', 'max' => 20],
             [['title', 'title_en'], 'string', 'max' => 50],
             [['company_id', 'code'], 'unique', 'targetAttribute' => ['company_id', 'code']],
             [['firstname', 'lastname', 'firstname_en', 'lastname_en'], 'string', 'max' => 255],

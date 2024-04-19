@@ -21,16 +21,6 @@ $walkinButton = Html::a('<i class="fa-solid fa-person-walking"></i> Create Walk 
 
 $columns = [
     ['class' => 'yii\grid\SerialColumn'],
-
-    // 'id',
-    // 'source_id',
-    // [
-    //     'attribute' =>  'company_id',
-    //     'label' => 'Company',
-    //     'value' => function ($model) {
-    //         return $model->company->name;
-    //     }
-    // ],
     [
         'attribute' =>  'period_id',
         'label' => 'Location',
@@ -206,6 +196,4 @@ $fullExportMenu = ExportMenu::widget([
             $fullExportMenu,
         ],
     ]); ?>
-
-
 </div>

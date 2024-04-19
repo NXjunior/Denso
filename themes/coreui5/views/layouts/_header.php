@@ -68,8 +68,13 @@ if (userRole() === 'Manager') {
         <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="account-nav">
 
           <div class="avatar avatar-md bg-white border border-secondary">
-            <div class="profile-mask">
-              <img class=" profile-image" src="<?php echo Yii::$app->params['profileImage'] ?>" alt="user@email.com">
+            <div class="profile-mask pt-2">
+              <?php if (userRole() === 'Admin') : ?>
+                <i class="fa-solid fa-user-crown fa-2xl"></i>
+              <?php else : ?>
+                <i class="fa-solid fa-user-doctor-h2air-long fa-2xl"></i>
+              <?php endif ?>
+              <!-- <img class=" profile-image" src="<?php echo Yii::$app->params['profileImage'] ?>" alt="user@email.com"> -->
             </div>
           </div>
         </a>

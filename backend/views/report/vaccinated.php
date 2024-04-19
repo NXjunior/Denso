@@ -13,17 +13,37 @@ use kartik\export\ExportMenu;
 /** @var yii\web\View $this */
 /** @var common\models\BookingSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
+
+
 if (userRole() === 'Manager') {
-  if (user()->username == 'denso_bpk')
+  if (user()->username == 'denso_bpk') {
     $url = 'vaccinated-bpk';
-  else if (user()->username == 'denso_wgr')
+  } else if (user()->username == 'denso_wgr') {
     $url = 'vaccinated-wgr';
+  }
 } else {
   $url = 'index';
 }
 
 
-$this->title = 'Vaccinated';
+
+switch (Yii::$app->controller->action->id) {
+  case 'vaccinated-bpk':
+    $subTitle = ' : BPK Amata';
+    break;
+
+  case 'vaccinated-wgr':
+    $subTitle = ' : WGR Wellgrow';
+    break;
+
+  default:
+    $subTitle = ' : All';
+    break;
+}
+
+
+
+$this->title = 'Vaccinated' . $subTitle;
 $this->params['breadcrumbs'][] = ['label' => 'Report', 'url' => [$url]];
 $this->params['breadcrumbs'][] = $this->title;
 $this->disableTitleDisplay = true;

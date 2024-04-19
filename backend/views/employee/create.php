@@ -8,13 +8,10 @@ use yii\helpers\Html;
 $this->title = 'Create Employee';
 $this->params['breadcrumbs'][] = ['label' => 'Employees', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->disableTitleDisplay = true;
+
 ?>
-<div class="employee-create">
-
-
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
-
-</div>

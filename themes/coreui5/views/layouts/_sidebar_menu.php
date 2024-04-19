@@ -60,10 +60,13 @@
 
         </ul>
     </li>
-    <li class="nav-group">
-        <a class="nav-link nav-group-toggle" href="#"><i class="nav-icon fa-regular fa-chart-bar"></i>Vaccinated</a>
-        <ul class="nav-group-items">
+    <!-- <li class="nav-item">
+        <a class="nav-link" href="/report"><i class="nav-icon fa-regular fa-chart-bar"></i>Report</a>
+    </li> -->
 
+    <li class="nav-group">
+        <a class="nav-link nav-group-toggle" href="#"><i class="nav-icon fa-regular fa-chart-bar"></i>Report</a>
+        <ul class="nav-group-items">
             <?php if (userRole() === 'Admin') : ?>
                 <li class="nav-item">
                     <a class="nav-link" href="/report/vaccinated"><i class="me-2 fa-regular fa-syringe fa-lg"></i> All</a>

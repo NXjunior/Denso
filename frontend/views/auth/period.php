@@ -51,21 +51,9 @@ $dirAsset = Yii::$app->assetManager->getPublishedUrl('@coreui/dist');
                 'template' => '<div class="d-grid gap-2">{input}{error}{hint}</div>',
               ])->radioButtonGroup($periodOptions, [
                 'class' => 'btn-group btn-group-lg ',
-                // 'item' => function ($index, $label, $name, $checked, $value) use ($model) {
-
-                //   $checked = ($model->period_id && $value == $model->period_id) ? 'checked' : '';
-
-                //   $return = '<input type="radio" id="loginform-period_id--' . $model->period_id . '" class="btn-check" name="' . $name . '" value="' . $value . '"  data-index="' . $model->period_id . '" autocomplete="off" ' . $checked . '>';
-                //   $return .= '<label class="btn btn-outline-primary" for="loginform-period_id--' . $model->period_id . '">' . $label . '</label>';
-                //   return $return;
-                // },
                 'itemOptions' => [
                   'labelOptions' => ['class' => 'btn btn-outline-primary']
                 ],
-                // 'onchange' => '
-                //   $("[for=loginform-period_id--' . $model->period_id . ']").removeClass("active");
-                //   $("#loginform-period_id--' . $model->period_id . '").attr("checked", false);
-                // '
               ])->label('');
               ?>
 
@@ -82,7 +70,7 @@ $dirAsset = Yii::$app->assetManager->getPublishedUrl('@coreui/dist');
                   }
                   ?>
                   <?php echo Html::submitButton($buttonText, [
-                    'class' => 'btn btn-brand btn-lg px-4 float-end',
+                    'class' => 'btn btn-brand btn-lg px-4 float-end mt-3',
                     'name' => 'login-button',
                     'data-coreui-i18n' => $buttonLabel
                   ]) ?>
