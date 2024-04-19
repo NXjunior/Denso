@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $this->disableTitleDisplay = true;
 
-$createButton = Html::a('<i class="fa-solid fa-user"></i> Create Employee', ['/booking/walkin'], ['class' => 'btn btn-success text-white btn-lg shadow mt-4 mb-4 fs-4']);
+$createButton = Html::a('<i class="fa-solid fa-user"></i> Create Employee', ['/employee/create'], ['class' => 'btn btn-success text-white btn-lg shadow mt-4 mb-4 fs-4']);
 
 $columns = [
     ['class' => 'kartik\grid\SerialColumn'],
