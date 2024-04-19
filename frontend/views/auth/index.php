@@ -62,7 +62,7 @@ $dirAsset = Yii::$app->assetManager->getPublishedUrl('@coreui/dist');
                 'minlength' => 13,
                 'type' => 'number',
                 'inputmode' => "numeric"
-              ]) ?>
+              ])->hint('พนักงาน LPS ใช้เลขบัตรประชาชน 13 หลัก') ?>
 
               <div class="row">
                 <div class="col-12">
