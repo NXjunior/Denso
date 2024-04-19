@@ -40,7 +40,7 @@ $columns = [
         'value' => function ($model) {
             return $model->period->name;
         },
-        'visible' => userRole() === 'Admin'
+        'visible' => userRole() === 'Admin' && !$isReportController
     ],
     [
         'attribute' =>  'source_id',
@@ -152,7 +152,8 @@ $columns = [
         'template' => '{view}',
         'urlCreator' => function ($action, Booking $model, $key, $index, $column) {
             return Url::toRoute([$action, 'id' => $model->id]);
-        }
+        },
+        'visible' => !$isReportController
     ],
 ];
 

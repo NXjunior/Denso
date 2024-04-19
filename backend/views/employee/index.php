@@ -110,7 +110,8 @@ $columns = [
         'template' => '{view} {update}',
         'urlCreator' => function ($action, Employee $model, $key, $index, $column) {
             return Url::toRoute([$action, 'id' => $model->id]);
-        }
+        },
+        'visible' => !$isNotbookFilter
     ],
 ];
 
