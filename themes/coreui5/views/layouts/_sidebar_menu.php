@@ -67,23 +67,23 @@
 
 
     <li class="nav-group">
-        <a class="nav-link nav-group-toggle" href="#"><i class="nav-icon fa-regular fa-chart-bar"></i>Report</a>
+        <a class="nav-link nav-group-toggle" href="#"><i class="nav-icon fa-regular fa-syringe"></i>Vaccinated</a>
         <ul class="nav-group-items">
             <?php if (userRole() === 'Admin') : ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="/report/vaccinated"><i class="me-2 fa-regular fa-syringe fa-lg"></i> All</a>
+                    <a class="nav-link" href="/report/vaccinated"><i class="me-2 fa-regular fa-industry fa-lg"></i> All</a>
                 </li>
             <?php endif ?>
 
             <?php if (userRole() === 'Admin' || (userRole() === 'Manager' && user()->username == 'denso_bpk')) : ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="/report/vaccinated-bpk"><i class="me-2 fa-regular fa-syringe fa-lg"></i> BPK</a>
+                    <a class="nav-link" href="/report/vaccinated-bpk"><i class="me-2 fa-regular fa-industry-windows fa-lg"></i> BPK</a>
                 </li>
             <?php endif ?>
 
             <?php if (userRole() === 'Admin' || (userRole() === 'Manager' && user()->username == 'denso_wgr')) : ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="/report/vaccinated-wgr"><i class="me-2 fa-regular fa-syringe fa-lg"></i> WGR</a>
+                    <a class="nav-link" href="/report/vaccinated-wgr"><i class="me-2 fa-regular fa-industry-windows fa-lg"></i> WGR</a>
                 </li>
             <?php endif ?>
 
