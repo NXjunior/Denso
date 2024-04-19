@@ -21,6 +21,10 @@
                 </li>
             </ul>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/report"><i class="nav-icon fa-regular fa-chart-bar"></i>Report</a>
+        </li>
     <?php endif ?>
 
     <li class="nav-title">Denso</li>
@@ -60,9 +64,7 @@
 
         </ul>
     </li>
-    <!-- <li class="nav-item">
-        <a class="nav-link" href="/report"><i class="nav-icon fa-regular fa-chart-bar"></i>Report</a>
-    </li> -->
+
 
     <li class="nav-group">
         <a class="nav-link nav-group-toggle" href="#"><i class="nav-icon fa-regular fa-chart-bar"></i>Report</a>

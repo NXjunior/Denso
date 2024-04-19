@@ -67,7 +67,7 @@ $dirAsset = Yii::$app->assetManager->getPublishedUrl('@coreui/dist');
               <div class="row">
                 <div class="col-12">
                   <?php echo Html::submitButton('ตรวจสอบ', [
-                    'class' => 'btn btn-brand btn-lg px-4 float-end',
+                    'class' => 'btn btn-brand btn-lg px-4 float-end mt-3',
                     'name' => 'login-button',
                     'data-coreui-i18n' => "check"
                   ]) ?>

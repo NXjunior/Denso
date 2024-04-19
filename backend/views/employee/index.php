@@ -12,12 +12,22 @@ use kartik\export\ExportMenu;
 /** @var backend\models\EmployeeSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Employees';
+$isNotbookFilter = Yii::$app->controller->action->id === 'not-book';
+
+if ($isNotbookFilter) {
+    $subTitle = ' : Haven\'t Booking';
+    $this->params['breadcrumbs'][] = ['label' => 'Report', 'url' => ['/report']];
+    $createButton = '';
+} else {
+    $subTitle = '';
+    $createButton = Html::a('<i class="fa-solid fa-user"></i> Create Employee', ['/employee/create'], ['class' => 'btn btn-success text-white btn-lg shadow mt-4 mb-4 fs-4']);
+}
+
+$this->title = 'Employees' . $subTitle;
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->disableTitleDisplay = true;
 
-$createButton = Html::a('<i class="fa-solid fa-user"></i> Create Employee', ['/employee/create'], ['class' => 'btn btn-success text-white btn-lg shadow mt-4 mb-4 fs-4']);
 
 $columns = [
     ['class' => 'kartik\grid\SerialColumn'],
@@ -91,7 +101,8 @@ $columns = [
         'format' => 'raw',
         'value' => function ($model) {
             return badge(isset($model->booking->id) ? 'success' : 'secondary', isset($model->booking->id) ? 'Yes' : 'No');
-        }
+        },
+        'visible' => !$isNotbookFilter
     ],
     [
         'class' => kartik\grid\ActionColumn::className(),

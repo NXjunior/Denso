@@ -26,7 +26,7 @@ class LoginForm extends Model
   {
     return [
       [['company_id', 'username', 'period_id'], 'required'],
-      [['username'], 'string', 'length' => [7, 7]],
+      [['username'], 'string', 'length' => [7, 13]],
       [['username'], 'trim'],
       [['username'], 'validateEmployeeCode'],
     ];

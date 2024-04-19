@@ -13,11 +13,22 @@ use kartik\export\ExportMenu;
 /** @var common\models\BookingSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Bookings';
+$isReportController = Yii::$app->controller->id === 'report';
+
+
+if ($isReportController) {
+    $subTitle = ' : ' . Yii::$app->controller->action->id;
+    $this->params['breadcrumbs'][] = ['label' => 'Report', 'url' => ['/report']];
+    $walkinButton = '';
+} else {
+    $subTitle = '';
+    $walkinButton = Html::a('<i class="fa-solid fa-person-walking"></i> Create Walk in', ['/booking/walkin'], ['class' => 'btn btn-success text-white btn-lg shadow mt-4 mb-4 fs-4']);
+}
+
+$this->title = 'Bookings' . $subTitle;
 $this->params['breadcrumbs'][] = $this->title;
 $this->disableTitleDisplay = true;
 
-$walkinButton = Html::a('<i class="fa-solid fa-person-walking"></i> Create Walk in', ['/booking/walkin'], ['class' => 'btn btn-success text-white btn-lg shadow mt-4 mb-4 fs-4']);
 
 $columns = [
     ['class' => 'yii\grid\SerialColumn'],
@@ -181,7 +192,7 @@ $fullExportMenu = ExportMenu::widget([
 </div>
 
 
-<div class="booking-index mb-5 pb-5">
+<div class="booking-index mb-5 pb-5 mt-4">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
