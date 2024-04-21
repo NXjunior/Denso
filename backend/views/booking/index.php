@@ -156,7 +156,7 @@ $columns = [
         'visible' => !$isReportController,
         'visibleButtons' => [
             'view' => function ($model) {
-                return isset($model->target->time_start);
+                return isset($model->target->time_start) || $model->walkin_time;
             },
         ]
     ],
