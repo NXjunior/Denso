@@ -153,7 +153,12 @@ $columns = [
         'urlCreator' => function ($action, Booking $model, $key, $index, $column) {
             return Url::toRoute([$action, 'id' => $model->id]);
         },
-        'visible' => !$isReportController && isset($model->target->time_start)
+        'visible' => !$isReportController,
+        'visibleButtons' => [
+            'view' => function ($model) {
+                return isset($model->target->time_start);
+            },
+        ]
     ],
 ];
 
