@@ -33,8 +33,8 @@ class Booking extends \yii\db\ActiveRecord implements IdentityInterface
     const CONFIG_SPLIT_QR_CHAR = 'X';
     const STATUS_ACTIVE = 10;
     const STATUS_DELETE = 0;
-    const CONFIG_GAPDATE = 3; // can not selectable date before 3 day from book target date
-    const CONFIG_CHANGEABLE_DATE = 2; // can not change date at lease 1 day from book target date
+    const CONFIG_GAPDATE = 0; // can not selectable date before 3 day from book target date
+    const CONFIG_CHANGEABLE_DATE = 0; // can not change date at lease 1 day from book target date
 
     const METHOD_ONLINE = 10;
     const METHOD_WALKIN = 20;
