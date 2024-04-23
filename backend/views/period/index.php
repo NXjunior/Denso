@@ -47,11 +47,11 @@ $this->disableTitleDisplay = true;
             // 'desp',
             [
                 'attribute' => 'start_date',
-                'format' => 'date'
+                'format' => 'datetime'
             ],
             [
                 'attribute' => 'end_date',
-                'format' => 'date'
+                'format' => 'datetime'
             ],
 
             //'creator',

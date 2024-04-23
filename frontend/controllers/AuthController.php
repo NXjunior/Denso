@@ -205,7 +205,7 @@ class AuthController extends Controller
           }
         }
       } else {
-        Yii::$app->session->setFlash('error', "ไม่พบรหัสพนักงานที่ระบุ");
+        Yii::$app->session->setFlash('error', "ขออภัย ระบบยังไม่ได้เปิดรับจอง");
       }
     }
 
