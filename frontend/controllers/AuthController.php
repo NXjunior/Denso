@@ -190,6 +190,7 @@ class AuthController extends Controller
 
           if (count($activePeriod) == 0 && count($enablePeriod) == 0) {
             Yii::$app->session->setFlash('error', 'ขออภัย ระบบยังไม่ได้เปิดรับจอง');
+            Yii::$app->session->setFlash('errorMSG', 'ขออภัย ระบบยังไม่ได้เปิดรับจอง');
           } else if (count($userAllowPeriods)) {
 
             Yii::$app->session->set('BOOKING_SELECTABLE_PERIOD', $userAllowPeriods);
@@ -201,11 +202,13 @@ class AuthController extends Controller
             Yii::$app->session->set('BOOKING_EMPLOYEE_ID', $model->username);
             Yii::$app->session->set('BOOKING_COMPANY_ID', $model->company_id);
             Yii::$app->session->setFlash('error', 'ขออภัย ระบบยังไม่ได้เปิดรับจอง');
+            Yii::$app->session->setFlash('errorMSG', 'ขออภัย ระบบยังไม่ได้เปิดรับจอง');
             // $model->addError('school_id', 'ขออภัยโรงเรียนยังไม่ได้เปิดรับสมัคร_');
           }
         }
       } else {
-        Yii::$app->session->setFlash('error', "ขออภัย ระบบยังไม่ได้เปิดรับจอง");
+        Yii::$app->session->setFlash('error', "ไม่พบรหัสพนักงานที่ระบุ");
+        Yii::$app->session->setFlash('errorMSG', 'ไม่พบรหัสพนักงานที่ระบุ');
       }
     }
 

@@ -29,7 +29,7 @@ $dirAsset = Yii::$app->assetManager->getPublishedUrl('@coreui/dist');
               <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
               <?php if (Yii::$app->session->hasFlash('error')) : ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <strong>Oops!</strong> <span data-coreui-i18n="notFoundEmployeeCode"><?php echo Yii::$app->session->getFlash('error') ?></span>
+                  <strong>Oops!</strong> <span><?php echo Yii::$app->session->getFlash('errorMSG') ?></span>
                   <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
                 </div>
               <?php endif; ?>
