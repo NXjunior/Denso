@@ -23,6 +23,7 @@ class BookingSearch extends Booking
     public $bookingWorkLocation;
     public $bookingSection;
     public $bookingDepartment;
+    public $consentWrong;
 
     /**
      * {@inheritdoc}
@@ -31,7 +32,7 @@ class BookingSearch extends Booking
     {
         return [
             [['id', 'company_id', 'period_id', 'target_id', 'status', 'creator', 'updater', 'method'], 'integer'],
-            [['source_id', 'created_at', 'updated_at', 'last_login', 'bookingName', 'slotTime', 'slotDate', 'vaccinated', 'method', 'bookingCompanyCode', 'bookingPlant', 'bookingDiv', 'bookingWorkLocation', 'bookingSection', 'bookingDepartment', 'bookingNameEn'], 'safe'],
+            [['source_id', 'created_at', 'updated_at', 'last_login', 'bookingName', 'slotTime', 'slotDate', 'vaccinated', 'method', 'bookingCompanyCode', 'bookingPlant', 'bookingDiv', 'bookingWorkLocation', 'bookingSection', 'bookingDepartment', 'bookingNameEn', 'consentWrong'], 'safe'],
         ];
     }
 
@@ -176,6 +177,18 @@ class BookingSearch extends Booking
             ]);
         }
 
+
+        // public $allergic_egg;
+        // public $fever;
+        // public $guillain_barre_syndrome;
+
+        if ($this->consentWrong) {
+            $query->innerJoinWith('bookingMetas AS consent');
+            $query->andFilterWhere([
+                'consent.meta_key' => 'allergic_egg',
+                'consent.meta_value' => '0',
+            ]);
+        }
 
 
 

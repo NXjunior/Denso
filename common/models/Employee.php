@@ -61,7 +61,7 @@ class Employee extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['company_id', 'code', 'creator', 'title', 'firstname', 'lastname'], 'required'],
+            [['company_id', 'code', 'creator', 'title', 'firstname', 'lastname', 'company_code'], 'required'],
             [['company_id', 'creator', 'updater', 'status'], 'default', 'value' => null],
             [['company_id', 'creator', 'updater', 'status'], 'integer'],
             [['created_at', 'updated_at', 'meta'], 'safe'],
