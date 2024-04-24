@@ -87,8 +87,22 @@
                 </li>
             <?php endif ?>
 
+
         </ul>
     </li>
+
+    <?php if (userRole() === 'Admin' || (userRole() === 'Manager' && user()->username == 'denso_bpk')) : ?>
+        <li class="nav-item">
+            <a class="nav-link" href="/report/bpk"><i class="nav-icon fa-regular fa-chart-bar"></i>Report BPK AMATA</a>
+        </li>
+    <?php endif ?>
+
+    <?php if (userRole() === 'Admin' || (userRole() === 'Manager' && user()->username == 'denso_wgr')) : ?>
+        <li class="nav-item">
+            <a class="nav-link" href="/report/wgr"><i class="nav-icon fa-regular fa-chart-bar"></i>Report WGR Wellgrow</a>
+        </li>
+    <?php endif ?>
+
     <li class="nav-divider"></li>
 
     <li class="nav-item mt-auto"><a class="nav-link" href="/site/logout" target="_top">

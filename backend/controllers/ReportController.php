@@ -26,7 +26,7 @@ class ReportController extends \yii\web\Controller
                             return userRole() === 'Admin';
                         },
                     ], [
-                        'actions' => ['vaccinated-bpk', 'vaccinated-wgr', 'not-book', 'booking-all', 'booking-bpk', 'booking-wgr'],
+                        'actions' => ['vaccinated-bpk', 'vaccinated-wgr', 'not-book', 'booking-all', 'booking-bpk', 'booking-wgr', 'bpk', 'wgr'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -80,6 +80,106 @@ class ReportController extends \yii\web\Controller
         ];
 
         return $this->render('index', [
+            'data' => $data,
+        ]);
+    }
+
+    public function actionBpk()
+    {
+
+        $employee_all = Employee::find()->where(['status' => Employee::STATUS_ACTIVE])->count();
+
+        $booked_all = Booking::find()->where(['status' => Booking::STATUS_ACTIVE])->count();
+
+        $booked_bpk = Booking::find()->where([
+            'status' => Booking::STATUS_ACTIVE,
+            'period_id' => 1,
+        ])->count();
+
+        $booked_wgr = Booking::find()->where([
+            'status' => Booking::STATUS_ACTIVE,
+            'period_id' => 2,
+        ])->count();
+
+        $vaccinated_all = Activity::find()->where(['kind' => Activity::KIND_VACCINATED])->count();
+
+        $vaccinated_bpk = Activity::find()
+            ->innerJoin('booking', 'booking.id = activity.booking_id')
+            ->where([
+                'kind' => Activity::KIND_VACCINATED,
+                'period_id' => 1
+            ])->count();
+
+        $vaccinated_wgr = Activity::find()
+            ->innerJoin('booking', 'booking.id = activity.booking_id')
+            ->where([
+                'kind' => Activity::KIND_VACCINATED,
+                'period_id' => 2
+            ])->count();
+
+
+        $data = [
+            'employee_all' => number_format($employee_all),
+            'employee_not_booked' => number_format($employee_all - $booked_all),
+            'booked_all' => number_format($booked_all),
+            'booked_bpk' => $booked_bpk,
+            'booked_wgr' => $booked_wgr,
+            'vaccinated_all' => $vaccinated_all,
+            'vaccinated_bpk' => $vaccinated_bpk,
+            'vaccinated_wgr' => $vaccinated_wgr,
+        ];
+
+        return $this->render('bpk', [
+            'data' => $data,
+        ]);
+    }
+
+    public function actionWgr()
+    {
+
+        $employee_all = Employee::find()->where(['status' => Employee::STATUS_ACTIVE])->count();
+
+        $booked_all = Booking::find()->where(['status' => Booking::STATUS_ACTIVE])->count();
+
+        $booked_bpk = Booking::find()->where([
+            'status' => Booking::STATUS_ACTIVE,
+            'period_id' => 1,
+        ])->count();
+
+        $booked_wgr = Booking::find()->where([
+            'status' => Booking::STATUS_ACTIVE,
+            'period_id' => 2,
+        ])->count();
+
+        $vaccinated_all = Activity::find()->where(['kind' => Activity::KIND_VACCINATED])->count();
+
+        $vaccinated_bpk = Activity::find()
+            ->innerJoin('booking', 'booking.id = activity.booking_id')
+            ->where([
+                'kind' => Activity::KIND_VACCINATED,
+                'period_id' => 1
+            ])->count();
+
+        $vaccinated_wgr = Activity::find()
+            ->innerJoin('booking', 'booking.id = activity.booking_id')
+            ->where([
+                'kind' => Activity::KIND_VACCINATED,
+                'period_id' => 2
+            ])->count();
+
+
+        $data = [
+            'employee_all' => number_format($employee_all),
+            'employee_not_booked' => number_format($employee_all - $booked_all),
+            'booked_all' => number_format($booked_all),
+            'booked_bpk' => $booked_bpk,
+            'booked_wgr' => $booked_wgr,
+            'vaccinated_all' => $vaccinated_all,
+            'vaccinated_bpk' => $vaccinated_bpk,
+            'vaccinated_wgr' => $vaccinated_wgr,
+        ];
+
+        return $this->render('wgr', [
             'data' => $data,
         ]);
     }
