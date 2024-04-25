@@ -32,15 +32,17 @@ foreach ($slots as $slot) {
       $infoButton = '';
 
       $slotAvailableStyle = '';
+      $slotAvailableDateStyle = '';
       if ($slotAvailable == 0) {
-        $slotAvailableStyle = 'btn-outline-secondary';
+        $slotAvailableStyle = 'btn-outline-light';
+        $slotAvailableDateStyle = 'bg-secondary bg-gradient';
       } else if ($slotAvailable != $slotInfoValue['quota']) {
         $slotAvailableStyle = 'bg-sky text-white';
       } else {
         $slotAvailableStyle = 'btn-outline-primary';
       }
 
-      $rowInfo .= '<td class="active">
+      $rowInfo .= '<td class="active ' . $slotAvailableDateStyle . '">
                   <h4><span class="badge bg-primary text-white fw-normal fs-5 px-3">' . $slotInfoValue['quota'] . '</span></h4>
 
                   <h4><span class="btn fs-5 ' . $slotAvailableStyle . ' fw-normal px-3 py-0">' . $slotAvailable . '</span></h4>
