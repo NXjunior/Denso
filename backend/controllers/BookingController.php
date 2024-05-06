@@ -4,12 +4,14 @@ namespace backend\controllers;
 
 use common\models\Activity;
 use common\models\Booking;
+use common\models\BookingMeta;
 use common\models\BookingSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 
 /**
  * BookingController implements the CRUD actions for Booking model.
@@ -103,6 +105,27 @@ class BookingController extends Controller
             'booking_id' => $id,
             'kind' => (string) Activity::KIND_VACCINATED
         ])->one();
+
+
+        if (Yii::$app->request->isPost) {
+            if (Yii::$app->request->post('Booking')) {
+                $post = Yii::$app->request->post();
+                $metas = $post['Booking']['meta'];
+
+                foreach ($metas as $metaKey => $metaValue) {
+                    $metaModel = BookingMeta::find()
+                        ->where(['booking_id' => $id, 'meta_key' => $metaKey])
+                        ->one();
+                    $metaModel->meta_value = $metaValue;
+                    if (!$metaModel->save()) {
+                        dump($metaModel->errors);
+                        exit();
+                    }
+                }
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
 
 
         return $this->render('view', [

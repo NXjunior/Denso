@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+// use yii\widgets\DetailView;
+use kartik\detail\DetailView;
 use common\models\Activity;
 use common\models\Booking;
 
@@ -27,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->disableTitleDisplay = true;
 
 
-$activityButton = Html::a('<i class="fa-solid fa-syringe"></i> ' . (isset($activityModel->id) ? 'ยกเลิก' : 'บันทึก'), ['/booking/vaccinated', 'id' => $model->id], ['class' => 'btn ' . (isset($activityModel->id) ? 'btn-outline-danger' : 'btn-success text-white') . ' btn-lg shadow mt-4 mb-4 fs-4']);
+$activityButton = Html::a('<i class="fa-solid fa-syringe"></i> ' . (isset($activityModel->id) ? 'ยกเลิก' : 'บันทึก'), ['/booking/vaccinated', 'id' => $model->id], ['class' => 'btn ' . (isset($activityModel->id) ? 'btn-outline-warning' : 'btn-success text-white') . ' btn-lg shadow mt-4 mb-4 fs-4']);
 ?>
 
 <div class="row g-4">
@@ -172,46 +173,91 @@ $activityButton = Html::a('<i class="fa-solid fa-syringe"></i> ' . (isset($activ
     <div class="col-12 col-sm-6 col-xl-6 col-xxl-6">
         <div class="card mb-4">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-12 mb-2">
-                        <div class="text-body-secondary text-start">
-                            <div class="fs-4 fw-semibold"><i class="fa-regular fa-file-check fa-xl"></i> ข้อมูล Consent</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 mb-2">
-                        <table class="table table-striped table-hover">
-                            <tbody>
-                                <tr>
-                                    <th scope="row"><u>ไม่มี</u> ประวัติแพ้ไข่ไก่อย่างรุนแรง </th>
-                                    <td>
-                                        <?php echo badgeYesNo($model->meta['allergic_egg'] == 1 ? 'success' : 'warning', $model->meta['allergic_egg']) ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><u>ไม่มี</u> ไข้ หรือกำลังเจ็บป่วยเฉียบพลัน </th>
-                                    <td>
-                                        <?php echo badgeYesNo($model->meta['fever'] == 1 ? 'success' : 'warning', $model->meta['fever']) ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><u>เคย</u> ได้รับวัคซีนป้องกันไข้หวัดใหญ่มาก่อน</th>
-                                    <td>
-                                        <?php echo badgeYesNo($model->meta['had_vaccine_before'] == 1 ? 'success' : 'warning', $model->meta['had_vaccine_before']) ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><u>ไม่เคยมี</u> ประวัติการเกิดภาวะ Guillain-Barre Syndrome (กล้ามเนื้ออ่อนแรงเฉียบพลัน)
-                                    </th>
-                                    <td>
-                                        <?php echo badgeYesNo($model->meta['guillain_barre_syndrome'] == 1 ? 'success' : 'warning', $model->meta['guillain_barre_syndrome']) ?>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <?php echo DetailView::widget([
+                    'model' => $model,
+                    'mode' => Yii::$app->request->get('edit') == 't' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
+                    'attributes' => [
+                        [
+                            'label' => '<u>ไม่มี</u> ประวัติแพ้ไข่ไก่อย่างรุนแรง',
+                            'attribute' => 'meta[allergic_egg]',
+                            'format' => 'raw',
+                            'value' => function () use ($model) {
+                                return badgeYesNo($model->meta['allergic_egg'] == 1 ? 'success' : 'warning', $model->meta['allergic_egg']);
+                            },
+                            'type' => DetailView::INPUT_SWITCH,
+                            'widgetOptions' => [
+                                'pluginOptions' => [
+                                    'onText' => 'Yes',
+                                    'offText' => 'No',
+                                    'onColor' => 'success',
+                                    'offColor' => 'warning',
+                                ]
+                            ],
+                            'valueColOptions' => ['style' => 'width:10%'],
+                        ],
+                        [
+                            'label' => '<u>ไม่มี</u> ไข้ หรือกำลังเจ็บป่วยเฉียบพลัน',
+                            'attribute' => 'meta[fever]',
+                            'format' => 'raw',
+                            'value' => function () use ($model) {
+                                return badgeYesNo($model->meta['fever'] == 1 ? 'success' : 'warning', $model->meta['fever']);
+                            },
+                            'type' => DetailView::INPUT_SWITCH,
+                            'widgetOptions' => [
+                                'pluginOptions' => [
+                                    'onText' => 'Yes',
+                                    'offText' => 'No',
+                                    'onColor' => 'success',
+                                    'offColor' => 'warning',
+                                ]
+                            ],
+                            'valueColOptions' => ['style' => 'width:10%'],
+                        ],
+                        [
+                            'label' => '<u>เคย</u> ได้รับวัคซีนป้องกันไข้หวัดใหญ่มาก่อน',
+                            'attribute' => 'meta[had_vaccine_before]',
+                            'format' => 'raw',
+                            'value' => function () use ($model) {
+                                return badgeYesNo($model->meta['had_vaccine_before'] == 1 ? 'success' : 'warning', $model->meta['had_vaccine_before']);
+                            },
+                            'type' => DetailView::INPUT_SWITCH,
+                            'widgetOptions' => [
+                                'pluginOptions' => [
+                                    'onText' => 'Yes',
+                                    'offText' => 'No',
+                                    'onColor' => 'success',
+                                    'offColor' => 'warning',
+                                ]
+                            ],
+                            'valueColOptions' => ['style' => 'width:10%'],
+                        ],
+                        [
+                            'label' => '<u>ไม่เคยมี</u> ประวัติการเกิดภาวะ Guillain-Barre Syndrome (กล้ามเนื้ออ่อนแรงเฉียบพลัน)',
+                            'attribute' => 'meta[guillain_barre_syndrome]',
+                            'format' => 'raw',
+                            'value' => function () use ($model) {
+                                return badgeYesNo($model->meta['guillain_barre_syndrome'] == 1 ? 'success' : 'warning', $model->meta['guillain_barre_syndrome']);
+                            },
+                            'type' => DetailView::INPUT_SWITCH,
+                            'widgetOptions' => [
+                                'pluginOptions' => [
+                                    'onText' => 'Yes',
+                                    'offText' => 'No',
+                                    'onColor' => 'success',
+                                    'offColor' => 'warning',
+                                ]
+                            ],
+                            'valueColOptions' => ['style' => 'width:10%'],
+                        ],
+                    ],
+                    'panel' => [
+                        'heading' => '<div class="text-body-secondary text-start py-2">
+                        <div class="fs-4 fw-semibold"><i class="fa-regular fa-file-check fa-xl"></i> ข้อมูล Consent</div>
+                    </div>',
+                        'type' => DetailView::TYPE_LIGHT,
+                    ],
+                    'buttons1' => '{update}',
+                ]) ?>
             </div>
         </div>
     </div>
