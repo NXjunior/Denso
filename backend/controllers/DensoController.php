@@ -18,7 +18,7 @@ class DensoController extends \yii\web\Controller
         $sql = "SELECT p.id, p.name,
                     CASE WHEN SUM(s.quota) is not null THEN SUM(s.quota) ELSE 0 END AS quota,
                     CASE WHEN SUM(booked.amount) > 0 THEN SUM(booked.amount) ELSE 0 END AS booked,
-                    CASE WHEN SUM(s.quota) is not null THEN (CASE WHEN SUM(booked.amount) > 0 THEN SUM(booked.amount) ELSE 0 END)/SUM(s.quota) ELSE 0 END AS percent
+                    CASE WHEN SUM(s.quota) is not null THEN (CASE WHEN SUM(booked.amount) > 0 THEN SUM(booked.amount) ELSE 0 END)/SUM(s.quota)*100 ELSE 0 END AS percent
                 FROM period p
                 INNER JOIN company c ON p.company_id = :companyId
                 LEFT JOIN slot s ON s.period_id = p.id
