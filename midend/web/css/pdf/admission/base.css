@@ -1,0 +1,665 @@
+* {
+  font-size: 13px;
+}
+
+h2,h3,h4,h5 {margin:0;}
+h2,h3,h4 {font-weight: bold;}
+
+h4 {font-size:large}
+/* table {
+  margin-left: 12px;
+  width: 630px;
+  text-align: center;
+  border-collapse: collapse;
+} */
+
+
+table {
+  /* border: 0.5mm solid black; */
+  border-collapse: collapse;
+}
+
+thead th {
+  background-color:#d1d1d1;
+}
+td, th {
+  padding: 1mm;
+  /* border:  0.5mm solid black; */
+}
+
+table.small, table.small thead th,  table.small tbody td{
+  font-size: 90%;
+  padding:0.5mm;
+}
+
+strong{
+  font-weight: bold;
+}
+
+h3.normal{
+  font-weight: normal;
+}
+.col-centered{
+  float: none;
+  margin: 0 auto;
+}
+.invert {
+  background:#25383C;
+  color:#fff;
+}
+
+.row {
+  margin-left: 60px;
+}
+
+.col-right {
+  margin-right: 48px;
+}
+.no-padding {
+  padding: 0;
+}
+.no-margin {
+  margin: 0px;
+}
+.p-10{
+  padding-left: 1px;
+  margin-right: 10px;
+}
+.m-10{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.colID {
+  width: 5%;
+}
+
+.colSub {
+  width: 12%;
+}
+
+.colScore {
+  width: 8%;
+}
+
+.topicH2 {
+  margin: 0;
+}
+
+.topicP,
+.subHeader,
+.workspace {
+  font-size: 16px;
+}
+
+.topicP {
+  margin-top: 0px;
+}
+
+.header {
+  margin: 0;
+  height: 150px;
+}
+
+.hLeft {
+  margin-left: 14mm;
+  width: 150px;
+}
+
+/* img {
+  width: 60px;
+  height: 80px;
+  margin-top: 20px;
+} */
+
+.logo{
+  margin-top: 5px;
+}
+.profile_image {
+  height: 160px;
+  width: 120px;
+}
+
+.profile_image_medium {
+  display:block;
+  height: 156px;
+  width: 117px;
+}
+.profile_image_fix {
+  display:block;
+  position:absolute;
+  top: 40px;
+  right: 40px;
+  background-color: white;
+}
+.img {
+  border: 1px solid black;
+  height: 160px;
+  width: 120px;
+}
+
+.img-hidden {
+  border: 1px solid white;
+  width: 132px;
+  height: 170px;
+  float: left;
+  color: #fff;
+}
+
+.ticket {
+  width: 49.5%;
+  border: 1px solid black;
+  float: left;
+}
+
+.hCenter {
+  width: 105mm;
+  margin: 0;
+}
+
+.hRight {
+  margin: 0;
+  font-size: 16px;
+}
+
+.subHeader,
+.workspace {
+  width: 184.8mm;
+  margin: 0 9mm 0 16.2mm;
+}
+
+.subHeader {
+  border-bottom: 1px solid black;
+}
+
+.workspace {
+  height: 133mm;
+}
+
+.footer {
+  margin-top: 20px;
+}
+
+.typeRegis {
+  margin: 0.4mm 0 0 275px;
+}
+
+.dataStudent {
+  margin: 0.4mm 0 0 3mm;
+  width: 150px;
+  padding: 0 auto;
+}
+
+.content {
+  margin: 5px 0 0 0;
+}
+
+.education {
+  width: 179mm;
+  margin-left: 5.4mm;
+}
+
+.parent {
+  width: 100%;
+  height: 20mm;
+  margin-top: 0px;
+}
+
+.detail-top {
+  padding-left: 15px;
+  margin: 0;
+}
+
+.leftProfileParent {
+  width: 240px;
+  height: 15mm;
+}
+
+.rightProfileParent {
+  width: 110mm;
+  height: 15mm;
+}
+
+.contentBottom {
+  width: 100%;
+  height: 20mm;
+}
+
+.leftPart,
+.rightPart {
+  width: 50%;
+  height: 40px;
+  margin-bottom: 0;
+}
+
+.barcodeLetter {
+  margin: -8px 0 0 0;
+  letter-spacing: 10px;
+  font-size: 16px !important;
+}
+
+.leftFooter,
+.rightFooter {
+  margin-bottom: 10px;
+}
+
+.leftFooter {
+  width: 29%;
+}
+
+.rightFooter {
+  width: 70%;
+}
+
+.leftSubFooter {
+  width: 120px;
+}
+
+.rightSubFooter {
+  width: 578px;
+}
+
+.leftSubFooter,
+.rightSubFooter {
+  height: 100px;
+  font-size: 16px !important;
+}
+
+.contentLeftFooter,
+.contentRightFooter {
+  width: 100%;
+  height: 155px;
+}
+
+.barcode {
+  margin: 30px 0 0 0;
+}
+
+/*ส่วนแสดงหน้ากระดาษ A4*/
+.wrap {
+  background: rgb(150, 150, 150);
+}
+
+.page {
+  background: white;
+  display: block;
+  margin: 1cm auto;
+  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.7);
+}
+
+.A4 {
+  width: 21cm;
+  height: 29.7cm;
+}
+
+@media print {
+  @page {
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+  }
+
+  body,
+  .page {
+    margin: 0;
+    box-shadow: 0px 0px;
+  }
+}
+
+/*templet*/
+
+.borderB {
+  border: 1px solid black;
+}
+
+.borderW {
+  border: 1px solid white;
+}
+
+.borderTop {
+  border-top: 1px solid black;
+}
+
+.borderLeft {
+  border-left: 1px solid black;
+}
+
+.borderRight {
+  border-right: 1px solid black;
+}
+
+.borderBottom {
+  border-bottom: 1px solid black;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.fLeft {
+  float: left;
+}
+
+.fRight {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+.space1 {
+  word-spacing: 10px;
+}
+
+.space2 {
+  word-spacing: 20px;
+}
+
+.tab1 {
+  word-spacing: 40px;
+}
+
+.tab2 {
+  word-spacing: 80px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.underline {
+  text-decoration: black underline dotted;
+  font-size: 24px;
+}
+
+.paragraph {
+  margin: 0 0 0 16.2mm;
+}
+
+.margin0 {
+  margin: 0 0 0 0;
+}
+
+.padding0 {
+  padding: 0;
+}
+
+
+dl {
+  margin: 0px 0 0 -10px;
+  padding: 0px;
+}
+
+dl dt {
+  /* background: #5f9be3;
+  color: #fff; */
+  float: left;
+  font-weight: normal;
+  padding: 3px 0 0 0;
+  margin-left: 10px;
+}
+
+dl dd {
+  padding: 0px;
+  margin: 0px;
+  /* padding-top: 2px; */
+  /* margin-right: 20px; */
+  position: absolute;
+  float: left;
+  /* background: #ff9be1; */
+  text-align: center;
+  border-bottom: 1.2px dotted black;
+  border-spacing: 0px;
+  box-sizing: none;
+  padding-bottom: -5px;
+}
+
+dl dd.noborder {
+  padding: 0px;
+  margin: 0px;
+  /* position: absolute; */
+  float: left;
+  text-align: center;
+  box-sizing: none;
+  /* padding-bottom: -5px; */
+  border-bottom: none;
+}
+
+.section {
+  font-size: 120%;
+  margin: 0;
+  text-decoration: underline;
+}
+
+span.borderB {
+  display: block;
+}
+
+.borderB {
+  border: 1px solid black;
+}
+
+.borderW {
+  border: 1px solid white;
+}
+
+.borderTop {
+  border-top: 1px solid black;
+}
+
+.borderLeft {
+  border-left: 1px solid black;
+}
+
+.borderRight {
+  border-right: 1px solid black;
+}
+
+.borderBottom {
+  border-bottom: 1px solid black;
+}
+
+.borderDoubleB {
+  border: 1.5px solid black;
+}
+
+.header {
+  margin: 0;
+  /* height: 100px; */
+}
+
+.hLeft {
+  margin-left: 0mm;
+  width: 43%;
+}
+
+img {
+  width: 60px;
+  height: 80px;
+  margin-top: 10px;
+}
+
+.hCenter {
+  width: 31%;
+  margin: 0;
+}
+
+.hRight {
+  margin-right: 0px;
+  width: 25%;
+  /* border: 1.5px solid black; */
+}
+
+.block {
+  display: block;
+  border: 1px solid black;
+  /* padding: 15px; */
+  width: 30px;
+  margin: 0;
+  padding: 0px;
+}
+
+.overmask {
+  position: absolute;
+}
+
+
+#school_code {
+  left: 622px;
+  top: 92px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#gender_male {
+  left: 131px;
+  top: 500px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#gender_female {
+  left: 192px;
+  top: 500px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#transport_walk {
+  left: 176px;
+  top: 80px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#transport_nofee {
+  left: 247px;
+  top: 80px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#transport_withfee {
+  left: 407px;
+  top: 80px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#family_status_marriage_certificate {
+  left: 28px;
+  top: 144px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#family_status_marriage {
+  left: 208px;
+  top: 144px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#family_status_single {
+  left: 412px;
+  top: 144px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#family_status_separate {
+  left: 461px;
+  top: 144px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#family_status_father_passed_away {
+  left: 545px;
+  top: 144px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#family_status_mother_passed_away {
+  left: 28px;
+  top: 163px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#family_status_remarry {
+  left: 155px;
+  top: 163px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#family_status_divorce {
+  left: 332px;
+  top: 163px;
+  font-size: 18px;
+  letter-spacing: 0.31em;
+}
+
+#registrant_citizen {
+  left: 232px;
+  top: 586px;
+  font-size: 18px;
+  letter-spacing: 0.29em;
+}
+
+#dad_citizen {
+  left: 538px;
+  top: 737px;
+  font-size: 18px;
+  letter-spacing: 0.29em;
+}
+
+#mom_citizen {
+  left: 548px;
+  top: 827px;
+  font-size: 18px;
+  letter-spacing: 0.29em;
+}
+
+#parent_citizen {
+  /* left: 648px;
+  top: 366px; */
+  font-size: 18px;
+  letter-spacing: 0.29em;
+  margin-top: -30px;
+  margin-left: 118px;
+}
+
+#relativeDad {
+  margin-top: -29px;
+  margin-left: 76px;
+}
+
+#relativeMom {
+  margin-top: -27px;
+  margin-left: 134px;
+}
+
+#relativeOther {
+  margin-top: -27px;
+  margin-left: 206px;
+}
