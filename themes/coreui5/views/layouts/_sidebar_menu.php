@@ -1,4 +1,12 @@
 <ul class="sidebar-nav" data-coreui="navigation" data-simplebar id="side-nav">
+    <li class="nav-title">Junior</li>
+    <li class="nav-item">
+        <a class="nav-link" href="/vehicle-request"><i class="nav-icon fa-regular fa-address-book fa-lg"></i> Vehicle Request</a>
+    </li>
+    <li class="nav-divider"></li>
+
+    <li class="nav-title">Denso Backend</li>
+
     <li class="nav-item">
         <a class="nav-link" href="/"><i class="nav-icon fa-regular fa-house"></i> หน้าแรก</a>
     </li>
