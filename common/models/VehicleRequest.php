@@ -30,7 +30,7 @@ class VehicleRequest extends \yii\db\ActiveRecord
     const STATUS_APPROVED = 20;
     const STATUS_REQUEST = 10;
     const STATUS_REJECT = -1;
-    const STATUS_A = -2;
+    const STATUS_REVOKE = -2;
     /**
      * {@inheritdoc}
      */
