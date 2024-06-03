@@ -14,8 +14,9 @@ class m240530_102853_addVehicle extends Migration
     {
         $this->createTable('vehicle',[
             'id' => $this->primaryKey(),
-            'requested_member_id' => $this->integer()->notNull(),
-            'licencer_member_id' => $this->integer(),
+            'requested_id' => $this->integer()->notNull(),
+            'requested_type' => $this->smallInteger(),
+            'licencer_id' => $this->integer(),
             'type' => $this->string(),
             'brand' => $this->string(),
             'model' => $this->string(),

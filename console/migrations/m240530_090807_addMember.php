@@ -24,10 +24,10 @@ class m240530_090807_addMember extends Migration
             'moo' => $this->string(),
             'soi' => $this->string(),
             'road' => $this->string(),
-            'tambon' => $this->string(),
-            'ampher' => $this->string(),
-            'province' => $this->string(),
-            'zip_code' => $this->string(5)
+            'tambon_id' => $this->string(),
+            //'ampher' => $this->string(),
+            //'province' => $this->string(),
+            //'zip_code' => $this->string(5)
         ]);
     }
 
