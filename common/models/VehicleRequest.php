@@ -24,6 +24,7 @@ use Yii;
  */
 class VehicleRequest extends \yii\db\ActiveRecord
 {
+<<<<<<< HEAD
     const ROLE_STUDENT = 10;
     const ROLE_TEACHER = 20;
     const USER_ID = 1;
@@ -31,6 +32,8 @@ class VehicleRequest extends \yii\db\ActiveRecord
     const STATUS_REQUEST = 10;
     const STATUS_REJECT = -1;
     const STATUS_A = -2;
+=======
+>>>>>>> 7a199de (create crud controller/models)
     /**
      * {@inheritdoc}
      */
@@ -84,6 +87,7 @@ class VehicleRequest extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'approver']);
     }
 
+<<<<<<< HEAD
     public function getCreatorInfo()
     {
         return $this->hasOne(User::class, ['id' => 'creator']);
@@ -91,6 +95,12 @@ class VehicleRequest extends \yii\db\ActiveRecord
 
     public function getUpdaterInfo()
     {
+=======
+    public function getCreatorInfo(){
+        return $this->hasOne(User::class, ['id' => 'creator']);
+    }
+    public function getUpdaterInfo(){
+>>>>>>> 7a199de (create crud controller/models)
         return $this->hasOne(User::class, ['id' => 'updater']);
     }
 
