@@ -12,11 +12,8 @@ use yii\grid\GridView;
 
 $this->title = 'Vehicle Requests';
 $this->params['breadcrumbs'][] = $this->title;
-<<<<<<< HEAD
 $this->disableTitleDisplay = true;
 
-=======
->>>>>>> 7a199de (create crud controller/models)
 ?>
 <div class="vehicle-request-index">
 
@@ -26,28 +23,20 @@ $this->disableTitleDisplay = true;
         <?= Html::a('Create Vehicle Request', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-<<<<<<< HEAD
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
-=======
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
->>>>>>> 7a199de (create crud controller/models)
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-<<<<<<< HEAD
             [
                 'attribute' => 'vehicle_id',
                 'label' => 'Vehicle'
             ],
-=======
 
-            'id',
-            'vehicle_id',
->>>>>>> 7a199de (create crud controller/models)
             'requested_id',
             'requested_role',
             'approver',
@@ -61,11 +50,8 @@ $this->disableTitleDisplay = true;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, VehicleRequest $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-<<<<<<< HEAD
                 }
-=======
-                 }
->>>>>>> 7a199de (create crud controller/models)
+
             ],
         ],
     ]); ?>
