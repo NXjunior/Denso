@@ -7,9 +7,12 @@ use common\models\VehicleRequestSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+<<<<<<< HEAD
 use common\models\Vehicle;
 use common\models\Province;
 use yii\db\Query;
+=======
+>>>>>>> origin/develop
 
 /**
  * VehicleRequestController implements the CRUD actions for VehicleRequest model.
@@ -71,6 +74,7 @@ class VehicleRequestController extends Controller
     public function actionCreate()
     {
         $model = new VehicleRequest();
+<<<<<<< HEAD
         $modelVehicle = new Vehicle();
         if ($this->request->isPost) {           
             $post = $this->request->post();
@@ -96,13 +100,23 @@ class VehicleRequestController extends Controller
                 exit;
             }
 
+=======
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+>>>>>>> origin/develop
         } else {
             $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
+<<<<<<< HEAD
             'modelVehicle' => $modelVehicle
+=======
+>>>>>>> origin/develop
         ]);
     }
 
@@ -113,7 +127,10 @@ class VehicleRequestController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/develop
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -156,6 +173,7 @@ class VehicleRequestController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+<<<<<<< HEAD
 
     public function actionListProvince($q = null, $id = null)
     {
@@ -181,4 +199,6 @@ class VehicleRequestController extends Controller
 
 
 
+=======
+>>>>>>> origin/develop
 }
