@@ -31,9 +31,10 @@ $this->disableTitleDisplay = true;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'vehicle_id',
+            [
+                'attribute' => 'vehicle_id',
+                'label' => 'Vehicle'
+            ],
             'requested_id',
             'requested_role',
             'approver',

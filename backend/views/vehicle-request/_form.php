@@ -14,7 +14,7 @@ use common\models\Province;
 
 $dataList = Employee::find()->select(['code AS id', 'CONCAT(title, \' \',firstname, \' \', lastname, \' : \', code) AS text'])->andWhere(['company_id' => 1, 'id' => $model->requested_id])->asArray()->all();
 $data = ArrayHelper::map($dataList, 'id', 'text');
-$url = \yii\helpers\Url::to(['/employee/list']);
+$dataurl = \yii\helpers\Url::to(['/employee/list']);
 
 
 $provinceList = Province::find()->select(['id', 'name AS text'])->andWhere(['id' => $modelVehicle->province])->asArray()->all();
@@ -22,7 +22,6 @@ $provinceData = ArrayHelper::map($provinceList, 'id', 'text');
 $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
 
 ?>
-
 <div class="row g-4 justify-content-center mb-3 employee-form">
     <?php $form = ActiveForm::begin(); ?>
     <div class="col-lg-12 col-md-12">
@@ -53,7 +52,7 @@ $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
                                         'errorLoading' => new JsExpression("function () { return 'Waiting for results...'; }"),
                                     ],
                                     'ajax' => [
-                                        'url' => $url,
+                                        'url' => $dataurl,
                                         'dataType' => 'json',
                                         'data' => new JsExpression('function(params) { return {q:params.term}; }')
                                     ],
@@ -108,6 +107,82 @@ $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
                         </div>
                     </div>
                 </div>
+                <div class="row mb-1">               
+                    <div class="col-md">
+                        <?php
+                        echo $form->field($modelVehicle, 'type', [
+                            'inputOptions' => [
+                                
+                                'id' => 'type',
+                                'placeholder' => 'ประเภทรถยนต์',
+                                'maxLength' => 20,
+                            ],
+                            'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
+                        ])->label('ประเภทยานพาหนะ')->hint('') ?>
+                    </div>
+                    <div class="col-md">
+                        <?php
+                        echo $form->field($modelVehicle, 'brand', [
+                            'inputOptions' => [
+                                'id' => 'brand',
+                                'placeholder' => 'ยี่ห้อรถ',
+                                'maxLength' => 20,
+                            ],
+                            'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
+                        ])->label('ยี่ห้อรถ')->hint('') ?>
+                    </div>
+                    
+                </div>
+                <div class="row mb-1">
+                  
+                        <div class="col-md">
+                            <?php
+                            echo $form->field($modelVehicle, 'model', [
+                                'inputOptions' => [
+                                    'id' => 'model',
+                                    'placeholder' => 'รุ่นรถ',
+                                    'maxLength' => 20,
+                                ],
+                                'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
+                            ])->label('รุ่นรถ')->hint('') ?>
+                        </div>
+                        <div class="col-md">
+                            <?php
+                            echo $form->field($modelVehicle, 'color', [
+                                'inputOptions' => [
+                                    'id' => 'color',
+                                    'placeholder' => 'รุ่นรถ',
+                                    'maxLength' => 20,
+                                ],
+                                'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
+                            ])->label('สีรถ')->hint('') ?>
+                        </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-md">
+                        <?php
+                            echo $form->field($modelVehicle, 'image', [
+                                'inputOptions' => [
+                                    'id' => 'image',
+                                    'placeholder' => 'รูปรถ',
+                                    'maxLength' => 20,
+                                ],
+                                'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
+                            ])->label('รูปรถ')->hint('') ?>
+                    </div>
+                    <div class="col-md">
+                        <?php
+                            echo $form->field($modelVehicle, 'plate_image', [
+                                'inputOptions' => [
+                                    'id' => 'plate_image',
+                                    'placeholder' => 'รูปทะเบียน',
+                                    'maxLength' => 20,
+                                ],
+                                'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
+                            ])->label('รูปทะเบียน')->hint('') ?>
+                    </div>
+                </div>
+              
             </div>
 
             <div class="card-footer p-4">
