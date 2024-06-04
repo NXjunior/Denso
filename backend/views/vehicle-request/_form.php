@@ -12,14 +12,14 @@ use common\models\Province;
 /** @var common\models\VehicleRequest $model */
 /** @var yii\widgets\ActiveForm $form */
 
-$dataList = Employee::find()->select(['code AS id', 'CONCAT(title, \' \',firstname, \' \', lastname, \' : \', code) AS text'])->andWhere(['company_id' => 1])->asArray()->all();
+$dataList = Employee::find()->select(['code AS id', 'CONCAT(title, \' \',firstname, \' \', lastname, \' : \', code) AS text'])->andWhere(['company_id' => 1, 'id' => $model->requested_id])->asArray()->all();
 $data = ArrayHelper::map($dataList, 'id', 'text');
 $url = \yii\helpers\Url::to(['/employee/list']);
 
 
-$provinceList = Province::find()->select(['id', 'name AS text'])->asArray()->all();
+$provinceList = Province::find()->select(['id', 'name AS text'])->andWhere(['id' => $modelVehicle->province])->asArray()->all();
 $provinceData = ArrayHelper::map($provinceList, 'id', 'text');
-$url = \yii\helpers\Url::to(['/vehicle-request/list-province']);
+$urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
 
 ?>
 
@@ -37,7 +37,7 @@ $url = \yii\helpers\Url::to(['/vehicle-request/list-province']);
                 <div class="row mb-1">
                     <div class="col-md">
                         <?php
-                        echo $form->field($model, 'requested_id', [])
+                        echo $form->field($model, 'requested_id',  ['template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',])
                             ->widget(Select2::className(), [
                                 'data' => $data,
                                 'size' => Select2::LARGE,
@@ -80,7 +80,7 @@ $url = \yii\helpers\Url::to(['/vehicle-request/list-province']);
                     </div>
                     <div class="col-md">
                         <div class="col-md">
-                            <?php echo $form->field($modelVehicle, 'province', [])
+                            <?php echo $form->field($modelVehicle, 'province', ['template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',])
                                 ->widget(Select2::className(), [
                                     'data' => $provinceData,
                                     'size' => Select2::LARGE,
@@ -96,7 +96,7 @@ $url = \yii\helpers\Url::to(['/vehicle-request/list-province']);
                                             'errorLoading' => new JsExpression("function () { return 'Waiting for results...'; }"),
                                         ],
                                         'ajax' => [
-                                            'url' => $url,
+                                            'url' => $urlProvince,
                                             'dataType' => 'json',
                                             'data' => new JsExpression('function(params) { return {q:params.term}; }')
                                         ],
