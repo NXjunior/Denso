@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\Employee;
 
 /**
  * This is the model class for table "vehicle_request".
@@ -24,16 +25,41 @@ use Yii;
  */
 class VehicleRequest extends \yii\db\ActiveRecord
 {
-<<<<<<< HEAD
-    const ROLE_STUDENT = 10;
-    const ROLE_TEACHER = 20;
     const USER_ID = 1;
     const STATUS_APPROVED = 20;
     const STATUS_REQUEST = 10;
     const STATUS_REJECT = -1;
     const STATUS_A = -2;
-=======
->>>>>>> 7a199de (create crud controller/models)
+    const ROLE_STUDENT = 10;
+    const ROLE_TEACHER = 20;
+    
+    
+    public function getRoleList(){
+        return [
+            self::ROLE_STUDENT=> 'นักเรียน',
+            self::ROLE_TEACHER=> 'ครู',
+        ];
+    }
+
+    public function getRoleName(){
+        $roles = self::getRoleList();
+        return isset($roles[$this->requested_role]) ? $roles[$this->requested_role] : 'unknown';
+    }
+
+    public function getStatusList(){
+        return [
+            self::STATUS_APPROVED => 'อนุญาต',
+            self::STATUS_REQUEST => 'รอตอบรับ',
+            self::STATUS_REJECT => 'ไม่ผ่าน',
+            self::STATUS_A => 'เปลี่ยนเจ้าของ',
+        ];
+    }
+
+    public function getStatusName(){
+        $status = self::getStatusList();
+        return isset($status[$this->status]) ? $status[$this->status] : 'unknown';
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -87,7 +113,6 @@ class VehicleRequest extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'approver']);
     }
 
-<<<<<<< HEAD
     public function getCreatorInfo()
     {
         return $this->hasOne(User::class, ['id' => 'creator']);
@@ -95,13 +120,11 @@ class VehicleRequest extends \yii\db\ActiveRecord
 
     public function getUpdaterInfo()
     {
-=======
-    public function getCreatorInfo(){
-        return $this->hasOne(User::class, ['id' => 'creator']);
-    }
-    public function getUpdaterInfo(){
->>>>>>> 7a199de (create crud controller/models)
         return $this->hasOne(User::class, ['id' => 'updater']);
+    }
+
+    public function getEmployeeInfo(){
+        return $this->hasOne(Employee::class,['id' => 'requested_id']);
     }
 
     /**

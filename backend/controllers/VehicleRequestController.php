@@ -7,12 +7,9 @@ use common\models\VehicleRequestSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-<<<<<<< HEAD
 use common\models\Vehicle;
 use common\models\Province;
 use yii\db\Query;
-=======
->>>>>>> 7a199de (create crud controller/models)
 
 /**
  * VehicleRequestController implements the CRUD actions for VehicleRequest model.
@@ -45,11 +42,13 @@ class VehicleRequestController extends Controller
     public function actionIndex()
     {
         $searchModel = new VehicleRequestSearch();
+        $model = new VehicleRequest();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'queryParams' => $this->request->queryParams,
+            'model' => $model,
         ]);
     }
 
@@ -74,7 +73,6 @@ class VehicleRequestController extends Controller
     public function actionCreate()
     {
         $model = new VehicleRequest();
-<<<<<<< HEAD
         $modelVehicle = new Vehicle();
         if ($this->request->isPost) {           
             $post = $this->request->post();
@@ -100,23 +98,13 @@ class VehicleRequestController extends Controller
                 exit;
             }
 
-=======
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
->>>>>>> 7a199de (create crud controller/models)
         } else {
             $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
-<<<<<<< HEAD
             'modelVehicle' => $modelVehicle
-=======
->>>>>>> 7a199de (create crud controller/models)
         ]);
     }
 
@@ -127,20 +115,42 @@ class VehicleRequestController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-<<<<<<< HEAD
     
-=======
->>>>>>> 7a199de (create crud controller/models)
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelVehicle = $model->vehicle;
+        if ($this->request->isPost) {        
+            $post = $this->request->post();
+            if($modelVehicle->load($post) && $model->load($post)){
+                if($modelVehicle->save()){
+                    $model->vehicle_id = $modelVehicle->id;
+                    $model->requested_role = VehicleRequest::ROLE_STUDENT;
+                    $model->creator = VehicleRequest::USER_ID;
+                    $model->status = VehicleRequest::STATUS_REQUEST;
+                    if($model->save()){
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }else{
+                        dump($model->errors);
+                        exit;
+                    }
+                }else{
+                    dump($modelVehicle->errors);
+                    exit;
+                }
+            }else{
+                dump($model->errors);
+                dump($modelVehicle->errors);
+                exit;
+            }
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            $model->loadDefaultValues();
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelVehicle' => $model->vehicle
         ]);
     }
 
@@ -173,7 +183,6 @@ class VehicleRequestController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-<<<<<<< HEAD
 
     public function actionListProvince($q = null, $id = null)
     {
@@ -199,6 +208,4 @@ class VehicleRequestController extends Controller
 
 
 
-=======
->>>>>>> 7a199de (create crud controller/models)
 }

@@ -172,7 +172,7 @@ class EmployeeController extends Controller
         $out = ['results' => ['id' => '', 'text' => '']];
         if (!is_null($q)) {
             $query = new Query;
-            $query->select(['code AS id', 'CONCAT(title, \' \',firstname, \' \', lastname, \' : \', code) AS text'])
+            $query->select(['id', 'CONCAT(title, \' \',firstname, \' \', lastname, \' : \', code) AS text'])
                 ->from('employee')
                 ->where([
                     'or',

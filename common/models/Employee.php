@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use yii\web\IdentityInterface;
+use common\models\VehicleRequest;
 
 /**
  * This is the model class for table "employee".
@@ -251,5 +252,9 @@ class Employee extends \yii\db\ActiveRecord implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         return false;
+    }
+
+    public function getVehicleRequests(){
+        return $this->hasMany(VehicleRequest::class(),['requested_id' => 'id']);
     }
 }

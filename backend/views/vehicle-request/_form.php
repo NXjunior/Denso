@@ -1,23 +1,18 @@
 <?php
 
 use yii\helpers\Html;
-<<<<<<< HEAD
 use \kartik\form\ActiveForm;
 use common\models\Employee;
 use kartik\select2\Select2;
 use yii\web\JsExpression;
 use yii\helpers\ArrayHelper;
 use common\models\Province;
-=======
-use yii\widgets\ActiveForm;
->>>>>>> 7a199de (create crud controller/models)
 
 /** @var yii\web\View $this */
 /** @var common\models\VehicleRequest $model */
 /** @var yii\widgets\ActiveForm $form */
-<<<<<<< HEAD
 
-$dataList = Employee::find()->select(['code AS id', 'CONCAT(title, \' \',firstname, \' \', lastname, \' : \', code) AS text'])->andWhere(['company_id' => 1, 'id' => $model->requested_id])->asArray()->all();
+$dataList = Employee::find()->select(['id', 'CONCAT(title, \' \',firstname, \' \', lastname, \' : \', code) AS text'])->andWhere(['company_id' => 1, 'id' => $model->requested_id])->asArray()->all();
 $data = ArrayHelper::map($dataList, 'id', 'text');
 $dataurl = \yii\helpers\Url::to(['/employee/list']);
 
@@ -25,6 +20,9 @@ $dataurl = \yii\helpers\Url::to(['/employee/list']);
 $provinceList = Province::find()->select(['id', 'name AS text'])->andWhere(['id' => $modelVehicle->province])->asArray()->all();
 $provinceData = ArrayHelper::map($provinceList, 'id', 'text');
 $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
+
+
+$typelist = $modelVehicle->getTypeList();
 
 ?>
 <div class="row g-4 justify-content-center mb-3 employee-form">
@@ -117,13 +115,14 @@ $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
                         <?php
                         echo $form->field($modelVehicle, 'type', [
                             'inputOptions' => [
-                                
                                 'id' => 'type',
-                                'placeholder' => 'ประเภทรถยนต์',
-                                'maxLength' => 20,
                             ],
                             'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
-                        ])->label('ประเภทยานพาหนะ')->hint('') ?>
+                        ])->dropDownList([
+                            $typelist,
+                            
+                        ])
+                        ->label('ประเภทยานพาหนะ')->hint('') ?>
                     </div>
                     <div class="col-md">
                         <?php
@@ -205,38 +204,3 @@ $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
     </div>
     <?php ActiveForm::end(); ?>
 </div>
-=======
-?>
-
-<div class="vehicle-request-form">
-
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'vehicle_id')->textInput() ?>
-
-    <?= $form->field($model, 'requested_id')->textInput() ?>
-
-    <?= $form->field($model, 'requested_role')->textInput() ?>
-
-    <?= $form->field($model, 'approver')->textInput() ?>
-
-    <?= $form->field($model, 'approved_at')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'creator')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updater')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
-</div>
->>>>>>> 7a199de (create crud controller/models)
