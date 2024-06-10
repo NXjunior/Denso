@@ -36,7 +36,6 @@ $this->disableTitleDisplay = true;
                 'attribute' => 'vehicle_id',
                 'label' => 'Vehicle'
             ],
-
             'requested_id',
             'requested_role',
             'approver',
