@@ -25,13 +25,13 @@ use common\models\Employee;
  */
 class VehicleRequest extends \yii\db\ActiveRecord
 {
+    const ROLE_STUDENT = 10;
+    const ROLE_TEACHER = 20;
     const USER_ID = 1;
     const STATUS_APPROVED = 20;
     const STATUS_REQUEST = 10;
     const STATUS_REJECT = -1;
     const STATUS_A = -2;
-    const ROLE_STUDENT = 10;
-    const ROLE_TEACHER = 20;
     
     
     public function getRoleList(){

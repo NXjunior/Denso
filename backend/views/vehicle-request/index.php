@@ -19,6 +19,12 @@ $this->disableTitleDisplay = true;
 ?>
 <div class="vehicle-request-index">
 
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Create Vehicle Request', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
 
