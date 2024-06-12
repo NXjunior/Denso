@@ -7,12 +7,12 @@ use kartik\select2\Select2;
 use yii\web\JsExpression;
 use yii\helpers\ArrayHelper;
 use common\models\Province;
-
+use kartik\file\FileInput;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var common\models\VehicleRequest $model */
 /** @var yii\widgets\ActiveForm $form */
-
 $dataList = Employee::find()->select(['id', 'CONCAT(title, \' \',firstname, \' \', lastname, \' : \', code) AS text'])->andWhere(['company_id' => 1, 'id' => $model->requested_id])->asArray()->all();
 $data = ArrayHelper::map($dataList, 'id', 'text');
 $dataurl = \yii\helpers\Url::to(['/employee/list']);
@@ -23,6 +23,7 @@ $provinceData = ArrayHelper::map($provinceList, 'id', 'text');
 $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
 
 ?>
+
 <div class="row g-4 justify-content-center mb-3 employee-form">
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <div class="col-lg-12 col-md-12">
@@ -93,7 +94,6 @@ $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
                                         'class' => 'form-select form-select-lg mb-3',
                                     ],
                                     'pluginOptions' => [
-
                                         'allowClear' => true,
                                         'minimumInputLength' => 2,
                                         'language' => [
@@ -160,24 +160,41 @@ $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
                             ])->label('สีรถ')->hint('') ?>
                         </div>
                 </div>
+            
                 <div class="row mb-1">
+                    
                     <div class="col-md">
-                        <?php
-                            echo $form->field($modelVehicle, 'image', [
-                                'inputOptions' => [
-                                    'id' => 'image',
+                    <?= $form->field($modelVehicle, 'image')->widget(FileInput::classname(), [
+                            'pluginOptions' => [
+                                'showUpload' => false,
+                                'browseLabel' => '',
+                                'removeLabel' => '',
+                                'mainClass' => 'input-group-lg',
+                                'initialPreview' => [
+                                    ($modelVehicle->image != "") ?
+                                    Html::img('/uploads/'.$modelVehicle->image,['style' => 'width:100%;height: 100%;']):null,
                                 ],
-                                'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
-                            ])->fileInput()->label('รูปรถ')->hint('') ?>
+                                'alllowFileExtensions' => ['jpeg','jpg','png'],
+                            ]
+                        ]) ?>
                     </div>
                     <div class="col-md">
-                    <?php
-                            echo $form->field($modelVehicle, 'plate_image', [
-                                'inputOptions' => [
-                                    'id' => 'plate_image',
+                        <?php
+                        $test = '/uploads/'.$modelVehicle->plate_image;
+                        ?>
+                        <?= $form->field($modelVehicle, 'plate_image')->widget(FileInput::classname(), [
+                            'pluginOptions' => [
+                                'showUpload' => false,
+                                'browseLabel' => '',
+                                'removeLabel' => '',
+                                'mainClass' => 'input-group-lg',
+                                'initialPreview' => [
+                                    ($modelVehicle->plate_image != "") ?
+                                    Html::img('/uploads/'.$modelVehicle->plate_image,['style' => 'width:100%;height: 100%;']):null,
                                 ],
-                                'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
-                            ])->fileInput()->label('รูปทะเบียน')->hint('') ?>
+                                'alllowFileExtensions' => ['jpeg','jpg','png'],
+                            ]
+                        ]) ?>
                     </div>
                 </div>
               
@@ -198,3 +215,5 @@ $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
     </div>
     <?php ActiveForm::end(); ?>
 </div>
+
+

@@ -29,6 +29,9 @@ return [
                 'kartik\form\ActiveFormAsset' => [
                     'bsDependencyEnabled' => false // do not load bootstrap assets for a specific asset bundle
                 ],
+                'kartik\file\FileInputAsset' => [
+                    'bsDependencyEnabled' => false
+                ],
                 'kartik\icons\FontAwesomeAsset' => [
                     'sourcePath' => '@vendor/fortawesome/font-awesome',
                 ],

@@ -149,27 +149,32 @@ class VehicleRequestController extends Controller
             
             $this->checkImageInput($modelVehicle,'image');
             $this->checkImageInput($modelVehicle,'plate_image');
-
+            $oldImg = $modelVehicle->image;
+            $oldPlateImg = $modelVehicle->plate_image;
             if($modelVehicle->load($post) && $model->load($post)){
-                $modelVehicle->image = UploadedFile::getInstance($modelVehicle,'image');
-                if($modelVehicle->image){
+                $saveImage = UploadedFile::getInstance($modelVehicle,'image');
+                if($saveImage){
                     $unique_image = uniqid('vehicle_');
-                    $file_type = $modelVehicle->image->extension;
+                    $file_type = $saveImage->extension;
                     $file_image_name = $unique_image.'.'.$file_type;
                     $file_path = Yii::getAlias('@backend/web/uploads');
-                    $modelVehicle->image->saveAs($file_path .'/'. $file_image_name);
+                    $saveImage->saveAs($file_path .'/'. $file_image_name);
                     $modelVehicle->image = $file_image_name;
-                    }
+                }else{
+                    $modelVehicle->image = $oldImg;
+                }
 
-                $modelVehicle->plate_image = UploadedFile::getInstance($modelVehicle,'plate_image');
-                if($modelVehicle->plate_image){
+                $savePlateImage = UploadedFile::getInstance($modelVehicle,'plate_image');
+                if($savePlateImage){
                     $unique_plate_image = uniqid('plate_');
-                    $file_type = $modelVehicle->plate_image->extension;
+                    $file_type = $savePlateImage->extension;
                     $file_plate_name = $unique_plate_image.'.'.$file_type;
                     $file_path = Yii::getAlias('@backend/web/uploads');
-                    $modelVehicle->plate_image->saveAs($file_path .'/'.$file_plate_name);
+                    $savePlateImage->saveAs($file_path .'/'.$file_plate_name);
                     $modelVehicle->plate_image = $file_plate_name;
-                    }
+                }else{
+                    $modelVehicle->plate_image = $oldPlateImg;
+                }
 
                 if($modelVehicle->save()){
                     $model->vehicle_id = $modelVehicle->id;

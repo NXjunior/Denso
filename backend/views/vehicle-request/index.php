@@ -57,8 +57,8 @@ $this->disableTitleDisplay = true;
         ],
         [
             'attribute' => 'requested_role',
-            'label' => 'ประเภทผู้ร้องของ',
-            'filter' => Html::activeDropDownList($searchModel, 'requested_role',$model->getRoleList(),['prompt' => 'ประเภทผู้ร้องของ', 'class' => 'form-select']),
+            'label' => 'ประเภทผู้ร้องขอ',
+            'filter' => Html::activeDropDownList($searchModel, 'requested_role',$model->getRoleList(),['prompt' => 'ประเภทผู้ร้องขอ', 'class' => 'form-select']),
             'value' => function($model){
                 return $model->getRoleName();
             }
@@ -75,7 +75,7 @@ $this->disableTitleDisplay = true;
         ],
         [
             'attribute' => 'creatorUser',
-            'label' => 'ผู้สร้างคำอนุญาต',
+            'label' => 'ผู้สร้างคำขอ',
             'format' => 'raw',
             'value' => function($model)use($queryParams){
                 if(!isset($queryParams['VehicleRequestSearch'])){
@@ -87,7 +87,7 @@ $this->disableTitleDisplay = true;
         ],
         [
             'attribute' => 'approver',
-            'label' => 'ผู้อนุญาติ',
+            'label' => 'อนุมัติ',
             'value' => function($model){
                 return isset($model->approver)?$model->approver : "";
             }
