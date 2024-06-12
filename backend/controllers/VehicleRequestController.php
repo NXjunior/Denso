@@ -146,24 +146,10 @@ class VehicleRequestController extends Controller
         $modelVehicle = $model->vehicle;
         if ($this->request->isPost) {           
             $post = $this->request->post();
-            if(UploadedFile::getInstance($modelVehicle,'image')){
-                // dd($modelVehicle->image);
-                if(isset($modelVehicle->image)){
-                    $path = Yii::getAlias('@backend/web/uploads/');
-                    if(file_exists($path.$modelVehicle->image)){
-                        unlink($path.$modelVehicle->image);
-                    }
-                }
-            }
-            if(UploadedFile::getInstance($modelVehicle,'plate_image')){
-                // dd($modelVehicle->image);
-                if(isset($modelVehicle->plate_image)){
-                    $path = Yii::getAlias('@backend/web/uploads/');
-                    if(file_exists($path.$modelVehicle->plate_image)){
-                        unlink($path.$modelVehicle->plate_image);
-                    }
-                }
-            }
+            
+            $this->checkImageInput($modelVehicle,'image');
+            $this->checkImageInput($modelVehicle,'plate_image');
+
             if($modelVehicle->load($post) && $model->load($post)){
                 $modelVehicle->image = UploadedFile::getInstance($modelVehicle,'image');
                 if($modelVehicle->image){
@@ -273,6 +259,21 @@ class VehicleRequestController extends Controller
         return $out;
     }
 
+public function checkImageInput($modelVehicle,string $input)
+{
+    if(!$input){
+        return false;
+    }
+    if(UploadedFile::getInstance($modelVehicle,$input)){
+        // dd($modelVehicle->image);
+        if($modelVehicle->$input != ""){
+            $path = Yii::getAlias('@backend/web/uploads/');
+            if(file_exists($path.$modelVehicle->$input)){
+                unlink($path.$modelVehicle->$input);
+            }
+        }
+    }
 
+}
 
 }
