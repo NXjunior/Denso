@@ -3,7 +3,8 @@
 namespace common\models;
 
 use Yii;
-
+use common\models\Employee;
+use common\traits\softDeleteTrait;
 /**
  * This is the model class for table "vehicle_request".
  *
@@ -24,6 +25,7 @@ use Yii;
  */
 class VehicleRequest extends \yii\db\ActiveRecord
 {
+    use softDeleteTrait;
     const ROLE_STUDENT = 10;
     const ROLE_TEACHER = 20;
     const USER_ID = 1;
@@ -31,6 +33,49 @@ class VehicleRequest extends \yii\db\ActiveRecord
     const STATUS_REQUEST = 10;
     const STATUS_REJECT = -1;
     const STATUS_REVOKE = -2;
+    const STATUS_DELETE = -3;
+    
+    
+    public function getRoleList(){
+        return [
+            self::ROLE_STUDENT=> 'นักเรียน',
+            self::ROLE_TEACHER=> 'ครู',
+        ];
+    }
+
+    public function getRoleName(){
+        $roles = self::getRoleList();
+        return isset($roles[$this->requested_role]) ? $roles[$this->requested_role] : 'unknown';
+    }
+
+    public function getStatusList(){
+        return [
+            self::STATUS_APPROVED => 'อนุมัติ',
+            self::STATUS_REQUEST => 'รอตอบรับ',
+            self::STATUS_REJECT => 'ไม่ผ่าน',
+            self::STATUS_REVOKE => 'เปลี่ยนเจ้าของ',
+        ];
+    }
+
+    public function getStatusName(){
+        $status = self::getStatusList();
+        switch($this->status){
+            case 20:
+                $output = badge('success',$status[$this->status]);
+                break;
+            case 10:
+                $output = badge('info',$status[$this->status]);
+                break;
+            case -1:
+                $output = badge('danger',$status[$this->status]);
+                break;
+            case -2:
+                $output = badge('warning',$status[$this->status]);
+                break;
+        }
+        return isset($status[$this->status]) ? $output : 'unknown';
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -63,10 +108,10 @@ class VehicleRequest extends \yii\db\ActiveRecord
             'id' => 'ID',
             'vehicle_id' => 'Vehicle ID',
             'requested_id' => 'Requested ID',
-            'requested_role' => 'Requested Role',
+            'requested_role' => 'สถานะผู้ยื่นคำร้อง',
             'approver' => 'Approver',
             'approved_at' => 'Approved At',
-            'status' => 'Status',
+            'status' => 'สถานะใบคำร้อง',
             'creator' => 'Creator',
             'created_at' => 'Created At',
             'updater' => 'Updater',
@@ -92,6 +137,10 @@ class VehicleRequest extends \yii\db\ActiveRecord
     public function getUpdaterInfo()
     {
         return $this->hasOne(User::class, ['id' => 'updater']);
+    }
+
+    public function getEmployeeInfo(){
+        return $this->hasOne(Employee::class,['id' => 'requested_id']);
     }
 
     /**

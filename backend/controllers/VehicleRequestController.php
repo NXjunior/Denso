@@ -10,6 +10,9 @@ use yii\filters\VerbFilter;
 use common\models\Vehicle;
 use common\models\Province;
 use yii\db\Query;
+use Yii;
+use yii\web\UploadedFile;
+use yii\helpers\BaseFileHelper;
 
 /**
  * VehicleRequestController implements the CRUD actions for VehicleRequest model.
@@ -43,10 +46,12 @@ class VehicleRequestController extends Controller
     {
         $searchModel = new VehicleRequestSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
+        $model = new VehicleRequest();
         return $this->render('index', [
+            'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'queryParams' => $this->request->queryParams,
         ]);
     }
 
@@ -74,11 +79,33 @@ class VehicleRequestController extends Controller
         $modelVehicle = new Vehicle();
         if ($this->request->isPost) {           
             $post = $this->request->post();
+        
             if($modelVehicle->load($post) && $model->load($post)){
+              
+                    $modelVehicle->image = UploadedFile::getInstance($modelVehicle,'image');
+                    if($modelVehicle->image){
+                        $unique_image = uniqid('file_');
+                        $file_type = $modelVehicle->image->extension;
+                        $file_image_name = $unique_image.'.'.$file_type;
+                        $file_path = Yii::getAlias('@backend/web/uploads');
+                        $modelVehicle->image->saveAs($file_path .'/'. $file_image_name);
+                        $modelVehicle->image = $file_image_name;
+                    }
+                    $modelVehicle->plate_image = UploadedFile::getInstance($modelVehicle,'plate_image');
+                    if($modelVehicle->plate_image){
+                        $unique_plate_image = uniqid('file_');
+                        $file_type = $modelVehicle->plate_image->extension;
+                        $file_plate_name = $unique_plate_image.'.'.$file_type;
+                        $file_path = Yii::getAlias('@backend/web/uploads');
+                        $modelVehicle->plate_image->saveAs($file_path .'/'. $file_plate_name);
+                        $modelVehicle->plate_image = $file_plate_name;
+                    }
+                
+
                 if($modelVehicle->save()){
                     $model->vehicle_id = $modelVehicle->id;
                     $model->requested_role = VehicleRequest::ROLE_STUDENT;
-                    $model->creator = VehicleRequest::USER_ID;
+                    $model->creator = Yii::$app->user->id;
                     $model->status = VehicleRequest::STATUS_REQUEST;
                     if($model->save()){
                         return $this->redirect(['view', 'id' => $model->id]);
@@ -116,10 +143,73 @@ class VehicleRequestController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelVehicle = $model->vehicle;
+        if ($this->request->isPost) {           
+            $post = $this->request->post();
+            if(UploadedFile::getInstance($modelVehicle,'image')){
+                // dd($modelVehicle->image);
+                if(isset($modelVehicle->image)){
+                    $path = Yii::getAlias('@backend/web/uploads/');
+                    if(file_exists($path.$modelVehicle->image)){
+                        unlink($path.$modelVehicle->image);
+                    }
+                }
+            }
+            if(UploadedFile::getInstance($modelVehicle,'plate_image')){
+                // dd($modelVehicle->image);
+                if(isset($modelVehicle->plate_image)){
+                    $path = Yii::getAlias('@backend/web/uploads/');
+                    if(file_exists($path.$modelVehicle->plate_image)){
+                        unlink($path.$modelVehicle->plate_image);
+                    }
+                }
+            }
+            if($modelVehicle->load($post) && $model->load($post)){
+                $modelVehicle->image = UploadedFile::getInstance($modelVehicle,'image');
+                if($modelVehicle->image){
+                    $unique_image = uniqid('vehicle_');
+                    $file_type = $modelVehicle->image->extension;
+                    $file_image_name = $unique_image.'.'.$file_type;
+                    $file_path = Yii::getAlias('@backend/web/uploads');
+                    $modelVehicle->image->saveAs($file_path .'/'. $file_image_name);
+                    $modelVehicle->image = $file_image_name;
+                    }
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+                $modelVehicle->plate_image = UploadedFile::getInstance($modelVehicle,'plate_image');
+                if($modelVehicle->plate_image){
+                    $unique_plate_image = uniqid('plate_');
+                    $file_type = $modelVehicle->plate_image->extension;
+                    $file_plate_name = $unique_plate_image.'.'.$file_type;
+                    $file_path = Yii::getAlias('@backend/web/uploads');
+                    $modelVehicle->plate_image->saveAs($file_path .'/'.$file_plate_name);
+                    $modelVehicle->plate_image = $file_plate_name;
+                    }
+
+                if($modelVehicle->save()){
+                    $model->vehicle_id = $modelVehicle->id;
+                    $model->requested_role = VehicleRequest::ROLE_STUDENT;
+                    $model->creator = Yii::$app->user->id;
+                    $model->status = VehicleRequest::STATUS_REQUEST;
+                    if($model->save()){
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }else{
+                        dump($model->errors);
+                        exit;
+                    }
+                }else{
+                    dump($modelVehicle->errors);
+                    exit;
+                }
+            }else{
+                dump($model->errors);
+                dump($modelVehicle->errors);
+                exit;
+            }
+
+        } else {
+            $model->loadDefaultValues();
         }
+        
 
         return $this->render('update', [
             'model' => $model,
@@ -135,7 +225,12 @@ class VehicleRequestController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if($model){
+            $model->updater = Yii::$app->user->id;
+            $model->status = VehicleRequest::STATUS_DELETE;
+            $model->save();
+        }
 
         return $this->redirect(['index']);
     }

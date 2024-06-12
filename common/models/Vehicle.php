@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-
+use common\models\Province;
 /**
  * This is the model class for table "vehicle".
  *
@@ -21,6 +21,21 @@ use Yii;
  */
 class Vehicle extends \yii\db\ActiveRecord
 {
+
+    const TYPE_BIKE = 10;
+    const TYPE_CAR = 20;
+
+    public static function getTypeList(){
+        return [
+            self::TYPE_BIKE => 'จักรยานยนต์',
+            self::TYPE_CAR => 'รถยนต์',
+        ];
+    }
+
+    public function getTypeName(){
+        $types = self::getTypeList();
+        return isset($types[$this->type])?$types[$this->type] : 'unknown';
+    }
     /**
      * {@inheritdoc}
      */
@@ -50,14 +65,15 @@ class Vehicle extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'plate' => 'Plate',
+            'plate' => 'ป้ายทะเบียน',
             'province' => 'Province',
-            'type' => 'Type',
-            'brand' => 'Brand',
+            'type' => 'ประเภทยานพาหนะ',
+            'brand' => 'แบรนด์',
             'model' => 'Model',
-            'color' => 'Color',
-            'image' => 'Image',
-            'plate_image' => 'Plate Image',
+            'color' => 'สี',
+            'image' => 'รูปยานพาหนะ',
+            'plate_image' => 'รูปป้ายทะเบียน',
+            'plate_province' => 'จังหวัดป้ายทะเบียน'
         ];
     }
 
@@ -70,4 +86,10 @@ class Vehicle extends \yii\db\ActiveRecord
     {
         return $this->hasMany(VehicleRequest::class, ['vehicle_id' => 'id']);
     }
+    public function getProvinceInfo(){
+        return $this->hasOne(
+            Province::class,['id' => 'province']
+        );
+    }
+
 }

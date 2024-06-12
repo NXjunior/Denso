@@ -8,11 +8,12 @@ use yii\web\JsExpression;
 use yii\helpers\ArrayHelper;
 use common\models\Province;
 
+
 /** @var yii\web\View $this */
 /** @var common\models\VehicleRequest $model */
 /** @var yii\widgets\ActiveForm $form */
 
-$dataList = Employee::find()->select(['code AS id', 'CONCAT(title, \' \',firstname, \' \', lastname, \' : \', code) AS text'])->andWhere(['company_id' => 1, 'id' => $model->requested_id])->asArray()->all();
+$dataList = Employee::find()->select(['id', 'CONCAT(title, \' \',firstname, \' \', lastname, \' : \', code) AS text'])->andWhere(['company_id' => 1, 'id' => $model->requested_id])->asArray()->all();
 $data = ArrayHelper::map($dataList, 'id', 'text');
 $dataurl = \yii\helpers\Url::to(['/employee/list']);
 
@@ -23,7 +24,7 @@ $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
 
 ?>
 <div class="row g-4 justify-content-center mb-3 employee-form">
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <div class="col-lg-12 col-md-12">
         <div class="card d-block d-md-flex row">
             <div class="card-header p-4">
@@ -116,13 +117,10 @@ $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
                         <?php
                         echo $form->field($modelVehicle, 'type', [
                             'inputOptions' => [
-                                
                                 'id' => 'type',
-                                'placeholder' => 'ประเภทรถยนต์',
-                                'maxLength' => 20,
                             ],
                             'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
-                        ])->label('ประเภทยานพาหนะ')->hint('') ?>
+                        ])->dropDownList($modelVehicle->getTypeList(), ['prompt' => 'กรุณา เลือกประเภท'])->label('ประเภทยานพาหนะ')->hint('') ?>
                     </div>
                     <div class="col-md">
                         <?php
@@ -168,22 +166,18 @@ $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
                             echo $form->field($modelVehicle, 'image', [
                                 'inputOptions' => [
                                     'id' => 'image',
-                                    'placeholder' => 'รูปรถ',
-                                    'maxLength' => 20,
                                 ],
                                 'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
-                            ])->label('รูปรถ')->hint('') ?>
+                            ])->fileInput()->label('รูปรถ')->hint('') ?>
                     </div>
                     <div class="col-md">
-                        <?php
+                    <?php
                             echo $form->field($modelVehicle, 'plate_image', [
                                 'inputOptions' => [
                                     'id' => 'plate_image',
-                                    'placeholder' => 'รูปทะเบียน',
-                                    'maxLength' => 20,
                                 ],
                                 'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
-                            ])->label('รูปทะเบียน')->hint('') ?>
+                            ])->fileInput()->label('รูปทะเบียน')->hint('') ?>
                     </div>
                 </div>
               
