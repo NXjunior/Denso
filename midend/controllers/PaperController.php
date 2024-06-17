@@ -119,6 +119,20 @@ class PaperController extends Controller
     ], $additionals);
   }
 
+  public function actionVehicle(){
+    $data = $this->dummyData();
+    $html = $this->renderPartial('vehicle',[...$data]);
+
+    $html = mb_convert_encoding($html,'UTF-8','UTF-8');
+
+    $fileName =   'แบบขอรับสติ๊กเกอร์ติดรถ_' . $data['profile']['regis_id'] . '_' . $data['model']['firstname'] . '_' . $data['model']['lastname'];
+    $extraCssPath = Yii::getAlias('@midend') . '/web/css/pdf/admission/base.css';
+    $additionals = [];
+    $this->outputPDF($fileName, $html, $extraCssPath, [
+      'default_font_size' => 10,
+    ], $additionals);
+  }
+
   public function actionProfile_traimit()
   {
     $data = $this->dummyData();
