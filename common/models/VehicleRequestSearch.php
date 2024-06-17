@@ -5,7 +5,6 @@ namespace common\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\VehicleRequest;
-use common\models\Vehicle;
 
 
 /**
@@ -38,9 +37,7 @@ class VehicleRequestSearch extends VehicleRequest
     /**
      * {@inheritdoc}
      */
-    public function getVehicleTypeList(){
-        return Vehicle::getTypeList();
-    }
+
 
     public function scenarios()
     {

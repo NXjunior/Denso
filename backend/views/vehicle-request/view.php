@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\bootstrap5\Modal;
 use yii\helpers\Url;
+use common\models\VehicleRequest;
+use common\models\Vehicle;
 
 /** @var yii\web\View $this */
 /** @var common\models\VehicleRequest $model */
@@ -48,11 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                             </tr>
                                             <tr>
                                                 <th scope="row"> <?php echo $model->attributeLabels()['requested_role'] ?></th>
-                                                <td><?php echo $model->getRoleName(); ?></td>
+                                                <td><?php echo VehicleRequest::listRoles()[$model->requested_role]; ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row"> <?php echo $model->attributeLabels()['status'] ?></th>
-                                                <td><?php echo $model->getStatusName() ?></td>
+                                                <td><?php echo badgeStatus($model) ?></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -77,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <tbody>
                                             <tr>
                                                 <th scope="row"> <?php echo $model->vehicle->attributeLabels()['type'] ?></th>
-                                                <td><?php echo $model->vehicle->gettypeName(); ?></td>
+                                                <td><?php echo Vehicle::listTypes()[$model->vehicle->type]; ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row"> <?php echo $model->vehicle->attributeLabels()['plate'] ?></th>

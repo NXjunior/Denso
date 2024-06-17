@@ -25,17 +25,13 @@ class Vehicle extends \yii\db\ActiveRecord
     const TYPE_BIKE = 10;
     const TYPE_CAR = 20;
 
-    public static function getTypeList(){
+    public static function listTypes(){
         return [
             self::TYPE_BIKE => 'จักรยานยนต์',
             self::TYPE_CAR => 'รถยนต์',
         ];
     }
 
-    public function getTypeName(){
-        $types = self::getTypeList();
-        return isset($types[$this->type])?$types[$this->type] : 'unknown';
-    }
     /**
      * {@inheritdoc}
      */

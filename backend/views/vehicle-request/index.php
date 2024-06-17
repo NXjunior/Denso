@@ -7,6 +7,7 @@ use yii\grid\ActionColumn;
 use yii\helpers\ArrayHelper;
 use kartik\grid\GridView;
 use kartik\export\ExportMenu;
+use common\models\Vehicle;
 
 /** @var yii\web\View $this */
 /** @var common\models\VehicleRequestSearch $searchModel */
@@ -26,78 +27,77 @@ $this->disableTitleDisplay = true;
             'attribute' => 'employeeName',
             'label' => 'ชื่อผู้ลงทะเบียน',
             'format' => 'raw',
-            'value' => function($model) use($queryParams){
+            'value' => function($searchModel) use($queryParams){
                 if (!isset($queryParams['VehicleRequestSearch']) || !isset($queryParams['VehicleRequestSearch'])) {
-                    return $model->employeeInfo->fullname;
+                    return $searchModel->employeeInfo->fullname;
                 }
                 $queryString = $queryParams['VehicleRequestSearch']['employeeName'];
-                return str_replace($queryString,'<strong>' . $queryString. '</strong>' ,$model->employeeInfo->fullname);
+                return str_replace($queryString,'<strong>' . $queryString. '</strong>' ,$searchModel->employeeInfo->fullname);
             }
         ],
         [
             'attribute' => 'vehiclePlate',
             'label' => 'เลขทะเบียน',
             'format' => 'raw',
-            'value' => function($model) use($queryParams){
+            'value' => function($searchModel) use($queryParams){
                 if (!isset($queryParams['VehicleRequestSearch'])){
-                    return $model->vehicle->plate;
+                    return $searchModel->vehicle->plate;
                 }
                 $queryString = $queryParams['VehicleRequestSearch']['vehiclePlate'];
-                return str_replace($queryString,'<strong>'.$queryString.'</strong>',$model->vehicle->plate);
+                return str_replace($queryString,'<strong>'.$queryString.'</strong>',$searchModel->vehicle->plate);
             }
         ],
         [
             'attribute' => 'vehicleType',
             'label' => 'ประเภทรถ',
             'format' => 'raw',
-            'filter'  => Html::activeDropDownList($searchModel, 'vehicleType',$searchModel->getVehicleTypeList(),['prompt' => 'ทุกประเภท', 'class' => 'form-select']),
-            'value' => function($model){
-                return $model->vehicle->getTypeName();
+            'filter'  => Html::activeDropDownList($searchModel, 'vehicleType',Vehicle::listTypes(),['prompt' => 'ทุกประเภท', 'class' => 'form-select']),
+            'value' => function($searchModel){
+                return Vehicle::listTypes()[$searchModel->vehicle->type];
             }
         ],
         [
             'attribute' => 'requested_role',
             'label' => 'ประเภทผู้ร้องขอ',
-            'filter' => Html::activeDropDownList($searchModel, 'requested_role',$model->getRoleList(),['prompt' => 'ประเภทผู้ร้องขอ', 'class' => 'form-select']),
-            'value' => function($model){
-                return $model->getRoleName();
+            'filter' => Html::activeDropDownList($searchModel, 'requested_role',$searchModel->listRoles(),['prompt' => 'ประเภทผู้ร้องขอ', 'class' => 'form-select']),
+            'value' => function($searchModel){
+                return $searchModel->listRoles()[$searchModel->requested_role];
             }
         ],
         [
             'attribute' => 'status',
             'label' => 'สถานะใบสมัคร',
             'format' => 'raw',
-            'filter' => Html::activeDropDownList($searchModel, 'status',$model->getStatusList(),['prompt' => 'สถานะใบสมัคร', 'class' => 'form-select']),
-            'value' => function($model){
-                
-                return $model->getStatusName();
+            'filter' => Html::activeDropDownList($searchModel, 'status',$searchModel->listStatus(),['prompt' => 'สถานะใบสมัคร', 'class' => 'form-select']),
+            'value' => function($searchModel){
+                return badgeStatus($searchModel);
             }
         ],
         [
             'attribute' => 'creatorUser',
             'label' => 'ผู้สร้างคำขอ',
             'format' => 'raw',
-            'value' => function($model)use($queryParams){
+            'value' => function($searchModel)use($queryParams){
                 if(!isset($queryParams['VehicleRequestSearch'])){
-                    return $model->creatorInfo->username;
+                    return $searchModel->creatorInfo->username;
                 }
                 $queryString = $queryParams['VehicleRequestSearch']['creatorUser'];
-                return str_replace($queryString,'<strong>'.$queryString.'</strong>',$model->creatorInfo->username);
+                return str_replace($queryString,'<strong>'.$queryString.'</strong>',$searchModel->creatorInfo->username);
             }
         ],
         [
             'attribute' => 'approver',
             'label' => 'อนุมัติ',
-            'value' => function($model){
-                return isset($model->approver)?$model->approver : "";
+            'value' => function($searchModel){
+                return isset($searchModel->approver)?$searchModel->approver : "";
             }
         ],
         [
             'class' => kartik\grid\ActionColumn::className(),
             'headerOptions' => ['style' => 'width:80px;'],
             'template' => '{view} {update}',
-            'urlCreator' => function ($action, VehicleRequest $model, $key, $index, $column) {
-                return Url::toRoute([$action, 'id' => $model->id]);
+            'urlCreator' => function ($action, VehicleRequest $searchModel, $key, $index, $column) {
+                return Url::toRoute([$action, 'id' => $searchModel->id]);
             },
         ],
     ];

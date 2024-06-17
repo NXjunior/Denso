@@ -120,7 +120,7 @@ $urlProvince = \yii\helpers\Url::to(['/vehicle-request/list-province']);
                                 'id' => 'type',
                             ],
                             'template' => '<div class="form-floating">{input}{label}{error}{hint}</div>',
-                        ])->dropDownList($modelVehicle->getTypeList(), ['prompt' => 'กรุณา เลือกประเภท'])->label('ประเภทยานพาหนะ')->hint('') ?>
+                        ])->dropDownList($modelVehicle->listTypes(), ['prompt' => 'กรุณา เลือกประเภท'])->label('ประเภทยานพาหนะ')->hint('') ?>
                     </div>
                     <div class="col-md">
                         <?php

@@ -46,9 +46,7 @@ class VehicleRequestController extends Controller
     {
         $searchModel = new VehicleRequestSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-        $model = new VehicleRequest();
         return $this->render('index', [
-            'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'queryParams' => $this->request->queryParams,
@@ -146,9 +144,6 @@ class VehicleRequestController extends Controller
         $modelVehicle = $model->vehicle;
         if ($this->request->isPost) {           
             $post = $this->request->post();
-            
-            $this->checkImageInput($modelVehicle,'image');
-            $this->checkImageInput($modelVehicle,'plate_image');
             $oldImg = $modelVehicle->image;
             $oldPlateImg = $modelVehicle->plate_image;
             if($modelVehicle->load($post) && $model->load($post)){
@@ -160,6 +155,8 @@ class VehicleRequestController extends Controller
                     $file_path = Yii::getAlias('@backend/web/uploads');
                     $saveImage->saveAs($file_path .'/'. $file_image_name);
                     $modelVehicle->image = $file_image_name;
+                    $this->checkImageInput($modelVehicle,$oldImg,'image');
+                    $this->checkImageInput($modelVehicle,$oldPlateImg,'plate_image');
                 }else{
                     $modelVehicle->image = $oldImg;
                 }
@@ -264,17 +261,17 @@ class VehicleRequestController extends Controller
         return $out;
     }
 
-public function checkImageInput($modelVehicle,string $input)
+public function checkImageInput($modelVehicle,$old_img,string $input)
 {
     if(!$input){
         return false;
     }
     if(UploadedFile::getInstance($modelVehicle,$input)){
         // dd($modelVehicle->image);
-        if($modelVehicle->$input != ""){
+        if($old_img != ""){
             $path = Yii::getAlias('@backend/web/uploads/');
-            if(file_exists($path.$modelVehicle->$input)){
-                unlink($path.$modelVehicle->$input);
+            if(file_exists($path.$old_img)){
+                unlink($path.$old_img);
             }
         }
     }

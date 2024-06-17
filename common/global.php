@@ -161,6 +161,25 @@ function badgeYesNo($status, $stage)
     return '<h5><span class="badge fw-normal text-bg-' . $status . ' text-white">' . $wording . '</span></h5>';
 }
 
+function badgeStatus($model)
+{
+    switch($model->status){
+        case 20:
+            $output = badge('success',$model->listStatus()[$model->status]);
+            break;
+        case 10:
+            $output = badge('info',$model->listStatus()[$model->status]);
+            break;
+        case -1:
+            $output = badge('danger',$model->listStatus()[$model->status]);
+            break;
+        case -2:
+            $output = badge('warning',$model->listStatus()[$model->status]);
+            break;
+    }
+    return $output ?? 'unknown';
+}
+
 function badge($status, $wording)
 {
     return '<h5><span class="badge fw-normal text-bg-' . $status . ' text-white">' . $wording . '</span></h5>';

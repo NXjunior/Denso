@@ -36,19 +36,14 @@ class VehicleRequest extends \yii\db\ActiveRecord
     const STATUS_DELETE = -3;
     
     
-    public function getRoleList(){
+    public static function listRoles(){
         return [
             self::ROLE_STUDENT=> 'นักเรียน',
             self::ROLE_TEACHER=> 'ครู',
         ];
     }
 
-    public function getRoleName(){
-        $roles = self::getRoleList();
-        return isset($roles[$this->requested_role]) ? $roles[$this->requested_role] : 'unknown';
-    }
-
-    public function getStatusList(){
+    public static function listStatus(){
         return [
             self::STATUS_APPROVED => 'อนุมัติ',
             self::STATUS_REQUEST => 'รอตอบรับ',
@@ -56,26 +51,7 @@ class VehicleRequest extends \yii\db\ActiveRecord
             self::STATUS_REVOKE => 'เปลี่ยนเจ้าของ',
         ];
     }
-
-    public function getStatusName(){
-        $status = self::getStatusList();
-        switch($this->status){
-            case 20:
-                $output = badge('success',$status[$this->status]);
-                break;
-            case 10:
-                $output = badge('info',$status[$this->status]);
-                break;
-            case -1:
-                $output = badge('danger',$status[$this->status]);
-                break;
-            case -2:
-                $output = badge('warning',$status[$this->status]);
-                break;
-        }
-        return isset($status[$this->status]) ? $output : 'unknown';
-    }
-
+    
     /**
      * {@inheritdoc}
      */
