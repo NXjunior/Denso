@@ -5,6 +5,8 @@ namespace midend\controllers;
 use Yii;
 use yii\web\Controller;
 use common\components\NgMpdf;
+use common\models\Vehicle;
+use common\models\VehicleRequest;
 
 class PaperController extends Controller
 {
@@ -119,8 +121,37 @@ class PaperController extends Controller
     ], $additionals);
   }
 
-  public function actionVehicle(){
-    $data = $this->dummyData();
+  public function actionDoraemon()
+  {
+    $vehicle = VehicleRequest::find()->all();
+    $allHtml = "";
+    foreach($vehicle as $item){
+      $data = $this->vehicleData($item);
+      $html = $this->renderPartial('vehicle',[...$data]);
+      $html = mb_convert_encoding($html,'UTF-8','UTF-8');
+      $allHtml .= $html;
+      $allHtml .= '<pagebreak />';
+    }
+
+    $fileName =   'แบบขอรับสติ๊กเกอร์ติดรถ';
+    $extraCssPath = Yii::getAlias('@midend') . '/web/css/pdf/admission/base.css';
+    $additionals = [];
+    $this->outputPDF($fileName, $allHtml, $extraCssPath, [
+      'default_font_size' => 10,
+    ], $additionals);    
+
+  }
+  public static function vehicleRender($id){
+      return self::actionVehicle($id);
+  }
+
+  public function actionVehicle($id = 21){
+    $model = VehicleRequest::find()->where(['id' => $id])->one();
+    //dd($data);
+    //$data = $this->dummyData();
+    // dd($model->created_at);
+    $data = $this->vehicleData($model);
+    //dd($data);
     $html = $this->renderPartial('vehicle',[...$data]);
 
     $html = mb_convert_encoding($html,'UTF-8','UTF-8');
@@ -131,6 +162,236 @@ class PaperController extends Controller
     $this->outputPDF($fileName, $html, $extraCssPath, [
       'default_font_size' => 10,
     ], $additionals);
+  }
+
+  
+
+  public function vehicleData($model){
+    $time = $model->created_at;
+    $strip_date = explode(' ',$time);
+    $date_arr = explode('-',$strip_date[0]);
+
+    $car = $model->vehicle->type == 20 ? true : false;
+    $bike =  $model->vehicle->type == 10 ? true : false;
+    $data = [
+      'register' => [
+        'date' => '2024-02-10',
+        'time' => '11:09',
+      ],
+      'exam' => [
+        'date' => '2024-03-09',
+        'time' => '00:00',
+      ],
+      'profile' => [
+        'regis_id' => 293048,
+        'seat_id' => '',
+        'edu_program' => 'ห้องเรียนพิเศษภาษาจีน ชั้นมัธยมศึกษาปีที่ 1',
+        'gender' => 0,
+        'role' => $model->requested_role,
+        'fullname' => $model->employeeInfo->getFullname(),
+        'title' => 'ด.ช.',
+        'firstname' => 'ฉัตรปรัชญา',
+        'lastname' => 'มุ้งบัง',
+        'mobile_no' => '0810548699',
+        //'fullname' => 'ด.ช. ฉัตรปรัชญา มุ้งบัง',
+        'personal_id' => '1129902294330',
+        'race' => 'ไทย',
+        'nationality' => 'ไทย',
+        'religion' => 'พุทธ',
+        'dob' => '29 กันยายน 2554',
+        'height' => 140,
+        'weight' => 46,
+        'ageYear' => '12',
+        'ageMonth' => '4',
+        'blood' => 'ไม่ทราบ',
+        'email' => 'namotassa17@gmail.com',
+        'hospital' => 'N/A',
+        'born' => '-',
+        'mainLang' => 'N/A',
+        'graduate' => 'อนุบาลนนทบุรี',
+        'graduateSubDistrict' => 'สวนใหญ่',
+        'graduateDistrict' => 'เมืองนนทบุรี',
+        'graduateProvince' => 'นนทบุรี',
+        'elderBrother' => '0',
+        'elderSister' => 1,
+        'youngerBrother' => '0',
+        'youngerSister' => '0',
+        'birthOrder' => 1,
+        'childInSchool' => 1,
+        'distance' => '19',
+        'travelDuration' => '25 นาที',
+        'travelCost' => '.',
+        'talent' => 'N/A',
+        'familyStatus' => 'N/A',
+        'familyStatusNo' => 0,
+        'transport' => 'รถประจำทาง',
+        'hasfee' => true,
+        'livingType' => 'N/A',
+        'siblings' => 1,
+        'day' => $date_arr[2],
+        'month' => $this->formatMonth()[intval($date_arr[1])-1],
+        'year' => $this->formatYear($date_arr[0]),
+      ],
+      'car' => [
+        'type' =>  $model->vehicle->type,
+        'plate' => $car ? $model->vehicle->plate : null,
+        'province' => $car ? $model->vehicle->provinceInfo->name: null,
+        'brand' => $car ? $model->vehicle->brand : null,
+        'model' => $car ? $model->vehicle->model : null,
+        'color' => $car ? $model->vehicle->color : null,
+      ],
+      'bike' => [
+        'type' =>  $model->vehicle->type,
+        'plate' => $bike ? $model->vehicle->plate : null,
+        'province' => $bike ? $model->vehicle->provinceInfo->name:null,
+        'brand' => $bike ? $model->vehicle->brand : null,
+        'model' => $bike ? $model->vehicle->model : null,
+        'color' => $bike ? $model->vehicle->color : null,
+      ],
+      'image' => [
+        'img' => $model->vehicle->image ? Yii::getAlias('@midend/web/uploads/'.$model->vehicle->image) : null,
+        'plate_img' => $model->vehicle->plate_image ? Yii::getAlias('@midend/web/uploads/'.$model->vehicle->plate_image) : null,
+      ],
+      'approver' => [
+        'name' => $model->approverInfo->username ?? "-",
+        'approved' => $model->status ?? 0,
+      ],
+      'address' => [
+        'no' => '49',
+        'moo' => '4',
+        'soi' => 'เรวดี 27',
+        'street' => 'ติวานนท์',
+        'sub_district' => 'ตลาดขวัญ',
+        'district' => 'เมืองนนทบุรี',
+        'province' => 'นนทบุรี',
+        'zip' => '11000',
+        'tel' => '0810548699',
+      ],
+      'dad' => [
+        'title' => 'นาย',
+        'f_name' => 'ธรรมนูญ',
+        'l_name' => 'มุ้งบัง',
+        'fullname' => 'นาย ธรรมนูญ มุ้งบัง',
+        'job' => 'รับราชการ',
+        'phone' => '0881994519',
+        'citizen' => '3250700112548',
+        'age' => 50,
+        'dob' => '10 ธันวาคม 2517',
+        'blood' => 'ไม่ทราบ',
+        'income' => '25,000',
+        'occupation' => 'รับราชการ',
+        'nationality' => 'ไทย',
+        'race' => 'ไทย',
+        'religion' => 'พุทธ',
+      ],
+      'mom' => [
+        'title' => 'นางสาว',
+        'f_name' => 'นิตญา',
+        'l_name' => 'ราชบุตร',
+        'fullname' => 'นางสาว นิตญา ราชบุตร',
+        'job' => 'พนักงานราชการ',
+        'phone' => '0999486517',
+        'citizen' => '3250700142293',
+        'age' => 44,
+        'dob' => '14 เมษายน 2523',
+        'blood' => 'ไม่ทราบ',
+        'income' => '20,000',
+        'occupation' => 'พนักงานราชการ',
+        'nationality' => 'ไทย',
+        'race' => 'ไทย',
+        'religion' => 'พุทธ',
+      ],
+      'parent' => [
+        'title' => 'นาย',
+        'firstname' => 'ธรรมนูญ',
+        'lastname' => 'มุ้งบัง',
+        'fullname' => 'นาย ธรรมนูญ มุ้งบัง',
+        'age' => 50,
+        'job' => 'รับราชการ',
+        'phone' => '0881994519',
+        'citizen' => '3250700112548',
+        'blood' => 'ไม่ทราบ',
+        'income' => '25,000',
+        'occupation' => 'รับราชการ',
+        'patronize' => 'N/A',
+        'relative' => 'บิดา',
+        'relativeDad' => true,
+        'relativeMom' => 'none',
+        'relativeOther' => 'none',
+        'nationality' => 'ไทย',
+        'race' => 'ไทย',
+        'religion' => '-',
+      ],
+      'old_school' => [
+        'name' => 'อนุบาลนนทบุรี',
+        'sub_district' => 'สวนใหญ่',
+        'district' => 'เมืองนนทบุรี',
+        'province' => 'นนทบุรี',
+        'type' => 'ค้นหา',
+      ],
+      'img' => 'https://app.nextschool.io/img/logo/1682664778โลโก้โรงเรียนใหญ่.jpg',
+      'title' => [
+        'name' => 'ไตรมิตรวิทยาลัย',
+        'grade' => 1,
+        'year' => 2567,
+      ],
+      'model' => [
+        'id' => 103701,
+        'registrant_id' => 293048,
+        'relative_type' => 'บิดา',
+        'title' => 'นาย',
+        'firstname' => 'ธรรมนูญ',
+        'lastname' => 'มุ้งบัง',
+        'dob' => '1974-12-10',
+        'citizen_id' => '3250700112548',
+        'blood_type' => 'ไม่ทราบ',
+        'occupation' => 'รับราชการ',
+        'nationality' => 'ไทย',
+        'race' => 'ไทย',
+        'religion' => 'พุทธ',
+        'work_place' => 'สำนักงานประกันสังคม',
+        'mobile_no' => '0881994519',
+        'mobile_no_verify_status' => null,
+        'living_status' => 0,
+        'income_per_month' => 25000,
+        'address_id' => 71478,
+        'created_at' => '2024-02-10 11:14:51',
+        'updated_at' => '2024-02-11 13:17:18',
+        'registrant' => [
+          'id' => 293048,
+          'source_id' => '1129902294330',
+          'school_id' => 48,
+          'status' => 10,
+          'created_at' => '2024-02-10 11:06:08',
+          'updated_at' => '2024-02-10 11:10:26',
+          'last_login' => null,
+          'source_type' => null,
+          'target_id' => 11504,
+          'period_id' => 1537,
+          'delete_id' => null,
+          'deleted_at' => null,
+          'targets' => [
+            0 => 11504
+          ]
+        ]
+      ],
+      'grade' => 1,
+      'attachImage' => [
+        'disability_table' => ''
+      ],
+    ];
+    return $data;
+  }
+
+  public function formatMonth()
+  {
+    return ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม
+    ','พฤศจิกายน','ธันวาคม'];
+  }
+
+  public function formatYear(int $year)
+  {
+    return $year+543;
   }
 
   public function actionProfile_traimit()

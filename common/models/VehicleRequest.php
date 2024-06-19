@@ -94,6 +94,11 @@ class VehicleRequest extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'updater']);
     }
 
+    public function getEmployeeInfo()
+    {
+        return $this->hasOne(Employee::class,['id'=> 'requested_id']);
+    }
+
     /**
      * Gets query for [[Vehicle]].
      *

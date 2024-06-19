@@ -70,4 +70,8 @@ class Vehicle extends \yii\db\ActiveRecord
     {
         return $this->hasMany(VehicleRequest::class, ['vehicle_id' => 'id']);
     }
+    public function getProvinceInfo()
+    {
+        return  $this->hasOne(Province::class, ['id' => 'province']);
+    }
 }
