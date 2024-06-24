@@ -2,10 +2,21 @@
   font-size: 13px;
 }
 
-h2,h3,h4,h5 {margin:0;}
-h2,h3,h4 {font-weight: bold;}
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+h2,
+h3,
+h4 {
+  font-weight: bold;
+}
 
-h4 {font-size:large}
+h4 {
+  font-size: large;
+}
 /* table {
   margin-left: 12px;
   width: 630px;
@@ -13,39 +24,41 @@ h4 {font-size:large}
   border-collapse: collapse;
 } */
 
-
 table {
   /* border: 0.5mm solid black; */
   border-collapse: collapse;
 }
 
 thead th {
-  background-color:#d1d1d1;
+  background-color: #d1d1d1;
 }
-td, th {
+td,
+th {
   padding: 1mm;
   /* border:  0.5mm solid black; */
 }
 
-table.small, table.small thead th,  table.small tbody td{
+table.small,
+table.small thead th,
+table.small tbody td {
   font-size: 90%;
-  padding:0.5mm;
+  padding: 0.5mm;
 }
 
-strong{
+strong {
   font-weight: bold;
 }
 
-h3.normal{
+h3.normal {
   font-weight: normal;
 }
-.col-centered{
+.col-centered {
   float: none;
   margin: 0 auto;
 }
 .invert {
-  background:#25383C;
-  color:#fff;
+  background: #25383c;
+  color: #fff;
 }
 
 .row {
@@ -61,11 +74,11 @@ h3.normal{
 .no-margin {
   margin: 0px;
 }
-.p-10{
+.p-10 {
   padding-left: 1px;
   margin-right: 10px;
 }
-.m-10{
+.m-10 {
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -111,7 +124,7 @@ h3.normal{
   margin-top: 20px;
 } */
 
-.logo{
+.logo {
   margin-top: 5px;
 }
 .profile_image {
@@ -120,13 +133,13 @@ h3.normal{
 }
 
 .profile_image_medium {
-  display:block;
+  display: block;
   height: 156px;
   width: 117px;
 }
 .profile_image_fix {
-  display:block;
-  position:absolute;
+  display: block;
+  position: absolute;
   top: 40px;
   right: 40px;
   background-color: white;
@@ -292,12 +305,12 @@ h3.normal{
 }
 
 @media print {
-  @page {
+  /* @page {
     margin-left: 60px;
     margin-right: 60px;
     margin-top: 20px;
     margin-bottom: 0px;
-  }
+  } */
 
   body,
   .page {
@@ -400,7 +413,6 @@ h3.normal{
 .padding0 {
   padding: 0;
 }
-
 
 dl {
   margin: 0px 0 0 -10px;
@@ -519,7 +531,6 @@ img {
 .overmask {
   position: absolute;
 }
-
 
 #school_code {
   left: 622px;

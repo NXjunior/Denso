@@ -29,7 +29,7 @@ if (!empty($imageSource1)) {
 
 <div style="font-size:19;">
     <div style="margin-left:40px;margin-right:0px;padding-top:10px;">
-        <div class="col-1" style="width:3cm;height:1.9cm;float:right;">
+        <div class="col-1" style="width:3cm;height:1.5cm;float:right;">
             <h3>เลขที่......./2567</h3>
         </div>
         <div class="col-1" style="border-width: 12px;margin-left:105px;width:60%;float:left;font-size:16pt;">
@@ -38,7 +38,7 @@ if (!empty($imageSource1)) {
         </div>
     </div>
     <div style="margin-left:0px;margin-right:0px;padding-top:8px;">
-        <div class="col-1" style="width:250px;height:0.5cm;float:right;">
+        <div class="col-1" style="width:250px;height:0.1cm;float:right;">
             <dl>
                 <dt style="width:30px;">วันที่</dt>
                 <dd style="width:30px;"><?php echo $profile['day'] ?></dd>
@@ -188,10 +188,11 @@ if (!empty($imageSource1)) {
                 </div>
 
                 <p style="margin-top:28px">เนื่องจาก .......................................................</p>
-                <div>
+                <!-- <div>
                     <dt style="width:35px;padding-left:40px;">ลงชื่อ</dt>
                     <dd style="width:190px;"><?php echo $approver['name'] ?></dd>
-                </div>
+                </div> -->
+                <br>
                 <p>ลงชื่อ ............................................................</p>
                 <p style="margin-top:20px">ตำแหน่ง .....................................................</p>
                 <p style="margin-left:0px">ผู้อนุญาต</p>
@@ -200,3 +201,4 @@ if (!empty($imageSource1)) {
 
     </dl>
 </div>
+<pagebreak />

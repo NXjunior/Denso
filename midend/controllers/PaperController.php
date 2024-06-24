@@ -121,40 +121,42 @@ class PaperController extends Controller
     ], $additionals);
   }
 
-  public function actionDoraemon()
+  public function actionAllVehiclePdf()
   {
     $vehicle = VehicleRequest::find()->all();
-    $allHtml = "";
-    foreach($vehicle as $item){
+    $allHtml = $html = "";
+    foreach ($vehicle as $item) {
       $data = $this->vehicleData($item);
-      $html = $this->renderPartial('vehicle',[...$data]);
-      $html = mb_convert_encoding($html,'UTF-8','UTF-8');
-      $allHtml .= $html;
-      $allHtml .= '<pagebreak />';
+      $html .= $this->renderPartial('vehicle', [...$data]);
+
+      //$html = mb_convert_encoding($html, 'UTF-8', 'UTF-8');
+      //$allHtml .= $html;
+      //$allHtml .= '<pagebreak />';
     }
 
     $fileName =   'แบบขอรับสติ๊กเกอร์ติดรถ';
     $extraCssPath = Yii::getAlias('@midend') . '/web/css/pdf/admission/base.css';
     $additionals = [];
-    $this->outputPDF($fileName, $allHtml, $extraCssPath, [
+    $this->outputPDF($fileName, $html, $extraCssPath, [
       'default_font_size' => 10,
-    ], $additionals);    
-
+    ], $additionals);
   }
-  public static function vehicleRender($id){
-      return self::actionVehicle($id);
+  public static function vehicleRender($id)
+  {
+    return self::actionVehicle($id);
   }
 
-  public function actionVehicle($id = 21){
+  public function actionVehicle($id = 21)
+  {
     $model = VehicleRequest::find()->where(['id' => $id])->one();
     //dd($data);
     //$data = $this->dummyData();
     // dd($model->created_at);
     $data = $this->vehicleData($model);
     //dd($data);
-    $html = $this->renderPartial('vehicle',[...$data]);
+    $html = $this->renderPartial('vehicle', [...$data]);
 
-    $html = mb_convert_encoding($html,'UTF-8','UTF-8');
+    $html = mb_convert_encoding($html, 'UTF-8', 'UTF-8');
 
     $fileName =   'แบบขอรับสติ๊กเกอร์ติดรถ_' . $data['profile']['regis_id'] . '_' . $data['model']['firstname'] . '_' . $data['model']['lastname'];
     $extraCssPath = Yii::getAlias('@midend') . '/web/css/pdf/admission/base.css';
@@ -164,12 +166,13 @@ class PaperController extends Controller
     ], $additionals);
   }
 
-  
 
-  public function vehicleData($model){
+
+  public function vehicleData($model)
+  {
     $time = $model->created_at;
-    $strip_date = explode(' ',$time);
-    $date_arr = explode('-',$strip_date[0]);
+    $strip_date = explode(' ', $time);
+    $date_arr = explode('-', $strip_date[0]);
 
     $car = $model->vehicle->type == 20 ? true : false;
     $bike =  $model->vehicle->type == 10 ? true : false;
@@ -229,13 +232,13 @@ class PaperController extends Controller
         'livingType' => 'N/A',
         'siblings' => 1,
         'day' => $date_arr[2],
-        'month' => $this->formatMonth()[intval($date_arr[1])-1],
+        'month' => $this->formatMonth()[intval($date_arr[1]) - 1],
         'year' => $this->formatYear($date_arr[0]),
       ],
       'car' => [
         'type' =>  $model->vehicle->type,
         'plate' => $car ? $model->vehicle->plate : null,
-        'province' => $car ? $model->vehicle->provinceInfo->name: null,
+        'province' => $car ? $model->vehicle->provinceInfo->name : null,
         'brand' => $car ? $model->vehicle->brand : null,
         'model' => $car ? $model->vehicle->model : null,
         'color' => $car ? $model->vehicle->color : null,
@@ -243,14 +246,14 @@ class PaperController extends Controller
       'bike' => [
         'type' =>  $model->vehicle->type,
         'plate' => $bike ? $model->vehicle->plate : null,
-        'province' => $bike ? $model->vehicle->provinceInfo->name:null,
+        'province' => $bike ? $model->vehicle->provinceInfo->name : null,
         'brand' => $bike ? $model->vehicle->brand : null,
         'model' => $bike ? $model->vehicle->model : null,
         'color' => $bike ? $model->vehicle->color : null,
       ],
       'image' => [
-        'img' => $model->vehicle->image ? Yii::getAlias('@midend/web/uploads/'.$model->vehicle->image) : null,
-        'plate_img' => $model->vehicle->plate_image ? Yii::getAlias('@midend/web/uploads/'.$model->vehicle->plate_image) : null,
+        'img' => $model->vehicle->image ? Yii::getAlias('@midend/web/uploads/' . $model->vehicle->image) : null,
+        'plate_img' => $model->vehicle->plate_image ? Yii::getAlias('@midend/web/uploads/' . $model->vehicle->plate_image) : null,
       ],
       'approver' => [
         'name' => $model->approverInfo->username ?? "-",
@@ -385,13 +388,13 @@ class PaperController extends Controller
 
   public function formatMonth()
   {
-    return ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม
-    ','พฤศจิกายน','ธันวาคม'];
+    return ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม
+    ', 'พฤศจิกายน', 'ธันวาคม'];
   }
 
   public function formatYear(int $year)
   {
-    return $year+543;
+    return $year + 543;
   }
 
   public function actionProfile_traimit()
@@ -536,6 +539,21 @@ class PaperController extends Controller
       'default_font_size' => 10,
     ], $additionals);
   }
+  public function actionVisit_bodin_v2()
+  {
+    $data = $this->dummyDataVisit();
+    $html = $this->renderPartial('visit_bodin_v2', [...$data]);
+
+    $html = mb_convert_encoding($html, 'UTF-8', 'UTF-8');
+
+    $fileName =   'แบบบันทึกการเยี่ยมบ้าน';
+    $extraCssPath = Yii::getAlias('@midend') . '/web/css/pdf/admission/base.css';
+    $additionals = [];
+
+    $this->outputPDF($fileName, $html, $extraCssPath, [
+      'default_font_size' => 10,
+    ], $additionals);
+  }
 
   public function actionVisit_siyanuson()
   {
@@ -615,9 +633,9 @@ class PaperController extends Controller
     return [
       'missing' => [
         'parent_remark' => 'ดี เอื้อต่อการดำรงชีวิต',
-        'living_environment' => 'ดี เอื้อต่อการดำรงชีวิต',
+        'living_environment' => 'อื่นๆ',
         'environmentDetail' => '',
-        'family_care' => 'ครอบครัวเอาใจใส่ ดูแลด้านพฤติกรรมและการเรียน',
+        'family_care' => 'อื่นๆ',
         'student_no' => '1',
         'totalFamilyMember' => 5,
         'familyMemberMale' => 2,
@@ -793,11 +811,11 @@ class PaperController extends Controller
       ],
       'VisitInfoPersonal' => [
         'home_kind' => 'บ้านของตัวเอง',
-        'home_condition' => 'ดี เอื้อต่อการดำรงชีวิต',
+        'home_condition' => 'อื่นๆ',
         'income' => '40,000',
       ],
       'VisitInfoMisc' => [
-        'relationship_level' => 'ใกล้ชิด / อบอุ่น / มีเหตุผล',
+        'relationship_level' => 'อื่นๆ',
       ],
       'VisitInfoOpinion' => [
         'remark' => 'ข้อเสนอแนะ',

@@ -97,18 +97,18 @@ class NgMpdf extends Mpdf
     $this->filename = $name . '.pdf';
   }
 
+
   public function genPdf($content, $css = '', $footer = [], $additionals = [], $watermark = "")
   {
 
     $stylesheet = file_get_contents(Yii::getAlias('@midend') . '/web/css/bootstrap3.7.min.css');
     $stylesheet .= $css;
     $this->WriteHTML($stylesheet, 1);
-    $this->WriteHTML($content, 2);
-
-
     if ($footer) {
       $this->SetFooter($footer);
     }
+    $this->WriteHTML($content, 2);
+
 
     if ($watermark) {
       $this->WriteHTML('<watermarktext content="' . $watermark . '" alpha="0.3" />');
