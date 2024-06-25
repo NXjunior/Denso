@@ -31,54 +31,41 @@ $Hour = $model['time'];
 $timestamp = strtotime($Hour);
 $formattedHour = Yii::$app->date->date('H:i น.', $timestamp);
 ?>
-<div id="home_condition" class="overmask" style="font-size:150%;padding-top:462px;padding-left:30px"><strong><?php echo $VisitInfoPersonal['home_condition'] === 'ดี' ? "/" : "" ?></strong></div>
-<div id="home_condition" class="overmask" style="font-size:150%;padding-top:490px;padding-left:30px"><strong><?php echo $VisitInfoPersonal['home_condition'] === 'พอใช้' ? "/" : "" ?></strong></div>
-<div id="home_condition" class="overmask" style="font-size:150%;padding-top:517px;padding-left:30px"><strong><?php echo $VisitInfoPersonal['home_condition'] === 'น่าห่วงใย' ? "/" : "" ?></strong></div>
-<div id="home_condition" class="overmask" style="font-size:150%;padding-top:547px;padding-left:30px"><strong><?php echo $VisitInfoPersonal['home_condition'] === 'อื่นๆ' ? "/" : "" ?></strong></div>
-<div id="living_environment" class="overmask" style="font-size:150%;padding-top:607px;padding-left:30px"><strong><?php echo $missing['living_environment'] === 'ดี' ? "/" : "" ?></strong></div>
-<div id="living_environment" class="overmask" style="font-size:150%;padding-top:635px;padding-left:30px"><strong><?php echo $missing['living_environment'] === 'พอใช้' ? "/" : "" ?></strong></div>
-<div id="living_environment" class="overmask" style="font-size:150%;padding-top:663px;padding-left:30px"><strong><?php echo $missing['living_environment'] === 'อื่นๆ' ? "/" : "" ?></strong></div>
-<div id="relationship_level" class="overmask" style="font-size:150%;padding-top:724px;padding-left:30px"><strong><?php echo $VisitInfoMisc['relationship_level'] === 'ใกล้ชิด / อบอุ่น / มีเหตุผล' ? "/" : "" ?></strong></div>
-<div id="relationship_level" class="overmask" style="font-size:150%;padding-top:752px;padding-left:30px"><strong><?php echo $VisitInfoMisc['relationship_level'] === 'สนใจ / เอาใจใส่' ? "/" : "" ?></strong></div>
-<div id="relationship_level" class="overmask" style="font-size:150%;padding-top:779px;padding-left:30px"><strong><?php echo $VisitInfoMisc['relationship_level'] === 'ห่างเหิน / ให้อิสระ' ? "/" : "" ?></strong></div>
-<div id="relationship_level" class="overmask" style="font-size:150%;padding-top:808px;padding-left:30px"><strong><?php echo $VisitInfoMisc['relationship_level'] === 'อื่นๆ' ? "/" : "" ?></strong></div>
-<div id="family_care" class="overmask" style="font-size:150%;padding-top:868px;padding-left:30px"><strong><?php echo $missing['family_care'] === 'ครอบครัวเอาใจใส่ ดูแลด้านพฤติกรรมและการเรียน' ? "/" : "" ?></strong></div>
-<div id="family_care" class="overmask" style="font-size:150%;padding-top:895px;padding-left:30px"><strong><?php echo $missing['family_care'] === 'ครอบครัวเอาใจใส่ (เล็กน้อย) ด้านพฤติกรรมและการเรียน' ? "/" : "" ?></strong></div>
-<div id="family_care" class="overmask" style="font-size:150%;padding-top:923px;padding-left:30px"><strong><?php echo $missing['family_care'] === 'ครอบครัวให้อิสระ ไม่ใส่ใจติดตามด้านพฤติกรรมและการเรียน' ? "/" : "" ?></strong></div>
-<div id="family_care" class="overmask" style="font-size:150%;padding-top:951px;padding-left:30px"><strong><?php echo $missing['family_care'] === 'อื่นๆ' ? "/" : "" ?></strong></div>
+
 <div style="font-size:16pt;line-height:28px;padding-top:-20px">
     <div style="text-align:center;width: auto;max-height: 100%;">
         <?php $logo = Yii::getAlias('@midend/web/img/bodin_logo.jpeg') ?>
         <img src="<?php echo $logo; ?>" alt="logo">
     </div>
     <p style="text-align:center;font-size:18pt;font-weight:bold">แบบบันทึกการเยี่ยมบ้าน</p>
-    <p style="text-align:center;font-size:16pt;font-weight:bold;padding-top:-20px;"><?php for ($i = 0; $i < 78; $i++) {
-                                                                                        echo Html::tag('span', '&#9723;', ['style' => 'font-family: fontawesome; font-size:20%; background-color:black;']);
-                                                                                        echo '&nbsp;';
-                                                                                    } ?></p>
+    <p style="text-align:center;font-size:16pt;font-weight:bold;padding-top:-20px;">
+        <?php for ($i = 0; $i < 78; $i++) {
+            echo Html::tag('span', '&#9723;', ['style' => 'font-family: fontawesome; font-size:20%; background-color:black;']);
+            echo '&nbsp;';
+        } ?></p>
     <dl>
         <dt style="width:140px;">วัน - เดือน - ปีที่ไปเยี่ยม</dt>
-        <dd style="width:270px;"><?php echo empty($formattedDatetime) ? "&nbsp;" : $formattedDatetime; ?></dd>
+        <dd style="width:270px;"><?php echo isset($formattedDatetime) ? "&nbsp;" : $formattedDatetime; ?></dd>
         <dt style="width:40px;">เวลา</dt>
-        <dd style="width:200px;"><?php echo empty($formattedHour) ? "&nbsp;" : $formattedHour; ?></dd>
+        <dd style="width:200px;"><?php echo isset($formattedHour) ? "&nbsp;" : $formattedHour; ?></dd>
         <dt style="width:130px;">ชื่อ - นามสกุลนักเรียน</dt>
-        <dd style="width:320px;"><?php echo empty($profile['fullname']) ? "&nbsp;" : $profile['fullname']; ?></dd>
+        <dd style="width:320px;"><?php echo isset($profile['fullname']) ? "&nbsp;" : $profile['fullname']; ?></dd>
         <dt style="width:40px;">ชั้น ม.</dt>
-        <dd style="width:60px;"><?php echo empty($modelname2) ? "&nbsp;" : $modelname2; ?></dd>
+        <dd style="width:60px;"><?php echo isset($modelname2) ? "&nbsp;" : $modelname2; ?></dd>
         <dt style="width:40px;">เลขที่</dt>
-        <dd style="width:50px;"><?php echo empty($missing['student_no']) ? "&nbsp;" : $missing['student_no']; ?></dd>
+        <dd style="width:50px;"><?php echo isset($missing['student_no']) ? "&nbsp;" : $missing['student_no']; ?></dd>
         <dt style="width:112px;">ชื่อ - นามสกุล บิดา</dt>
-        <dd style="width:290px;"><?php echo empty($dad['fullname']) ? "&nbsp;" : $dad['fullname']; ?></dd>
+        <dd style="width:290px;"><?php echo isset($dad['fullname']) ? "&nbsp;" : $dad['fullname']; ?></dd>
         <dt style="width:80px;">เบอร์โทรศัพท์</dt>
-        <dd style="width:167px;"><?php echo empty($dad['phone']) ? "&nbsp;" : $dad['phone']; ?></dd>
+        <dd style="width:167px;"><?php echo isset($dad['phone']) ? "&nbsp;" : $dad['phone']; ?></dd>
         <dt style="width:125px;">ชื่อ - นามสกุล มารดา</dt>
-        <dd style="width:280px;"><?php echo empty($mom['fullname']) ? "&nbsp;" : $mom['fullname']; ?></dd>
+        <dd style="width:280px;"><?php echo isset($mom['fullname']) ? "&nbsp;" : $mom['fullname']; ?></dd>
         <dt style="width:80px;">เบอร์โทรศัพท์</dt>
-        <dd style="width:164px;"><?php echo empty($mom['phone']) ? "&nbsp;" : $mom['phone']; ?></dd>
+        <dd style="width:164px;"><?php echo isset($mom['phone']) ? "&nbsp;" : $mom['phone']; ?></dd>
         <dt style="width:142px;">ชื่อ - นามสกุล ผู้ปกครอง</dt>
-        <dd style="width:263px;"><?php echo empty($parent['fullname']) ? "&nbsp;" : $parent['fullname']; ?></dd>
+        <dd style="width:263px;"><?php echo isset($parent['fullname']) ? "&nbsp;" : $parent['fullname']; ?></dd>
         <dt style="width:80px;">เบอร์โทรศัพท์</dt>
-        <dd style="width:164px;"><?php echo empty($parent['phone']) ? "&nbsp;" : $parent['phone']; ?></dd>
+        <dd style="width:164px;"><?php echo isset($parent['phone']) ? "&nbsp;" : $parent['phone']; ?></dd>
     </dl>
     <p>ที่อยู่ปัจจุบัน</p>
     <div style="margin-left:25px;padding-top:-5px;">
@@ -98,28 +85,27 @@ $formattedHour = Yii::$app->date->date('H:i น.', $timestamp);
                 <span style="border-bottom: dotted 1px black;"><?php echo empty($address['district']) ? "&nbsp;" : $address['district']; ?></span>
                 &nbsp;&nbsp;จังหวัด&nbsp;
                 <span style="border-bottom: dotted 1px black;"><?php echo empty($address['province']) ? "&nbsp;" : $address['province']; ?></span>
-
             </p>
         </div>
         <p style="padding-bottom:-6px;">1. สภาพแวดล้อมที่อยู่อาศัย</p>
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;ดี เอื้อต่อการดำรงชีวิต<br />
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;พอใช้<br />
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;ชุมชน / น่าห่วงใย<br />
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;อื่นๆ.........................................................................................................................................................................
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $VisitInfoPersonal['home_condition'] === 'ดี' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;ดี เอื้อต่อการดำรงชีวิต<br />
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $VisitInfoPersonal['home_condition'] === 'พอใช้' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;พอใช้<br />
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $VisitInfoPersonal['home_condition'] === 'น่าห่วงใย' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;ชุมชน / น่าห่วงใย<br />
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $VisitInfoPersonal['home_condition'] === 'อื่นๆ' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;อื่นๆ.........................................................................................................................................................................
         <p style="padding-bottom:-6px;">2. ลักษณะของสภาพแวดล้อม(ชุมชน/สังคม)ที่นักเรียนอาศัยอยู่</p>
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;ดี เอื้อต่อการดำรงชีวิต<br />
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;พอใช้<br />
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;อื่นๆ.........................................................................................................................................................................
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $missing['living_environment'] === 'ดี' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;ดี เอื้อต่อการดำรงชีวิต<br />
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $missing['living_environment'] === 'พอใช้' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;พอใช้<br />
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $missing['living_environment'] === 'อื่นๆ' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;อื่นๆ.........................................................................................................................................................................
         <p style="padding-bottom:-6px;">3. สัมพันธภาพของครอบครัว</p>
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;ใกล้ชิด / อบอุ่น / มีเหตุผล<br />
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;สนใจ / เอาใจใส่<br />
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;ห่างเหิน / ให้อิสระ<br />
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;อื่นๆ.........................................................................................................................................................................
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $VisitInfoMisc['relationship_level'] === 'ใกล้ชิด / อบอุ่น / มีเหตุผล' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;ใกล้ชิด / อบอุ่น / มีเหตุผล<br />
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $VisitInfoMisc['relationship_level'] === 'สนใจ / เอาใจใส่' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;สนใจ / เอาใจใส่<br />
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $VisitInfoMisc['relationship_level'] === 'ห่างเหิน / ให้อิสระ' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;ห่างเหิน / ให้อิสระ<br />
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $VisitInfoMisc['relationship_level'] === 'อื่นๆ' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;อื่นๆ.........................................................................................................................................................................
         <p style="padding-bottom:-6px;">4. การเอาใจใส่ของครอบครัว</p>
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;ครอบครัวเอาใจใส่ ดูแลด้านพฤติกรรมและการเรียน<br />
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;ครอบครัวเอาใจใส่ (เล็กน้อย) ด้านพฤติกรรมและการเรียน<br />
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;ครอบครัวให้อิสระ ไม่ใส่ใจติดตามด้านพฤติกรรมและการเรียน<br />
-        <span style="font-family: fontawesome; font-size:80%;">&#9723;</span>&nbsp;&nbsp;อื่นๆ.........................................................................................................................................................................
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $missing['family_care'] === 'ครอบครัวเอาใจใส่ ดูแลด้านพฤติกรรมและการเรียน' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;ครอบครัวเอาใจใส่ ดูแลด้านพฤติกรรมและการเรียน<br />
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $missing['family_care'] === 'ครอบครัวเอาใจใส่ (เล็กน้อย) ด้านพฤติกรรมและการเรียน' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;ครอบครัวเอาใจใส่ (เล็กน้อย) ด้านพฤติกรรมและการเรียน<br />
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $missing['family_care'] === 'ครอบครัวให้อิสระ ไม่ใส่ใจติดตามด้านพฤติกรรมและการเรียน' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;ครอบครัวให้อิสระ ไม่ใส่ใจติดตามด้านพฤติกรรมและการเรียน<br />
+        <span style="font-family: fontawesome; font-size:80%;"><?php echo $missing['family_care'] === 'อื่นๆ' ? "&#xf14a;" : "&#9723;" ?></span>&nbsp;&nbsp;อื่นๆ.........................................................................................................................................................................
         <p style="padding-bottom:-6px;">5. ข้อเสนอแนะ / ความคิดเห็นของผู้ปกครอง</p>
         <div style="margin-left:10px;margin-right:10px;">
             <dl>

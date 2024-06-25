@@ -811,7 +811,7 @@ class PaperController extends Controller
       ],
       'VisitInfoPersonal' => [
         'home_kind' => 'บ้านของตัวเอง',
-        'home_condition' => 'อื่นๆ',
+        'home_condition' => 'พอใช้',
         'income' => '40,000',
       ],
       'VisitInfoMisc' => [

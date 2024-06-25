@@ -96,7 +96,7 @@ class VehicleRequest extends \yii\db\ActiveRecord
 
     public function getEmployeeInfo()
     {
-        return $this->hasOne(Employee::class,['id'=> 'requested_id']);
+        return $this->hasOne(Employee::class, ['id' => 'requested_id']);
     }
 
     /**
