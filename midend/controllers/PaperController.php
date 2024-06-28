@@ -166,6 +166,22 @@ class PaperController extends Controller
     ], $additionals);
   }
 
+  public function actionVisit_bodin_v3()
+  {
+    $data = $this->dummyDataVisit();
+    $html = $this->renderPartial('visit_bodin_v3', [...$data]);
+
+    $html = mb_convert_encoding($html, 'UTF-8', 'UTF-8');
+
+    $fileName =   'แบบบันทึกการเยี่ยมบ้าน';
+    $extraCssPath = Yii::getAlias('@midend') . '/web/css/pdf/admission/base.css';
+    $additionals = [];
+
+    $this->outputPDF($fileName, $html, $extraCssPath, [
+      'default_font_size' => 10,
+    ], $additionals);
+  }
+
 
 
   public function vehicleData($model)

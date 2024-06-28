@@ -1,0 +1,172 @@
+{
+  "social": {
+    "line": "test",
+    "facebook": "test"
+  },
+  "residences": {
+    "own_house": true,
+    "rented_house": false,
+    "others_house": false,
+    "relatives_house": false,
+    "rented_dormitory_with": "",
+    "other": ""
+  },
+  "traveling": {
+    "parent": true,
+    "self": false,
+    "scholl_bus": false,
+    "bus": false,
+    "private_car": true,
+    "private_bike": true,
+    "bike": false,
+    "walk": true,
+    "other": ""
+  },
+  "residential_house": {
+    "good": true,
+    "fair": false,
+    "dilapidated": false,
+    "narrow": false,
+    "no_private_space": false
+  },
+  "residential_clean": {
+    "good": true,
+    "fair": false,
+    "bad": false,
+    "other": ""
+  },
+  "residential_utilities": {
+    "electricity": true,
+    "water_consumption": true,
+    "toilet": true
+  },
+  "residential_specify": "ระบุสภาพแวดล้อม",
+  "family_member": {
+    "men": 2,
+    "women": 3
+  },
+  "family_same_parents": {
+    "son": 2,
+    "daughter": 3
+  },
+  "family_different_parents": {
+    "son": 2,
+    "daughter": 3
+  },
+  "family_assistances": {
+    "sum": 1
+  },
+  "family_relationship": {
+    "harmonious": true,
+    "occasional_conflict": false,
+    "frequent_conflict": false,
+    "distant": false,
+    "occasional_assualt": false,
+    "frequent_assualt": false,
+    "other": ""
+  },
+  "family_time_together": "2.10",
+  "family_not_home": "พ่อแม่ไม่อยู่ฝากเด็กไว้กับใคร",
+  "family_income": {
+    "parent_income": 50000,
+    "student_income_with": "ได้เงินจาก",
+    "student_income_career": "เด็กทำงานอะไร",
+    "student_income_per_day": 300,
+    "student_school_per_day": 100
+  },
+  "risk_health": {
+    "bad_health": false,
+    "congenital": false,
+    "malnutrition": false,
+    "chronically_ill": false,
+    "low_physical": false
+  },
+  "risk_welfare": {
+    "parent_separated": true,
+    "gambling": true,
+    "fam_has_illness": true,
+    "fam_addicted_drugs": false,
+    "fam_addicted_gambling": true,
+    "fam_conflict": false,
+    "fam_assualt": false,
+    "no_caregiver": false,
+    "abused": false,
+    "sexual_harassment": false
+  },
+  "risk_responsibility": {
+    "housework": true,
+    "intensive_care": true,
+    "trade": true,
+    "parttime": true,
+    "agriculture": false,
+    "other": ""
+  },
+  "risk_hobbys": {
+    "talevision": true,
+    "mall": true,
+    "book": true,
+    "friend": true,
+    "motopunk": false,
+    "game": true,
+    "park": false,
+    "music": true,
+    "other": ""
+  },
+  "risk_drugs": {
+    "friend_use": true,
+    "fam_use": true,
+    "env_use": true,
+    "current_use": true,
+    "drug_addict": true
+  },
+  "risk_assualt": {
+    "quarrel_sometimes": true,
+    "quarrel_regular": false,
+    "aggressive": true,
+    "harm_others": true,
+    "harm_self": false,
+    "other": ""
+  },
+  "risk_sexual": {
+    "prostitution": false,
+    "long_term_sexual_commu": false,
+    "sexual_services": false,
+    "obsessed_sexual_media": false,
+    "sexual_group_activity": false,
+    "pregnancy": false
+  },
+  "risk_games": {
+    "plays_than_1hr": false,
+    "lacks_creativity": false,
+    "isolated": false,
+    "abnormal_spending": false,
+    "friends_game_addicts": false,
+    "gamestore_near_home": false,
+    "plays_than_2hr": false,
+    "obsessed_game": false,
+    "misbehaves_for_games": false,
+    "other": ""
+  },
+  "risk_com_internet": true,
+  "risk_phone": "ไม่เกิน 3 ชม / เกิน 3 ชม",
+  "parental_concern": "ความห่วงใยของผปค.ถึงนร.",
+  "parental_requests_school": {
+    "academic_support": false,
+    "behavioral_support": false,
+    "economic_support": false,
+    "other": false,
+    "details": ""
+  },
+  "parental_requests_organization": {
+    "most": false,
+    "very": false,
+    "mid": false,
+    "less": false,
+    "not": false,
+    "detail": ""
+  },
+  "informant": {
+    "name": "",
+    "relation": ""
+  }
+}
