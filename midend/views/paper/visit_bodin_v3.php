@@ -3,24 +3,8 @@
 use PhpParser\Node\Stmt\TraitUseAdaptation\Alias;
 use yii\helpers\Html;
 
-$string = $model['name'];
-$parts = explode('.', $string);
-$modelname1 = $parts[0]; // ม.
-$modelname2 = $parts[1]; // 6/6
 
-$imageSource1 = $VisitInfoFiles['path']['image1']; // รูปแผนที่การเดินทางจากบ้านถึงโรงเรียน
-if (!empty($imageSource1)) {
-    $image1 = '<img src="' . $imageSource1 . '" alt="School icon" style="width:672px;height: 330px;margin-top:0px">';
-} else {
-    $image1 = "";
-}
 
-$imageSource2 = $VisitInfoFiles['path']['image2'];
-if (!empty($imageSource2)) {
-    $image2 = '<img src="' . $imageSource2 . '" alt="School icon" style="width:672px;height: 330px;margin-top:0px">';
-} else {
-    $image2 = "";
-}
 
 $Datetime = $model['date'];
 $timestamp = strtotime($Datetime);
