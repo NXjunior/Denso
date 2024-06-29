@@ -62,6 +62,7 @@ class VisitInfo
     public $informant;
     public $family_member;
     public $family_time_together;
+    public $family_closeness;
 }
 $visitInfo67 = new VisitInfo();
 
@@ -134,6 +135,19 @@ $visitInfo67->family_relationship = [
     "frequent_assualt" => false,
     "other" => ""
 ];
+$visitInfo67->family_closeness = [
+    "dad" => 20,
+    "mom" => 10,
+    "brother" => 10,
+    "sister" => 0,
+    "grandf_m" => -1,
+    "relative" => 0,
+    "other" => 10
+];
+// "สนิทสนม": 20
+// "เฉยๆ": 10
+// "ห่างเหิน": 0
+// "ขัดแย้ง": -1
 $visitInfo67->family_time_together = "2.10";
 $visitInfo67->family_not_home = "พ่อแม่ไม่อยู่ฝากเด็กไว้กับใคร";
 $visitInfo67->family_income = [
@@ -197,28 +211,28 @@ $visitInfo67->risk_assualt = [
     "other" => ""
 ];
 $visitInfo67->risk_sexual = [
-    "prostitution" => false,
+    "prostitution" => true,
     "long_term_sexual_commu" => false,
-    "sexual_services" => false,
+    "sexual_services" => true,
     "obsessed_sexual_media" => false,
-    "sexual_group_activity" => false,
+    "sexual_group_activity" => true,
     "pregnancy" => false
 ];
 $visitInfo67->risk_games = [
-    "plays_than_1hr" => false,
+    "plays_than_1hr" => true,
     "lacks_creativity" => false,
-    "isolated" => false,
+    "isolated" => true,
     "abnormal_spending" => false,
-    "friends_game_addicts" => false,
+    "friends_game_addicts" => true,
     "gamestore_near_home" => false,
-    "plays_than_2hr" => false,
+    "plays_than_2hr" => true,
     "obsessed_game" => false,
-    "misbehaves_for_games" => false,
+    "misbehaves_for_games" => true,
     "other" => ""
 ];
-$visitInfo67->risk_com_internet = "asd";
-$visitInfo67->risk_phone = "ไม่เกิน 3 ชม";
-$visitInfo67->parental_concern = "ความห่วงใยของผปค.ถึงนร.";
+$visitInfo67->risk_com_internet = false;
+$visitInfo67->risk_phone = "เกิน 3 ชม";
+$visitInfo67->parental_concern = "ความห่วงใยของผปค.ถึงนร.fdsak;vlfmvkl;aerv;kljerjkq;kejr;ofwejfdo;mcdowEkcmoerivo[coweif;oermvoevoovwe;oicoewicoecvoeivoeinneovioiewvcoieavev'qweoimfcoiqwemco[iqewnv[oievoiwev[owief[oiecdojW[fjc[ewofjioejcoisDJ[cpidjsv[iopcji[orjv[e'orjv'[oiejmc[ioasdj[cjdsocm'owicm[o'erijv[ioj[iojk";
 
 $visitInfo67->parental_requests_school = [
     "academic_support" => false,
@@ -228,13 +242,14 @@ $visitInfo67->parental_requests_school = [
     "details" => ""
 ];
 $visitInfo67->parental_requests_organization = [
-    "most" => false,
-    "very" => false,
-    "mid" => false,
-    "less" => false,
-    "not" => false,
+    "priority" => 40,
     "detail" => ""
 ];
+// "most": 40
+// "very": 30
+// "mid": 20
+// "less": 10
+// "not": 0
 $visitInfo67->informant = [
     "name" => "",
     "relation" => ""
@@ -258,16 +273,16 @@ $visitInfo67->informant = [
     <dl>
         <div>
             <dt style="width:75px;">ชื่อ - นามสกุล</dt>
-            <dd style="width:360px;"><?php echo isset($profile['fullname']) ? "&nbsp;" : $profile['fullname']; ?></dd>
+            <dd style="width:360px;"><?php echo $visit->studentInfo->fullName; ?></dd>
             <dt style="width:40px">ชื่อเล่น</dt>
-            <dd style="width:175px;"><?php echo isset($modelname2) ? "&nbsp;" : $modelname2; ?></dd>
+            <dd style="width:175px;"><?php echo $visit->studentInfo["nickname"]; ?></dd>
         </div>
 
         <div>
-            <dt style="width:35px;">ชั้น ม.</dt>
-            <dd style="width:50px;"><?php echo isset($modelname2) ? "&nbsp;" : $modelname2; ?></dd>
+            <dt style="width:35px;">ชั้น </dt>
+            <dd style="width:50px;"><?php echo $classroomName; ?></dd>
             <dt style="width:33px;">เลขที่</dt>
-            <dd style="width:50px;"><?php echo isset($missing['student_no']) ? "&nbsp;" : $missing['student_no']; ?></dd>
+            <dd style="width:50px;"><?php echo $studentOrderNumber; ?></dd>
             <dt style="width:42px;">id line</dt>
             <dd style="width:165px;"><?php echo isset($visitInfo67->social['line']) ? $visitInfo67->social['line'] : "&nbsp;" ?></dd>
             <dt style="width:58px;">facebook</dt>
@@ -361,9 +376,7 @@ $visitInfo67->informant = [
                 <div class="col-xs-3"><span style="font-family: fontawesome; font-size:80%;"><?php echo !$visitInfo67->residential_utilities["toilet"] ? "&#xf14a;" : "&#9723;" ?></span> ไม่มี</div>
             </div>
             <dt style="width: max-content;padding-left:20px">๔.๔ โปรดระบุสภาพแวดล้อมที่อยู่อาศัย เช่น ใกล้แหล่งมั่วสุม ใกล้สถานบันเทิง ชุมชนแออัด เป็นต้น</dt>
-            <dd style="width: 642px;">-</dd>
-            <dd style="width: 642px;">-</dd>
-            <dd style="width: 642px;">-</dd>
+            <dd style="width: 642px;"><?php echo $visitInfo67->residential_specify ? $visitInfo67->residential_specify : "-" ?></dd>
         </div>
         <dt style="width:max-content;"><strong>ข้อมูลครอบครัว</strong></dt>
         <div style="padding-left: 25px;">
@@ -440,52 +453,52 @@ $visitInfo67->informant = [
             <tbody>
                 <tr style="border: 1px solid black;">
                     <td style="padding-left:10px;">บิดา</td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#xf14a;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["dad"] == 20 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["dad"] == 10 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["dad"] == 0 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["dad"] == -1 ? "&#xf14a;" : "&#9723;" ?></span></td>
                 </tr>
                 <tr style="border: 1px solid black;">
                     <td style="padding-left:10px;">มารดา</td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#xf14a;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["mom"] == 20 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["mom"] == 10 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["mom"] == 0 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["mom"] == -1 ? "&#xf14a;" : "&#9723;" ?></span></td>
                 </tr>
                 <tr style="border: 1px solid black;">
                     <td style="padding-left:10px;">พี่/น้องชาย</td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#xf14a;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["brother"] == 20 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["brother"] == 10 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["brother"] == 0 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["brother"] == -1 ? "&#xf14a;" : "&#9723;" ?></span></td>
                 </tr>
                 <tr style="border: 1px solid black;">
                     <td style="padding-left:10px;">พี่/น้องสาว</td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#xf14a;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["sister"] == 20 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["sister"] == 10 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["sister"] == 0 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["sister"] == -1 ? "&#xf14a;" : "&#9723;" ?></span></td>
                 </tr>
                 <tr style="border: 1px solid black;">
                     <td style="padding-left:10px;">ปู่/ย่า/ตา/ยาย</td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#xf14a;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["grandf_m"] == 20 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["grandf_m"] == 10 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["grandf_m"] == 0 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["grandf_m"] == -1 ? "&#xf14a;" : "&#9723;" ?></span></td>
                 </tr>
                 <tr style="border: 1px solid black;">
                     <td style="padding-left:10px;">ญาติ</td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#xf14a;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["relative"] == 20 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["relative"] == 10 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["relative"] == 0 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["relative"] == -1 ? "&#xf14a;" : "&#9723;" ?></span></td>
                 </tr>
                 <tr style="border: 1px solid black;">
                     <td style="padding-left:10px;">อื่นๆ</td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#xf14a;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
-                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["other"] == 20 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["other"] == 10 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["other"] == 0 ? "&#xf14a;" : "&#9723;" ?></span></td>
+                    <td style="border: 1px solid black;text-align:center;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->family_closeness["other"] == -1 ? "&#xf14a;" : "&#9723;" ?></span></td>
                 </tr>
             </tbody>
         </table>
@@ -636,34 +649,34 @@ $visitInfo67->informant = [
             </dt>
             <div class="row">
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ดูทีวี/ฟังเพลง
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_hobbys["talevision"] ? "&#xf14a;" : "&#9723;" ?></span> ดูทีวี/ฟังเพลง
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ไปเที่ยวห้าง/ดูหนัง
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_hobbys["mall"] ? "&#xf14a;" : "&#9723;" ?></span> ไปเที่ยวห้าง/ดูหนัง
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> อ่านหนังสือ
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_hobbys["book"] ? "&#xf14a;" : "&#9723;" ?></span> อ่านหนังสือ
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ไปหาเพื่อน/เพื่อน
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_hobbys["friend"] ? "&#xf14a;" : "&#9723;" ?></span> ไปหาเพื่อน/เพื่อน
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> แว้น/สก๊อย
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_hobbys["motopunk"] ? "&#xf14a;" : "&#9723;" ?></span> แว้น/สก๊อย
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> เล่นเกม คอมพิวเตอร์/มือถือ
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_hobbys["game"] ? "&#xf14a;" : "&#9723;" ?></span> เล่นเกม คอมพิวเตอร์/มือถือ
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ไปสวนสาธารณะ
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_hobbys["park"] ? "&#xf14a;" : "&#9723;" ?></span> ไปสวนสาธารณะ
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> เล่นดนตรี
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_hobbys["music"] ? "&#xf14a;" : "&#9723;" ?></span> เล่นดนตรี
                 </div>
 
             </div>
             <div style="padding-left: 65px;">
-                <dt style="width: 45px;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span> อื่นๆ</dt>
-                <dd style="width: 419px;">-</dd>
+                <dt style="width: 45px;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_hobbys["other"] ? "&#xf14a;" : "&#9723;" ?></span> อื่นๆ</dt>
+                <dd style="width: 419px;"><?php echo $visitInfo67->risk_hobbys["other"] ? $visitInfo67->risk_hobbys["other"] : "-" ?></dd>
             </div>
         </div>
         <div style="padding-left: 20px;">
@@ -671,19 +684,19 @@ $visitInfo67->informant = [
             </dt>
             <div class="row">
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> คบเพื่อนในกลุ่มที่ใช้สารเสพติด
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_drugs["friend_use"] ? "&#xf14a;" : "&#9723;" ?></span> คบเพื่อนในกลุ่มที่ใช้สารเสพติด
                 </div>
                 <div class="col-xs-5">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> สมาชิกในครอบครัวข้องเกี่ยวกับสารเสพติด
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_drugs["fam_use"] ? "&#xf14a;" : "&#9723;" ?></span> สมาชิกในครอบครัวข้องเกี่ยวกับสารเสพติด
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> อยู่ในสภาพแวดล้อมที่ใช้สารเสพติด
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_drugs["env_use"] ? "&#xf14a;" : "&#9723;" ?></span> อยู่ในสภาพแวดล้อมที่ใช้สารเสพติด
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ปัจจุบันเกี่ยวข้องกับสารเสพติด
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_drugs["current_use"] ? "&#xf14a;" : "&#9723;" ?></span> ปัจจุบันเกี่ยวข้องกับสารเสพติด
                 </div>
                 <div class="col-xs-5">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> เป็นผู้ติดบุหรี่ สุรา หรือการใช้สารเสพติดอื่นๆ
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_drugs["drug_addict"] ? "&#xf14a;" : "&#9723;" ?></span> เป็นผู้ติดบุหรี่ สุรา หรือการใช้สารเสพติดอื่นๆ
                 </div>
             </div>
         </div>
@@ -692,24 +705,24 @@ $visitInfo67->informant = [
             </dt>
             <div class="row">
                 <div class="col-xs-3">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> มีการทะเลาะวิวาท
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_assualt["quarrel_sometimes"] ? "&#xf14a;" : "&#9723;" ?></span> มีการทะเลาะวิวาท
                 </div>
                 <div class="col-xs-3">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ก้าวร้าว/เกเร
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_assualt["quarrel_regular"] ? "&#xf14a;" : "&#9723;" ?></span> ก้าวร้าว/เกเร
                 </div>
                 <div class="col-xs-3">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ทะเลาะวิวาทเป็นประจำ
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_assualt["aggressive"] ? "&#xf14a;" : "&#9723;" ?></span> ทะเลาะวิวาทเป็นประจำ
                 </div>
                 <div class="col-xs-3">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ทำร้ายร่างกายผู้อื่น
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_assualt["harm_others"] ? "&#xf14a;" : "&#9723;" ?></span> ทำร้ายร่างกายผู้อื่น
                 </div>
                 <div class="col-xs-3">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ทำร้ายร่างกายตนเอง
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_assualt["harm_self"] ? "&#xf14a;" : "&#9723;" ?></span> ทำร้ายร่างกายตนเอง
                 </div>
             </div>
             <div style="padding-left: 65px;">
-                <dt style="width: 45px;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span> อื่นๆ</dt>
-                <dd style="width: 419px;">-</dd>
+                <dt style="width: 45px;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_assualt["other"] ? "&#xf14a;" : "&#9723;" ?></span> อื่นๆ</dt>
+                <dd style="width: 419px;"><?php echo $visitInfo67->risk_assualt["other"] ? $visitInfo67->risk_assualt["other"] : "-" ?></dd>
             </div>
         </div>
         <div style="padding-left: 20px;">
@@ -717,22 +730,22 @@ $visitInfo67->informant = [
             </dt>
             <div class="row">
                 <div class="col-xs-3">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> อยู่ในกลุ่มขายบริการ
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_sexual["prostitution"] ? "&#xf14a;" : "&#9723;" ?></span> อยู่ในกลุ่มขายบริการ
                 </div>
                 <div class="col-xs-7">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ใช้เครื่องมือสื่อสารที่เกี่ยวข้องกับด้านเพศเป็นเวลานานและบ่อยครั้ง
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_sexual["long_term_sexual_commu"] ? "&#xf14a;" : "&#9723;" ?></span> ใช้เครื่องมือสื่อสารที่เกี่ยวข้องกับด้านเพศเป็นเวลานานและบ่อยครั้ง
                 </div>
                 <div class="col-xs-3">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ขายบริการทางเพศ
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_sexual["sexual_services"] ? "&#xf14a;" : "&#9723;" ?></span> ขายบริการทางเพศ
                 </div>
                 <div class="col-xs-7">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> หมกมุ่นในการใช้เครื่องมือสื่อสารที่เกี่ยวข้องทางเพศ
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_sexual["obsessed_sexual_media"] ? "&#xf14a;" : "&#9723;" ?></span> หมกมุ่นในการใช้เครื่องมือสื่อสารที่เกี่ยวข้องทางเพศ
                 </div>
                 <div class="col-xs-3">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> มีการมั่วสุมทางเพศ
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_sexual["sexual_group_activity"] ? "&#xf14a;" : "&#9723;" ?></span> มีการมั่วสุมทางเพศ
                 </div>
                 <div class="col-xs-7">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ตั้งครรภ์
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_sexual["pregnancy"] ? "&#xf14a;" : "&#9723;" ?></span> ตั้งครรภ์
                 </div>
             </div>
         </div>
@@ -741,56 +754,54 @@ $visitInfo67->informant = [
             </dt>
             <div class="row">
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> เล่นเกมเกินวันละ ๑ ชั่วโมง
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_games["plays_than_1hr"] ? "&#xf14a;" : "&#9723;" ?></span> เล่นเกมเกินวันละ ๑ ชั่วโมง
                 </div>
                 <div class="col-xs-5">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ขาดจินตนาการและความคิดสร้างสรรค์
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_games["lacks_creativity"] ? "&#xf14a;" : "&#9723;" ?></span> ขาดจินตนาการและความคิดสร้างสรรค์
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> เก็บตัว แยกตัวจากกลุ่มเพื่อน
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_games["isolated"] ? "&#xf14a;" : "&#9723;" ?></span> เก็บตัว แยกตัวจากกลุ่มเพื่อน
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ใช้จ่ายเงินผิดปกติ
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_games["abnormal_spending"] ? "&#xf14a;" : "&#9723;" ?></span> ใช้จ่ายเงินผิดปกติ
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> อยู่ในกลุ่มเพื่อนติดเกม
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_games["friends_game_addicts"] ? "&#xf14a;" : "&#9723;" ?></span> อยู่ในกลุ่มเพื่อนติดเกม
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ร้านเกมอยู่ใกล้บ้านหรือโรงเรียน
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_games["gamestore_near_home"] ? "&#xf14a;" : "&#9723;" ?></span> ร้านเกมอยู่ใกล้บ้านหรือโรงเรียน
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> เล่นเกมเกินวันละ ๒ ชั่วโมง
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_games["plays_than_2hr"] ? "&#xf14a;" : "&#9723;" ?></span> เล่นเกมเกินวันละ ๒ ชั่วโมง
                 </div>
                 <div class="col-xs-4">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> หมกมุ่น จริงจังในการเล่นเกม
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_games["obsessed_game"] ? "&#xf14a;" : "&#9723;" ?></span> หมกมุ่น จริงจังในการเล่นเกม
                 </div>
                 <div class="col-xs-5">
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ใช้เงินสิ้นเปลือง โกหก ลักขโมยเงินเพื่อเล่นเกม
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_games["misbehaves_for_games"] ? "&#xf14a;" : "&#9723;" ?></span> ใช้เงินสิ้นเปลือง โกหก ลักขโมยเงินเพื่อเล่นเกม
                 </div>
             </div>
             <div style="padding-left: 65px;">
-                <dt style="width: 45px;"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span> อื่นๆ</dt>
-                <dd style="width: 419px;">-</dd>
+                <dt style="width: 45px;"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_games["other"] ? "&#xf14a;" : "&#9723;" ?></span> อื่นๆ</dt>
+                <dd style="width: 419px;"><?php echo $visitInfo67->risk_games["other"] ? $visitInfo67->risk_games["other"] : "-" ?></dd>
             </div>
         </div>
         <div style="padding-left: 20px;">
             <dt style="width:max-content;padding-left:1px;">๕.๑๑ การเข้าถึงสื่อคอมพิวเตอร์และอินเตอร์เน็ตได้จากที่อยู่อาศัย</dt>
             <div class="row">
-                <div class="col-xs-5"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span> สามารถเข้าถึงอินเตอร์เน็ตได้จากที่อยู่อาศัย</div>
-                <div class="col-xs-5"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ไม่สามารถเข้าถึงอินเตอร์เน็ตได้จากที่อยู่อาศัย</div>
+                <div class="col-xs-5"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_com_internet ? "&#xf14a;" : "&#9723;" ?></span> สามารถเข้าถึงอินเตอร์เน็ตได้จากที่อยู่อาศัย</div>
+                <div class="col-xs-5"><span style="font-family: fontawesome; font-size:80%;"><?php echo !$visitInfo67->risk_com_internet ? "&#xf14a;" : "&#9723;" ?></span> ไม่สามารถเข้าถึงอินเตอร์เน็ตได้จากที่อยู่อาศัย</div>
             </div>
         </div>
         <div style="padding-left: 20px;">
             <dt style="width:max-content;padding-left:1px;">๕.๑๒ การใช้เครื่องมือสื่อสารอิเล็กทรอนิกส์</dt>
             <div class="row">
-                <div class="col-xs-5"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ใช้โซเชียลมีเดีย/เกม (ไม่เกินวันละ ๓ ชั่วโมง)</div>
-                <div class="col-xs-5"><span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ใช้โซเชียลมีเดีย/เกม (เกินวันละ ๓ ชั่วโมง)</div>
+                <div class="col-xs-5"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_phone == "ไม่เกิน 3 ชม" ? "&#xf14a;" : "&#9723;" ?></span> ใช้โซเชียลมีเดีย/เกม (ไม่เกินวันละ ๓ ชั่วโมง)</div>
+                <div class="col-xs-5"><span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->risk_phone == "เกิน 3 ชม" ? "&#xf14a;" : "&#9723;" ?></span> ใช้โซเชียลมีเดีย/เกม (เกินวันละ ๓ ชั่วโมง)</div>
             </div>
         </div>
         <dt style="width: max-content;">๖. ข้อห่วงใยของผู้ปกครองที่มีต่อนักเรียน</dt>
-        <dd style="width: max-content;">-</dd>
-        <dd style="width: max-content;">-</dd>
-        <dd style="width: max-content;">-</dd>
+        <dd style="width: max-content;"><?php echo $visitInfo67->parental_concern ? $visitInfo67->parental_concern : "-" ?></dd>
     </dl>
 </div>
 
@@ -800,20 +811,20 @@ $visitInfo67->informant = [
         <dt style="width: max-content;">๗. สิ่งที่ผู้ปกครองต้องการให้โรงเรียนช่วยเหลือนักเรียน</dt>
         <div class="row">
             <div class="col-xs-2">
-                <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ด้านการเรียน
+                <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->parental_requests_school["academic_support"] ? "&#xf14a;" : "&#9723;" ?></span> ด้านการเรียน
             </div>
             <div class="col-xs-2">
-                <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ด้านพฤติกรรม
+                <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->parental_requests_school["behavioral_support"] ? "&#xf14a;" : "&#9723;" ?></span> ด้านพฤติกรรม
             </div>
             <div class="col-xs-2">
-                <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ด้านเศรษฐกิจ
+                <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->parental_requests_school["economic_support"] ? "&#xf14a;" : "&#9723;" ?></span> ด้านเศรษฐกิจ
             </div>
             <div class="col-xs-2">
-                <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> อื่นๆ
+                <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->parental_requests_school["other"] ? "&#xf14a;" : "&#9723;" ?></span> อื่นๆ
             </div>
         </div>
-        <dd style="width: max-content;">-</dd>
-        <dd style="width: max-content;">-</dd>
+        <dd style="width: max-content;"><?php echo $visitInfo67->parental_requests_school["details"] ? $visitInfo67->parental_requests_school["details"] : "-" ?></dd>
+
 
         <br>
         <dt style="width: max-content;">๘. ความช่วยเหลือที่ครอบครัวเคยได้รับจากหน่วยงานหรือต้องการได้รับการช่วยเหลือ</dt>
@@ -821,25 +832,23 @@ $visitInfo67->informant = [
         <table style="width: 100%;text-align:center;">
             <tr>
                 <td>
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> มากที่สุด
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->parental_requests_organization["priority"] == 40 ? "&#xf14a;" : "&#9723;" ?></span> มากที่สุด
                 </td>
                 <td>
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> มาก
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->parental_requests_organization["priority"] == 30 ? "&#xf14a;" : "&#9723;" ?></span> มาก
                 </td>
                 <td>
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ปานกลาง
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->parental_requests_organization["priority"] == 20 ? "&#xf14a;" : "&#9723;" ?></span> ปานกลาง
                 </td>
                 <td>
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> น้อย
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->parental_requests_organization["priority"] == 10 ? "&#xf14a;" : "&#9723;" ?></span> น้อย
                 </td>
                 <td>
-                    <span style="font-family: fontawesome; font-size:80%;">&#9723;</span> ไม่จำเป็น
+                    <span style="font-family: fontawesome; font-size:80%;"><?php echo $visitInfo67->parental_requests_organization["priority"] == 0 ? "&#xf14a;" : "&#9723;" ?></span> ไม่จำเป็น
                 </td>
             </tr>
         </table>
-        <dd style="width: max-content;">-</dd>
-        <dd style="width: max-content;">-</dd>
-
+        <dd style="width: max-content;"><?php echo $visitInfo67->parental_requests_organization["detail"] ? $visitInfo67->parental_requests_organization["detail"] : "-" ?></dd>
         <br>
         <br>
         <br>

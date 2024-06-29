@@ -65,6 +65,15 @@
     "frequent_assualt": false,
     "other": ""
   },
+  "family_closeness": {
+    "dad": 20,
+    "mom": 10,
+    "brother": 10,
+    "sister": 0,
+    "grandf_m": -1,
+    "relative": 0,
+    "other": 10
+  },
   "family_time_together": "2.10",
   "family_not_home": "พ่อแม่ไม่อยู่ฝากเด็กไว้กับใคร",
   "family_income": {
