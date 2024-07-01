@@ -3,9 +3,6 @@
 use PhpParser\Node\Stmt\TraitUseAdaptation\Alias;
 use yii\helpers\Html;
 
-
-
-
 $Datetime = $model['date'];
 $timestamp = strtotime($Datetime);
 $thaiYear = date('Y', $timestamp) + 543;
@@ -259,7 +256,7 @@ $visitInfo67->informant = [
             <dt style="width:75px;">ชื่อ - นามสกุล</dt>
             <dd style="width:360px;"><?php echo $visit->studentInfo->fullName; ?></dd>
             <dt style="width:40px">ชื่อเล่น</dt>
-            <dd style="width:175px;"><?php echo $visit->studentInfo["nickname"]; ?></dd>
+            <dd style="width:175px;"><?php echo $visit->studentInfo["nickname"] ? "$visit->studentInfo['nickname']" : "&nbsp;"; ?></dd>
         </div>
 
         <div>
